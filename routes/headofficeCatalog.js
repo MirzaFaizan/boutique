@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var loginController= require('../Controller/headofficeCatalogueController');
+var headController= require('../Controller/headofficeCatalogueController');
 /* GET users listing. */
-router.post('/', loginController.loginandGetToken);
+router.post('/', headController.loginandGetToken);
 var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
-router.post('/AddEmp', function(req,res){
-    res.send('Add Employess Here!');
-});
+router.post('/AddEmp', headController.CreatenewEmp);
 module.exports = router;
