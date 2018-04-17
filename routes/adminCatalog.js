@@ -5,7 +5,7 @@ var catalogueController= require('../Controller/adminCatalogueController');
 router.get('/a',function(req,res){
     res.send('DashBoard Comes Here');
 })
-var varifyToken= require('../adminTokenVerify');
+var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 /* GET users listing. */
 
@@ -14,6 +14,8 @@ router.post('/',function(req,res){
 })
 
 router.post('/addArticle',catalogueController.CreatenewArticle);
-router.delete('/DeleteArticle:id',catalogueController.DeleteArticle);
+router.post('/DeleteArticle/:id',catalogueController.DeleteArticle);
+
+
 module.exports = router;
 

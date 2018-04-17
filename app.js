@@ -7,11 +7,10 @@ var logger = require('morgan');
 
 
 var indexRouter = require('./routes/index');
-var adminLoginRouter = require('./routes/adminlogin');
+var headoffice= require('./routes/headofficeCatalog');
 var adminCatalogue= require('./routes/adminCatalog');
 var app = express();
 var router= express.Router();
-
 
 
 // view engine setup
@@ -26,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /////App Routes
 app.use('/', indexRouter);
-app.use('/adminlogin', adminLoginRouter);
+app.use('/head',headoffice);
 app.use('/admin',adminCatalogue);
 
 //app.use('')
