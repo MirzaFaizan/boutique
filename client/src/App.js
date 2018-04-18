@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Drawer from './shop/Drawer';
+import Drawer1 from './shop/Drawer';
 
 class App extends Component {
   state = {data: ''}
