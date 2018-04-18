@@ -6,4 +6,5 @@ router.post('/', headController.loginandGetToken);
 var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 router.post('/AddEmp', headController.CreatenewEmp);
+router.post('/ShowEmps', headController.fetchallemps);
 module.exports = router;

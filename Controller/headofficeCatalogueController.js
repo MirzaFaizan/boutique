@@ -69,3 +69,14 @@ exports.CreatenewEmp= function(req, res)
         // saved!
     });
  }
+ //Function to Fetch all Employyess
+ exports.fetchallemps= function(req,res){
+    emp_instance.find()
+    .then(Emp => {
+        res.send(Emp);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving all Employeess."
+        });
+    });
+};
