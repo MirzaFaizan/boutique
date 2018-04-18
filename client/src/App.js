@@ -5,9 +5,31 @@ class App extends Component {
   state = {data: ''}
 
   componentDidMount() {
-    fetch('/')
-      .then(res => res.json())
-      .then(data => this.setState({ data }));
+    var details = {
+      'name': 'nerd',
+      'password': '1234'
+  };
+  
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  fetch('/head', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(function(res){
+    console.log("we are in this function");
+    console.log(res);}
+  );
   }
 
   render() {

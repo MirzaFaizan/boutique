@@ -16,11 +16,14 @@ var db = mongoose.connection;
 var emp_instance =require('../models/employee');
 
 //Function to Authenticate and Authorize Admin
-exports.loginandGetToken = function(req, res)
+exports.loginandGetToken = function(req, res,next)
  {
-console.log(req.body.name);
+console.log(req.body);
 var nam= req.body.name;
 var pass= req.body.password;
+if(!req.body.name){
+    res.send("masla");
+}
 if(nam != 'nerd')
 {
     res.send('invalid Username');
@@ -44,9 +47,9 @@ else
             success: true,
             message: 'Enjoy your token!',
             token: token
-          });
-          module.exports= token;       
+          });     
 }
+next();
 };
 
 //Function to Create new Employee
