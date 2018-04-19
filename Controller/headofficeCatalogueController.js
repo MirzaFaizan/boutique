@@ -1,6 +1,6 @@
 var express= require('express'); 
 var app= express();
-
+var bcrypt= require('bcryptjs');
 var jwt    = require('jsonwebtoken');
 var config= require('../DBconfig');
 ///Connect to DataBasae
@@ -18,16 +18,16 @@ var emp_instance =require('../models/employee');
 //Function to Authenticate and Authorize Admin
 exports.loginandGetToken = function(req, res)
  {
-console.log(req.body.name);
+
 var nam= req.body.name;
 var pass= req.body.password;
 if(nam != 'nerd')
 {
-    res.send('invalid Username');
+    return res.send({msg:'invalid Username'});
 }
 else if(pass != "1234")
 {
-    res.send('password Invalid');
+   return res.send({msg:'password Invalid'});
 }
 else
 {
@@ -40,19 +40,23 @@ else
         });
         
  //          return the information including token as JSON
-          res.json({
+        return res.json({
             success: true,
             message: 'Enjoy your token!',
-            token: token
-          });
-          module.exports= token;       
+            token: token,
+            type: 'head'
+          });     
 }
 };
 
 //Function to Create new Employee
 exports.CreatenewEmp= function(req, res)
  {
-     console.log(req.body.name);
+  //  bcrypt.hash(req.body.password, 10, function(err, hash) {
+    //    req.body.password= hash;
+      //  console.log(req.body.password);
+      
+     //console.log(req.body.name);
      var Emp = new emp_instance({Emp_name:req.body.name,Emp_password:req.body.password,
         Emp_cnic:req.body.cnic, 
         Emp_type:req.body.type});
@@ -61,19 +65,60 @@ exports.CreatenewEmp= function(req, res)
          return handleError(err);
       
         else
-          res.send({msg:"Data Entered Successfully"});
+          res.sesnd({msg:"Data Entered Successfully"});
           console.log("Data entered");
         // saved!
     });
- }
+//});
+}
  //Function to Fetch all Employyess
  exports.fetchallemps= function(req,res){
     emp_instance.find()
     .then(Emp => {
-        res.send(Emp);
+       return res.json(Emp);
     }).catch(err => {
-        res.status(500).send({
+        return res.status(500).send({
             message: err.message || "Some error occurred while retrieving all Employeess."
         });
     });
 };
+exports.fetchoneemp= function(req,res){
+    emp_instance.findOne(  
+        // query
+        {Emp_cnic:req.body.cnic},
+    
+        // Only return an object with the "name" and "owner" fields. "_id" 
+        // is included by default, so you'll need to remove it if you don't want it.
+        {Emp_name: true,Emp_cnic:true,Emp_type:true},
+    
+        // callback function
+        (err, Emp) => {
+            if (err) return res.status(200).send(err)
+            if(Emp==null)
+            return res.status(200).json(message='No Employee With this Cnic')
+            else
+            return res.status(200).json(Emp)
+        }
+    );
+};
+exports.Deleteemp= function(req, res)
+ {
+  emp_instance.findOneAndRemove({Emp_cnic:req.body.cnic})
+  .then(Emp => {
+      if(!Emp) {
+          return res.status(404).send({
+              message: "Employee not found with cnic " + req.body.cnic
+          });
+      }
+      res.send({message: "Employee deleted successfully!"});
+  }).catch(err => {
+      if(err.kind === 'Emp_cnic' || err.name === 'NotFound') {
+          return res.status(404).send({
+              message: "Employee not found with cnic " + req.body.cnic
+          });                
+      }
+      return res.status(500).send({
+          message: "Could not delete Employee with cnic " + req.params.cnic
+      });
+  });
+ }
