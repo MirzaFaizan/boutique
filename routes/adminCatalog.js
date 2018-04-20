@@ -9,6 +9,7 @@ router.use(varifyToken);
 
 router.post('/addArticle',Controller.CreatenewArticle);
 router.post('/DeleteArticle/:id',Controller.DeleteArticle);
+router.post('/Createnewpakg',Controller.CreatePakage);
 
 
 module.exports = router;

@@ -15,7 +15,7 @@ var db = mongoose.connection;
 
 var emp_instance =require('../models/employee');
 
-//Function to Authenticate and Authorize Admin
+//Function to Authenticate and Authorize head
 exports.loginandGetToken = function(req, res)
  {
 
@@ -87,8 +87,6 @@ exports.fetchoneemp= function(req,res){
         // query
         {Emp_cnic:req.body.cnic},
     
-        // Only return an object with the "name" and "owner" fields. "_id" 
-        // is included by default, so you'll need to remove it if you don't want it.
         {Emp_name: true,Emp_cnic:true,Emp_type:true},
     
         // callback function

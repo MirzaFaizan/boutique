@@ -16,6 +16,7 @@ var db = mongoose.connection;
 
 var article_instance = require('../models/article');
 var emp_instance= require('../models/employee');
+var pakg_instance= require('../models/package');
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -57,9 +58,9 @@ else
 exports.CreatenewArticle= function(req, res)
  {
     // Validate request
-    if(!req.body.content) {
+    if(!req.body.id) {
       return res.status(400).send({
-          message: "Article content can not be empty"
+          message: "Article id can not be empty"
       });
   }
     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type , price:req.body.price, 
@@ -69,7 +70,7 @@ exports.CreatenewArticle= function(req, res)
          return handleError(err);
       
         else
-          res.render('index', { title: 'article/enter' });
+          return res.json({message:'Article Added Succesfully'});
           console.log("Data entered");
         // saved!
     });
@@ -77,7 +78,7 @@ exports.CreatenewArticle= function(req, res)
  //Delete A Article
  exports.DeleteArticle= function(req, res)
  {
-  article_instance.findByIdAndRemove(req.params.id)
+  article_instance.findOneAndRemove(req.params.id)
   .then(article => {
       if(!article) {
           return res.status(404).send({
@@ -96,3 +97,23 @@ exports.CreatenewArticle= function(req, res)
       });
   });
  }
+ //Function to create New Pakage
+exports.CreatePakage= function(req, res)
+ {
+     // Validate request
+    if(!req.body.items | !req.body.number) {
+        return res.status(400).send({
+            message: "Pakage content can not be empty"});
+    }
+    var pakg = new pakg_instance({  package_number:req.body.number,items:req.body.items,shop_id:req.body.shop,
+        date_sent: req.body.date});
+       pakg.save(function (err) {
+        if (err)
+         return handleError(err);
+        else
+         return  res.json({message:'pakage Added Succesfully'});
+          console.log("Data entered");
+        // saved!
+    });
+ }
+ 
