@@ -7,4 +7,6 @@ var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 router.post('/AddEmp', headController.CreatenewEmp);
 router.post('/ShowEmps', headController.fetchallemps);
+router.post('/searchemp',headController.fetchoneemp);
+router.post('/Deleteemp',headController.Deleteemp);
 module.exports = router;
