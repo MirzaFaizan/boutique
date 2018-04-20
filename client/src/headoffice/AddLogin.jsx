@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 
 const styles = theme => ({
@@ -21,22 +22,26 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '20%',
+    width: '100%',
   },
   menu: {
     width: 200,
+  },
+  card: {
+    marginLeft:100,
+    marginRight:100,
+    marginTop:10,
+    maxWidth: 350,
   },
 });
 
 
 class TextFields extends React.Component {
   state = {
-    name: '',
-    type: '',
-    price: '',
-    id: '',
+    username: '',
+    password: '',
+    cnic: '',
   };
-
 
   handleChange = name => event => {
     this.setState({
@@ -46,92 +51,81 @@ class TextFields extends React.Component {
   };
 
   //change function
-  changeName = e => {
+  changeuserName = e => {
     this.setState({
-      name: e.target.value
+      username: e.target.value
     });
   };
 
-  changeType = e => {
+  changepassword = e => {
     this.setState({
-      type: e.target.value
+      password: e.target.value
     });
   }
 
-  changePrice = e => {
+  changecnics = e => {
     this.setState({
-      price: e.target.value
+      cnic: e.target.value
     });
   }
 
-  changeID = e => {
-    this.setState({
-      id: e.target.value,
-    });
-  }
-
-  list = {}
 
   handleClick = () => {
     console.log(this.state);
-    
-    console.log(this.listitems)
     this.setState({
-      name:'',
-      type:'',
-      price:'',
-      id:'',
+      username:'',
+      password:'',
+      cnic:'',
     })
   }
   render() {
     const { classes } = this.props;
 
     return (
+      <Card className={classes.card}>
       <form className={classes.container} noValidate autoComplete="off"> 
-       <TextField
-          id="name"
-          label="Name"
-          value={this.state.name}
-          placeholder="Enter Name of Product"
+      <CardContent>
+      <TextField
+          id="username"
+          label="Username"
+          value={this.state.username}
+          placeholder="Enter User Name"
           className={classes.textField}
-          onChange={e => this.changeName(e)}
+          onChange={e => this.changeuserName(e)}
           margin="normal"
           refs='name'
           
         />
+        </CardContent>
+        <CardContent>
         <TextField
-          id="type"
-          label="Type"
-          value={this.state.type}
-          placeholder="Enter Type of Product"
-          onChange={e => this.changeType(e)}
+          id="password"
+          label="Password"
+          value={this.state.password}
+          placeholder="Enter Password"
+          onChange={e => this.changepassword(e)}
           className={classes.textField}
           margin="normal"
         />
-          
+        </CardContent>
+        <CardContent>
         <TextField
-          id="price"
-          label="Price"
-          value={this.state.price}
-          placeholder="Enter Price of Product"
-          onChange={e => this.changePrice(e)}
+          id="cnic"
+          label="CNIC"
+          value={this.state.cnic}
+          placeholder="Enter CNIC"
+          onChange={e => this.changecnics(e)}
           className={classes.textField}
           margin="normal"
         />
-
-          <TextField
-          id="id"
-          label="ID"
-          value={this.state.id}
-          placeholder="Enter ID of Product"
-          onChange={e => this.changeID(e)}
-          className={classes.textField}
-          margin="normal"/>
-
+        </CardContent>
+        <CardContent>
         <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
         </Button>
-      </form>
+        </CardContent>
+        </form>
+      </Card>
     );
   }
 }

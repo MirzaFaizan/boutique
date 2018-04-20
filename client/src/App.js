@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import shopDrawer from './shop/Drawer';
 import WarehouseDrawer from './warehouse/Drawer';
+import HeadOfficeDrawer from './headoffice/Drawer';
 import Login  from './warehouse/Login';
 
 
@@ -54,15 +55,15 @@ class App extends Component {
 
   updateShopDisplay = (token) => {
     this.setState({
-      IsLoggedInHeadoffice:true,
+      IsLoggedinShop:true,
       onDisplay:<div>Shop</div>
     })
   }
 
   updateHeadOfficeDisplay = (token) => {
     this.setState({
-      IsLoggedinShop:true,
-      onDisplay:<div>Head Office</div>
+      IsLoggedInHeadoffice:true,
+      onDisplay:<HeadOfficeDrawer/>
     })
   }
   render() {

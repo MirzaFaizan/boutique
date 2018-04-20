@@ -123,6 +123,7 @@ class TextFields extends React.Component {
       this.setState({
       userName:'',
       Password:'',
+      type:''
     })
 
   }
@@ -137,7 +138,7 @@ class TextFields extends React.Component {
     this.setState({
       Password: e.target.value
     });
-  }
+}
   changeType = e => {
     this.setState({
       type: e.target.value

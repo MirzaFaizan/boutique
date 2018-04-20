@@ -14,17 +14,14 @@ import {indigo500} from "material-ui";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemText } from 'material-ui/List';
-import AddItem from './AddItem';
-import Table from './FullTable';
-import ViewItems from './ViewItemsTable';
+import AddNewLogin from './AddLogin';
+import ViewAll from './ViewAll';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
     Router,
     Route
     }   from 'react-router-dom';
-import FullTable from './FullTable';
 import Notification from './Notifications';
-import BatchItems from './BatchItems'
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -91,7 +88,7 @@ class ResponsiveDrawer extends React.Component {
 
     this.state = {
       mobileOpen: false,
-      OnDisplay: <AddItem/>,
+      OnDisplay: <AddNewLogin/>,
     };
 
 
@@ -101,36 +98,26 @@ class ResponsiveDrawer extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
- AddItemHandleClick = () => {
+ AddNewLoginHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddItem/>
+        OnDisplay:<AddNewLogin/>
     })
-    console.log("ADd item on click")
+    console.log("Add item on click")
   }
 
-  batchitemsHandleClick = () => {
+
+  
+ ViewAllHandleClick = () => {
 
     this.setState({
-        OnDisplay:<BatchItems/>
+        OnDisplay:<ViewAll/>
     })
-    console.log("ADd item on click")
+    console.log("View All item Click")
   }
 
-  FullTableHandleClick = () => {
 
-    this.setState({
-        OnDisplay:<FullTable token={this.props.token}/>
-    })
-    console.log("ADd item on click")
-  }
-  ViewItemsHandleClick = () => {
 
-    this.setState({
-        OnDisplay:<ViewItems/>
-    })
-    console.log("ADd item on click")
-  }
   render() {
     const { classes, theme } = this.props;
 
@@ -141,13 +128,10 @@ class ResponsiveDrawer extends React.Component {
         <List>
         <Typography variant="title" color="inherit" >
         <MuiThemeProvider theme={theme2}>
-           <ListItem><Button onClick={this.AddItemHandleClick.bind(this)} >Add Item</Button></ListItem>
+           <ListItem><Button onClick={this.AddNewLoginHandleClick.bind(this)} >Add New Login</Button></ListItem>
            <Divider />
-            <ListItem><Button onClick={this.FullTableHandleClick.bind(this)}>Search</Button></ListItem>
+            <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
-            <Divider />
-            <ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>
             </MuiThemeProvider>
             </Typography>
         </List>

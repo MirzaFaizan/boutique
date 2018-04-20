@@ -37,7 +37,6 @@ class TextFields extends React.Component {
     id: '',
   };
 
-
   handleChange = name => event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -52,17 +51,12 @@ class TextFields extends React.Component {
     });
   };
 
-  changeType = e => {
+  changeShop = e => {
     this.setState({
       type: e.target.value
     });
   }
 
-  changePrice = e => {
-    this.setState({
-      price: e.target.value
-    });
-  }
 
   changeID = e => {
     this.setState({
@@ -70,16 +64,11 @@ class TextFields extends React.Component {
     });
   }
 
-  list = {}
-
   handleClick = () => {
     console.log(this.state);
-    
-    console.log(this.listitems)
     this.setState({
       name:'',
-      type:'',
-      price:'',
+      shop:'',
       id:'',
     })
   }
@@ -92,7 +81,7 @@ class TextFields extends React.Component {
           id="name"
           label="Name"
           value={this.state.name}
-          placeholder="Enter Name of Product"
+          placeholder="Enter Name of Batch (Just say Batch)"
           className={classes.textField}
           onChange={e => this.changeName(e)}
           margin="normal"
@@ -100,21 +89,11 @@ class TextFields extends React.Component {
           
         />
         <TextField
-          id="type"
-          label="Type"
-          value={this.state.type}
-          placeholder="Enter Type of Product"
-          onChange={e => this.changeType(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-          
-        <TextField
-          id="price"
-          label="Price"
-          value={this.state.price}
-          placeholder="Enter Price of Product"
-          onChange={e => this.changePrice(e)}
+          id="shop"
+          label="Shop"
+          value={this.state.shop}
+          placeholder="Enter Shop Name"
+          onChange={e => this.changeShop(e)}
           className={classes.textField}
           margin="normal"
         />
@@ -123,11 +102,12 @@ class TextFields extends React.Component {
           id="id"
           label="ID"
           value={this.state.id}
-          placeholder="Enter ID of Product"
+          placeholder="Enter ID of Batch"
           onChange={e => this.changeID(e)}
           className={classes.textField}
           margin="normal"/>
 
+            
         <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
         </Button>
