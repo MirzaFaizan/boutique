@@ -1,50 +1,77 @@
 import React, { Component } from 'react';
 import './App.css';
-import Drawer1 from './shop/Drawer';
+import shopDrawer from './shop/Drawer';
+import WarehouseDrawer from './warehouse/Drawer';
+import Login  from './warehouse/Login';
+
 
 class App extends Component {
-  state = {data: ''}
 
-  componentDidMount() {
-    var details = {
-      'name': 'nerd',
-      'password': '1234'
-  };
-  
-  var formBody = [];
-  for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  formBody = formBody.join("&");
-  
-  fetch('/head', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-    },
-    body: formBody
-  })
-  .then(res=>res.json())
-  .then(function(res){
-    console.log("we are in this function");
-    console.log(res);}
-  );
+  /*componentWillMount(){
+
+    if(this.state.IsLoggedInWarehouse===true){
+      this.setState({
+        onDisplay:<WarehouseDrawer/>
+      })
+    }
+    else if(this.state.IsLoggedInHeadoffice===true){
+        this.setState({
+          onDisplay:<div>Head Office</div>
+        })
+    }
+    else if(this.state.IsLoggedinShop===true){
+      this.setState({
+        onDisplay:<div>Shop</div>
+      })
+    }
+    else {
+      this.setState({
+        onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
+      })
+    }
+    }*/
+
+    constructor(props){
+      super(props);
+      this.state={
+        /*IsLoggedInWarehouse:false,
+        IsLoggedInHeadoffice:false,
+        IsLoggedinShop:false,*/
+        onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
+      }
+      this.updateWareHouseDisplay.bind(this);
+      this.updateShopDisplay.bind(this);
+      this.updateHeadOfficeDisplay.bind(this)
+    }
+  updateWareHouseDisplay = (token) => {
+    console.log(token);
+//now send token to the required component
+    this.setState({
+      IsLoggedInWarehouse:true,
+      onDisplay:<WarehouseDrawer token={this.token}/>
+    })
   }
 
+  updateShopDisplay = (token) => {
+    this.setState({
+      IsLoggedInHeadoffice:true,
+      onDisplay:<div>Shop</div>
+    })
+  }
+
+  updateHeadOfficeDisplay = (token) => {
+    this.setState({
+      IsLoggedinShop:true,
+      onDisplay:<div>Head Office</div>
+    })
+  }
   render() {
     return (
       <div className="App">
-        
-      
-      <h1>Users</h1>
-        {this.state.data}
- 
-        {/*<Drawer/>*/}
+        {this.state.onDisplay}
       </div>
     );
   }
 }
 
-export default App;
+export default App; 
