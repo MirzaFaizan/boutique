@@ -82,6 +82,8 @@ class TextFields extends React.Component {
       price:'',
       id:'',
     })
+
+    //posting data to api call here
   }
   render() {
     const { classes } = this.props;

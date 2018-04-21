@@ -130,7 +130,7 @@ class ResponsiveDrawer extends React.Component {
         <MuiThemeProvider theme={theme2}>
            <ListItem><Button onClick={this.AddNewLoginHandleClick.bind(this)} >Add New Login</Button></ListItem>
            <Divider />
-            <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All</Button></ListItem>
+            <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All Employees</Button></ListItem>
             <Divider/>
             </MuiThemeProvider>
             </Typography>

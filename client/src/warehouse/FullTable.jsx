@@ -48,7 +48,7 @@ const data = [
 
 function CustomizedTable(props) {
   const { classes } = props;
-
+//api call here
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -62,6 +62,7 @@ function CustomizedTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
+          {/*data to be replaced with json pacakage from api*/}
           {data.map(n => {
             return (
               <TableRow className={classes.row} key={n.id}>

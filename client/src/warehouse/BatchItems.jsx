@@ -7,9 +7,27 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
+import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import IconButton from 'material-ui/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
 
 
 const styles = theme => ({
+    root: {
+        width: '',
+        backgroundColor: theme.palette.background.paper,
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+      },
+      listSection: {
+        backgroundColor: 'inherit',
+      },
+      ul: {
+        backgroundColor: 'inherit',
+        padding: 0,
+      },
   button: {
     margin:theme.spacing.unit,
     display:'flex',
@@ -35,6 +53,23 @@ class TextFields extends React.Component {
     type: '',
     price: '',
     id: '',
+    checked: [0],
+    list:{}
+  };
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];//[...checked]<--this means keeping all previous states as well
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
   };
 
   handleChange = name => event => {
@@ -70,8 +105,11 @@ class TextFields extends React.Component {
       name:'',
       shop:'',
       id:'',
+      //list object = json pacakage from api
     })
   }
+
+  //api call 
   render() {
     const { classes } = this.props;
 
@@ -106,8 +144,35 @@ class TextFields extends React.Component {
           onChange={e => this.changeID(e)}
           className={classes.textField}
           margin="normal"/>
-
-            
+          
+    <div className={classes.root}>
+        <List>
+          {/*0,1,2,3 to be replaced with json pacakage
+          key = value, value can be replaced with id of items*/}
+          {[0, 1, 2, 3].map(value => (
+            <ListItem
+              key={value}
+              role={undefined}
+              dense
+              button
+              onClick={this.handleToggle(value)}
+              className={classes.listItem}
+            >
+              <Checkbox
+                checked={this.state.checked.indexOf(value) !== -1}
+                tabIndex={-1}
+                disableRipple
+              />
+              <ListItemText primary={`Line item ${value + 1}`} />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Comments">
+                  <CommentIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      </div>
         <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
         </Button>

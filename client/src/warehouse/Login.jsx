@@ -92,7 +92,8 @@ class TextFields extends React.Component {
     console.log(this.state)
     var details = {
      'name': this.state.userName,
-     'password': this.state.Password
+     'password': this.state.Password,
+     'type':this.state.type
  };
  
  var formBody = [];
@@ -114,8 +115,21 @@ class TextFields extends React.Component {
  .then(res=>{
    console.log("we are in this function");
    if(res){
-     console.log('Login Successful');
-    {this.props.updateWarehouse(res.token)}
+     if(res.type=='head'){
+      console.log('Head Login Successful');
+      {this.props.updateHeadOffice(res.token)}
+     }
+     else if(res.type=='admin'){
+      console.log('Ware House Login Successful');
+      {this.props.updateWarehouse(res.token)}
+     }
+     else if(res.type=='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
+      console.log('Shop Login Successful');
+      {this.props.updateShop(res.token)}
+     }
+     else{
+       console.log("error");
+     }
      console.log("After function");
    };
  }
@@ -145,9 +159,7 @@ class TextFields extends React.Component {
     });
   }
 
-//Database
 
-//Database
   render() {
     const { classes } = this.props;
 
