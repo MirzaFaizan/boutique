@@ -99,17 +99,25 @@ class TextFields extends React.Component {
     });
   }
 
-  handleClick = () => {
-    console.log(this.state);
+  changeList = e => {
     this.setState({
-      name:'',
-      shop:'',
-      id:'',
       //list object = json pacakage from api
     })
   }
 
-  //api call 
+  handleClick = () => {
+    console.log(this.state);
+    this.changeList();
+    //api call to post data in database
+    this.setState({
+      name:'',
+      shop:'',
+      id:'',
+      
+    })
+  }
+
+  //api call to get all items from api
   render() {
     const { classes } = this.props;
 

@@ -41,6 +41,7 @@ class TextFields extends React.Component {
     username: '',
     password: '',
     cnic: '',
+    type:''
   };
 
   handleChange = name => event => {
@@ -70,12 +71,20 @@ class TextFields extends React.Component {
   }
 
 
+  changeType = e => {
+    this.setState({
+      type: e.target.value
+    });
+  }
+
   handleClick = () => {
     console.log(this.state);
+    //api call to store data in database here
     this.setState({
       username:'',
       password:'',
       cnic:'',
+      type:''
     })
   }
   render() {
@@ -115,6 +124,17 @@ class TextFields extends React.Component {
           value={this.state.cnic}
           placeholder="Enter CNIC"
           onChange={e => this.changecnics(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="type"
+          label="Type"
+          value={this.state.type}
+          placeholder="Enter Type"
+          onChange={e => this.changeType(e)}
           className={classes.textField}
           margin="normal"
         />

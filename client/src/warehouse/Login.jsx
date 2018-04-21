@@ -20,8 +20,8 @@ const styles = theme => ({
     display:'flex',
   },
   container: {
-    display: 'block',
-    flexWrap: 'wrap',
+    display:'block',
+    flexWrap:'wrap',
     position:"relative",
   },
   textField: {
@@ -78,7 +78,6 @@ class TextFields extends React.Component {
     };
 
   }
-
 
   handleChange = name => event => {
     
