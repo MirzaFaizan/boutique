@@ -53,15 +53,15 @@ const styles = theme => ({
 
 const dropdowntypes = [
   {
-    value: 'Admin',
+    value: 'admin',
     label: 'Admin',
   },
   {
-    value: 'Head',
+    value: 'head',
     label: 'Head',
   },
   {
-    value: 'Shop',
+    value: 'shop',
     label: 'Shop',
   },
 ];
@@ -95,6 +95,7 @@ class TextFields extends React.Component {
      'type':this.state.type
  };
  
+
  var formBody = [];
  for (var property in details) {
    var encodedKey = encodeURIComponent(property);
@@ -103,7 +104,8 @@ class TextFields extends React.Component {
  }
  formBody = formBody.join("&");
  
- fetch('/head', {
+ var reqtype = this.state.type.toString();
+ fetch('/${reqtype}', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -114,7 +116,8 @@ class TextFields extends React.Component {
  .then(res=>{
    console.log("we are in this function");
    if(res){
-     if(res.type=='head'){
+     console.log(res.type)
+     if(res.type=="head"){
       console.log('Head Login Successful');
       {this.props.updateHeadOffice(res.token)}
      }
