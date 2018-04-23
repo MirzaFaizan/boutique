@@ -33,6 +33,10 @@ else if(req.body.password != Emp.Emp_password)
 {
    return res.send({msg:'password Invalid'});
 }
+else if(Emp.Emp_type !='admin')
+{
+   return res.send({msg:'This user is not allowed to Access this Domain'});
+}
 else
 {
    // res.send('login Successfull and token generated');
