@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: '#3f51b5',
     color: theme.palette.common.white,
   },
   body: {
@@ -29,35 +31,50 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+  button:{
+    marginLeft:15,
+  },
+  
 });
 
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, contact, cnic) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return { id, name, contact, cnic};
 }
 
 const data = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('Employee Name . . . . ', '03193088475', '31302-111111-2'),
+  createData('Employee Name . . . . ', '0339328475', '31302-111111-2'),
+  createData('Employee Name . . . . ', '031102475', '31302-111111-2'),
+
+ 
+ 
 ];
 
 function CustomizedTable(props) {
   const { classes } = props;
 
   return (
-    <Paper className={classes.root}>
+    <div><Paper className={classes.root}>
+      <TextField
+          id="searchEmployees"
+          label="Search Employee "
+          placeholder="Enter Employee Name "
+          className={classes.textField}
+          margin="normal"
+        />
+        <Button color="primary" variant="raised" className={classes.button}>
+        Search
+      </Button>
       <Table className={classes.table}>
         <TableHead>
-          <TableRow>
-            <CustomTableCell>Name</CustomTableCell>
-            <CustomTableCell numeric>Type</CustomTableCell>
-            <CustomTableCell numeric>Price</CustomTableCell>
-            <CustomTableCell numeric>ID</CustomTableCell>
-            <CustomTableCell numeric>Status</CustomTableCell>
+        <TableRow>
+            <CustomTableCell>Employee Name </CustomTableCell>
+            <CustomTableCell numeric>Contact # </CustomTableCell>
+            <CustomTableCell numeric>CNIC # </CustomTableCell>
+            
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,16 +82,17 @@ function CustomizedTable(props) {
             return (
               <TableRow className={classes.row} key={n.id}>
                 <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{n.protein}</CustomTableCell>
+                <CustomTableCell numeric>{n.contact}</CustomTableCell>
+                <CustomTableCell numeric>{n.cnic}</CustomTableCell>
+               
+                
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
     </Paper>
+    </div>
   );
 }
 

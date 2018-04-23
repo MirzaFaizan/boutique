@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import shopDrawer from './shop/Drawer';
+import ShopDrawer from './shop/Drawer';
 import WarehouseDrawer from './warehouse/Drawer';
 import HeadOfficeDrawer from './headoffice/Drawer';
 import Login  from './warehouse/Login';
@@ -59,7 +59,7 @@ class App extends Component {
   updateShopDisplay = (token) => {
     this.setState({
       IsLoggedinShop:true,
-      onDisplay:<shopDrawer/>
+      onDisplay:<ShopDrawer token={this.token}/>
     })
   }
 
@@ -67,6 +67,7 @@ class App extends Component {
     this.setState({
       IsLoggedInHeadoffice:true,
       onDisplay:<HeadOfficeDrawer token={this.token}/>
+      
     })
   }
   render() {
