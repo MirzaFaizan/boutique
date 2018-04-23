@@ -65,7 +65,7 @@ exports.CreatenewEmp= function(req, res)
          return handleError(err);
       
         else
-          res.sesnd({msg:"Data Entered Successfully"});
+          res.send({msg:"Data Entered Successfully"});
           console.log("Data entered");
         // saved!
     });
@@ -75,6 +75,8 @@ exports.CreatenewEmp= function(req, res)
  exports.fetchallemps= function(req,res){
     emp_instance.find()
     .then(Emp => {
+        if(Emp==null){ res.json({message:'No Employee Found'})}
+        else
        return res.json(Emp);
     }).catch(err => {
         return res.status(500).send({
@@ -82,6 +84,7 @@ exports.CreatenewEmp= function(req, res)
         });
     });
 };
+//Funtion To Fetch an Employee
 exports.fetchoneemp= function(req,res){
     emp_instance.findOne(  
         // query
@@ -99,6 +102,7 @@ exports.fetchoneemp= function(req,res){
         }
     );
 };
+//Function to Delete an Employee
 exports.Deleteemp= function(req, res)
  {
   emp_instance.findOneAndRemove({Emp_cnic:req.body.cnic})

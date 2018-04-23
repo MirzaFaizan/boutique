@@ -69,6 +69,7 @@ class App extends Component {
       IsLoggedInHeadoffice:true,
       onDisplay:<HeadOfficeDrawer token={token}/>
       
+      
     })
   }
   render() {
