@@ -26,16 +26,16 @@ function SimpleList(props) {
           <ListItemText primary="Item Name " />
 
           <ListItemSecondaryAction>
-                      <IconButton aria-label="Delete">
+                      <IconButton aria-label="Add">
                         <AddIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
         </ListItem>
-        <ListItem button component="a" href="#simple-list">
+        <ListItem button component="a" >
           <ListItemText primary="Item Name " />
 
           <ListItemSecondaryAction>
-                      <IconButton aria-label="Delete">
+                      <IconButton aria-label="Add">
                         <AddIcon />
                       </IconButton>
                     </ListItemSecondaryAction>

@@ -27,6 +27,12 @@ const data = [
   createData('1', 'Apple Iphone X ', 140000,1, 140000),
 
 ];
+class SaleTable extends React.Component
+{
+  state = {
+    lineTotal : '',
+  }
+};
 
 function SimpleTable(props) {
   const { classes } = props;
@@ -51,7 +57,7 @@ function SimpleTable(props) {
               <TableCell >{n.sr}</TableCell>
                 <TableCell>{n.itemname}</TableCell>
                 <TableCell numeric>{n.price}</TableCell>
-                <TableCell > <NumericInput mobile className="form-control" size="3" value={n.qty} min={0} max={50}/></TableCell>
+                <TableCell > <NumericInput mobile  size="3" value={n.qty} min={0} max={50}  /></TableCell>
                 
                 <TableCell numeric>{n.lineTotal}</TableCell>
                 
