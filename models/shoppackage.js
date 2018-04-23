@@ -2,17 +2,16 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var PackageSchema = new Schema(
+var ShopPackageSchema = new Schema(
   {
     package_number: {type: String, required: true, max: 100},
     items: [],
     shop_id: {type: String,  max: 100},
-    date_added: {type: Date},
-    date_sent: {type: Date},
+    date_received: {type: Date},
     status: {type: String,  max: 100},
   }
 
 );
 
 //Export model
-module.exports = mongoose.model('Package', PackageSchema);
+module.exports = mongoose.model('Shoppackage', ShopPackageSchema);
