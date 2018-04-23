@@ -52,7 +52,7 @@ class App extends Component {
     //now send token to the required component
     this.setState({
       IsLoggedInWarehouse:true,
-      onDisplay:<WarehouseDrawer token={this.token}/>
+      onDisplay:<WarehouseDrawer token={token}/>
     })
   }
 
@@ -64,9 +64,10 @@ class App extends Component {
   }
 
   updateHeadOfficeDisplay = (token) => {
+    console.log(token)
     this.setState({
       IsLoggedInHeadoffice:true,
-      onDisplay:<HeadOfficeDrawer token={this.token}/>
+      onDisplay:<HeadOfficeDrawer token={token}/>
     })
   }
   render() {

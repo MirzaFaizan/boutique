@@ -85,10 +85,10 @@ const styles = theme => ({
 class ResponsiveDrawer extends React.Component {
   constructor(props){
     super(props)
-
-    this.state = {
+      this.state = {
       mobileOpen: false,
-      OnDisplay: <AddNewLogin/>,
+      t:this.props.token,
+      OnDisplay: <ViewAll/>,
     };
 
 
@@ -101,9 +101,9 @@ class ResponsiveDrawer extends React.Component {
  AddNewLoginHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddNewLogin/>
+        OnDisplay:<AddNewLogin token={this.state.t}/>
     })
-    console.log("Add item on click")
+    console.log("Add item on click");
   }
 
 
