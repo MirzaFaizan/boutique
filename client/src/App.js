@@ -66,7 +66,8 @@ class App extends Component {
   updateHeadOfficeDisplay = (token) => {
     this.setState({
       IsLoggedInHeadoffice:true,
-      onDisplay:<HeadOfficeDrawer token={this.token}/>
+     onDisplay:<HeadOfficeDrawer token={this.token}/>
+     
       
       
     })

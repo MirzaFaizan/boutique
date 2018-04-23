@@ -43,7 +43,7 @@ const styles = theme => ({
 
 
 let sr = 0;
-export function createData(sr, itemname, price, qty, lineTotal) {
+ function createData(sr, itemname, price, qty, lineTotal) {
  
   return {sr, itemname, price, qty, lineTotal};
 }
@@ -68,6 +68,7 @@ class TextFields extends React.Component {
     });
   };
 
+  
   render() {
     const { classes } = this.props;
 
