@@ -97,6 +97,43 @@ exports.CreatenewArticle= function(req, res)
       });
   });
  }
+ //Function to Fetch all Articles
+
+
+ exports.FetchAllArticle= function(req,res){
+    article_instance.find()
+    .then(article => {
+        if(article==null){ res.json({message:'No Article Found'})}
+        else
+        return res.json(article);
+    }).catch(err => {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving all Articles."
+        });
+    });
+};
+
+//Funtion To Fetch an Article
+
+
+exports.fetchoneArticle= function(req,res){
+    article_instance.findOne(  
+        
+        // query
+        {item_id:req.body.id},
+    
+        //{Emp_name: true,Emp_cnic:true,Emp_type:true},
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==null)
+            return res.status(200).json(message='No Article With this id')
+            else
+            return res.status(200).json(article)
+        }
+    );
+};
  //Function to create New Pakage
 exports.CreatePakage= function(req, res)
  {
@@ -106,7 +143,7 @@ exports.CreatePakage= function(req, res)
             message: "Pakage content can not be empty"});
     }
     var pakg = new pakg_instance({  package_number:req.body.number,items:req.body.items,shop_id:req.body.shop,
-        date_sent: req.body.date});
+        date_sent: req.body.date,status: req.body.status});
        pakg.save(function (err) {
         if (err)
          return handleError(err);
@@ -116,4 +153,34 @@ exports.CreatePakage= function(req, res)
         // saved!
     });
  }
- 
+ exports.ShowPakages= function(req,res){
+    pakg_instance.find()
+    .then(package => {
+        if(package==null){ res.json({message:'No Package Found'})}
+        else
+        return res.json(package);
+    }).catch(err => {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving all Packages."
+        });
+    });
+};
+//Funtion To Fetch an Article
+exports.Showonepakg= function(req,res){
+    pakg_instance.findOne(  
+        
+        // query
+        {package_number:req.body.number},
+    
+        //{Emp_name: true,Emp_cnic:true,Emp_type:true},
+    
+        // callback function
+        (err, package) => {
+            if (err) return res.status(200).send(err)
+            if(package==null)
+            return res.status(200).json(message='No Package With this number')
+            else
+            return res.status(200).json(package)
+        }
+    );
+};
