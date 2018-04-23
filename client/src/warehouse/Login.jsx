@@ -105,7 +105,7 @@ class TextFields extends React.Component {
  formBody = formBody.join("&");
  
  var reqtype = this.state.type.toString();
- fetch('/${reqtype}', {
+ fetch('/'+reqtype, {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -114,9 +114,10 @@ class TextFields extends React.Component {
  })
  .then(res=>res.json())
  .then(res=>{
+
    console.log("we are in this function");
    if(res){
-     console.log(res.type)
+    console.log(res);
      if(res.type=="head"){
       console.log('Head Login Successful');
       {this.props.updateHeadOffice(res.token)}

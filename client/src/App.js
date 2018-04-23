@@ -30,14 +30,17 @@ class App extends Component {
         onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
       })
     }
-    }*/
+    }
+    */
 
     constructor(props){
       super(props);
       this.state={
-        /*IsLoggedInWarehouse:false,
-        IsLoggedInHeadoffice:false,
-        IsLoggedinShop:false,*/
+        /*
+          IsLoggedInWarehouse:false,
+          IsLoggedInHeadoffice:false,
+          IsLoggedinShop:false,
+        */
         onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
       }
       this.updateWareHouseDisplay.bind(this);
@@ -46,7 +49,7 @@ class App extends Component {
     }
   updateWareHouseDisplay = (token) => {
     console.log(token);
-//now send token to the required component
+    //now send token to the required component
     this.setState({
       IsLoggedInWarehouse:true,
       onDisplay:<WarehouseDrawer token={this.token}/>
@@ -63,7 +66,7 @@ class App extends Component {
   updateHeadOfficeDisplay = (token) => {
     this.setState({
       IsLoggedInHeadoffice:true,
-      onDisplay:<HeadOfficeDrawer/>
+      onDisplay:<HeadOfficeDrawer token={this.token}/>
     })
   }
   render() {

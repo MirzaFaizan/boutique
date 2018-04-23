@@ -78,15 +78,57 @@ class TextFields extends React.Component {
   }
 
   handleClick = () => {
-    console.log(this.state);
+    console.log(this.props.token);
     //api call to store data in database here
+
+    
+      console.log(this.state)
+      var details = {
+       'name': this.state.username,
+       'type': this.state.type,
+       'password':this.state.password,
+        'cnic':this.state.cnic,
+        'token':this.props.token
+   };
+   
+  
+   var formBody = [];
+   for (var property in details) {
+     var encodedKey = encodeURIComponent(property);
+     var encodedValue = encodeURIComponent(details[property]);
+     formBody.push(encodedKey + "=" + encodedValue);
+   }
+   formBody = formBody.join("&");
+   
+   fetch('/head/AddEmp', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+     },
+     body: formBody
+   })
+   .then(res=>res.json())
+   .then(res=>{
+  
+     console.log("we are in this function");
+     if(res){
+      console.log(res);
+       console.log("After function");
+     };
+   }
+   );
+      //form saaf kia hai 
     this.setState({
       username:'',
       password:'',
       cnic:'',
       type:''
     })
-  }
+    }
+
+
+    
+  
   render() {
     const { classes } = this.props;
 
