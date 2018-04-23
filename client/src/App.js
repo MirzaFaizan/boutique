@@ -59,7 +59,7 @@ class App extends Component {
   updateShopDisplay = (token) => {
     this.setState({
       IsLoggedinShop:true,
-      onDisplay:<div>Shop</div>
+      onDisplay:<shopDrawer/>
     })
   }
 
