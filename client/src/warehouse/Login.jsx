@@ -74,7 +74,7 @@ class TextFields extends React.Component {
    this.state = {
       userName: '',
       Password: '',
-      type:''
+      type:'admin'
     };
 
   }
@@ -118,6 +118,7 @@ class TextFields extends React.Component {
    console.log("we are in this function");
    if(res){
     console.log(res);
+    console.log(res.token);
      if(res.type=="head"){
       console.log('Head Login Successful');
       {this.props.updateHeadOffice(res.token)}

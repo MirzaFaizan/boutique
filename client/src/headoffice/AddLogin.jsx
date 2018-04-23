@@ -31,17 +31,32 @@ const styles = theme => ({
     marginLeft:100,
     marginRight:100,
     marginTop:10,
-    maxWidth: 350,
+    //maxWidth: 350,
   },
 });
 
+const dropdowntypes = [
+  {
+    value: 'admin',
+    label: 'Admin',
+  },
+  {
+    value: 'head',
+    label: 'Head',
+  },
+  {
+    value: 'shop',
+    label: 'Shop',
+  },
+];
 
 class TextFields extends React.Component {
   state = {
     username: '',
     password: '',
     cnic: '',
-    type:''
+    type:'admin',
+    t:this.props.token,
   };
 
   handleChange = name => event => {
@@ -80,18 +95,15 @@ class TextFields extends React.Component {
   handleClick = () => {
     console.log(this.props.token);
     //api call to store data in database here
-
-    
       console.log(this.state)
       var details = {
        'name': this.state.username,
        'type': this.state.type,
        'password':this.state.password,
         'cnic':this.state.cnic,
-        'token':this.props.token
+        'token':this.state.t
    };
    
-  
    var formBody = [];
    for (var property in details) {
      var encodedKey = encodeURIComponent(property);
@@ -124,8 +136,7 @@ class TextFields extends React.Component {
       cnic:'',
       type:''
     })
-    }
-
+  }
 
     
   
@@ -171,16 +182,28 @@ class TextFields extends React.Component {
         />
         </CardContent>
         <CardContent>
-        <TextField
+          <TextField
           id="type"
-          label="Type"
-          value={this.state.type}
-          placeholder="Enter Type"
-          onChange={e => this.changeType(e)}
+          select
           className={classes.textField}
+          value={this.state.type}
+          onChange={e=>this.changeType(e)}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          helperText="Please select your type"
           margin="normal"
-        />
-        </CardContent>
+        >
+          {dropdowntypes.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+          </TextField>
+</CardContent>
         <CardContent>
         <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
