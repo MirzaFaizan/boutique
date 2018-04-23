@@ -4,8 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-
+import Select from './DropDownSelect';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -31,23 +30,20 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
-  button:{
-    marginLeft:15,
-  },
-  
 });
 
 let id = 0;
-function createData(name, contact, cnic) {
+function createData(name, sr, qty, price) {
   id += 1;
-  return { id, name, contact, cnic};
+  return { id, name, sr, qty, price};
 }
 
 const data = [
-  createData('Employee Name . . . . ', '03193088475', '31302-111111-2'),
-  createData('Employee Name . . . . ', '0339328475', '31302-111111-2'),
-  createData('Employee Name . . . . ', '031102475', '31302-111111-2'),
-
+  createData('Item name . . . . ', 184937, 56, 2450),
+  createData('Item name . . . . ', 184937, 56, 2450),
+  createData('Item name . . . . ', 184937, 56, 2450),
+  createData('Item name . . . . ', 184937, 56, 2450),
+  createData('Item name . . . . ', 184937, 56, 2450),
  
  
 ];
@@ -56,24 +52,15 @@ function CustomizedTable(props) {
   const { classes } = props;
 
   return (
-    <div><Paper className={classes.root}>
-      <TextField
-          id="searchEmployees"
-          label="Search Employee "
-          placeholder="Enter Employee Name "
-          className={classes.textField}
-          margin="normal"
-        />
-        <Button color="primary" variant="raised" className={classes.button}>
-        Search
-      </Button>
+    <Paper className={classes.root}>
+    <Select/>
       <Table className={classes.table}>
         <TableHead>
         <TableRow>
-            <CustomTableCell>Employee Name </CustomTableCell>
-            <CustomTableCell numeric>Contact # </CustomTableCell>
-            <CustomTableCell numeric>CNIC # </CustomTableCell>
-            
+            <CustomTableCell>Item Name</CustomTableCell>
+            <CustomTableCell numeric>ID #</CustomTableCell>
+            <CustomTableCell numeric>QTY</CustomTableCell>
+            <CustomTableCell numeric>Price (Rs)</CustomTableCell>
             
           </TableRow>
         </TableHead>
@@ -82,9 +69,9 @@ function CustomizedTable(props) {
             return (
               <TableRow className={classes.row} key={n.id}>
                 <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.contact}</CustomTableCell>
-                <CustomTableCell numeric>{n.cnic}</CustomTableCell>
-               
+                <CustomTableCell numeric>{n.sr}</CustomTableCell>
+                <CustomTableCell numeric>{n.qty}</CustomTableCell>
+                <CustomTableCell numeric>{n.price}</CustomTableCell>
                 
               </TableRow>
             );
@@ -92,7 +79,6 @@ function CustomizedTable(props) {
         </TableBody>
       </Table>
     </Paper>
-    </div>
   );
 }
 

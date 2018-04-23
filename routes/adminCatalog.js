@@ -9,7 +9,11 @@ router.use(varifyToken);
 
 router.post('/addArticle',Controller.CreatenewArticle);
 router.post('/DeleteArticle/:id',Controller.DeleteArticle);
+router.post('/showArticles',Controller.FetchAllArticle);
+router.post('/show1Article',Controller.fetchoneArticle);
 router.post('/Createnewpakg',Controller.CreatePakage);
+router.post('/showPackages',Controller.ShowPakages);
+router.post('/show1Package',Controller.Showonepakg);
 
 
 module.exports = router;
