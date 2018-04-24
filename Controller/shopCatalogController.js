@@ -78,7 +78,17 @@ exports.RecievePakg= function(req,res){
                     res.json({message:'This pakckage is not for this shop '});
                 }
                else{
-                package.status= 'Recived at shop'+req.body.shopID;
+                package.status='Recived at shop  ' +(req.body.shopID);
+                //var len= package.items.length();
+                package.save();
+                //Save pakage items in ShopInventory
+                for(var i=0; i<package.items.length; i++)
+                {
+                    shopInventory= new shop_inventory({item_id:package.items[i],shop_id:req.body.shopID});
+                       shopInventory.save(function (err) {
+                        if (err)
+                         return handleError(err);});
+                }
                 res.json({message:'package Recieved,items added to shop inventory'}); 
                }
             }

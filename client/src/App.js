@@ -68,6 +68,7 @@ class App extends Component {
     this.setState({
       IsLoggedInHeadoffice:true,
       onDisplay:<HeadOfficeDrawer token={token}/>
+     
     })
   }
   render() {

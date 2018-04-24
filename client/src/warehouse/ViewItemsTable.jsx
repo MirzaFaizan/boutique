@@ -67,8 +67,8 @@ class CustomizedTable extends React.Component {
   }
   formBody = formBody.join("&");
   
-  var reqtype = this.state.type.toString();
-  fetch('/'+reqtype, {
+  
+  fetch('/admin/ShowArticles', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -81,7 +81,6 @@ class CustomizedTable extends React.Component {
     console.log("we are in this function");
     if(res){
      console.log(res);
-     console.log(res.token);
       console.log("After function");
     };
   }

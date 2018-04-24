@@ -61,8 +61,8 @@ class CustomizedTable extends React.Component {
  }
  formBody = formBody.join("&");
  
- var reqtype = this.state.type.toString();
- fetch('/'+reqtype, {
+ 
+ fetch('/admin/ShowArticles', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
