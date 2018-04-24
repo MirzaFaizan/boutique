@@ -50,12 +50,11 @@ const styles = theme => ({
 class TextFields extends React.Component {
   state = {
     name: '',
-    type: '',
-    price: '',
     id: '',
     t:this.props.token,
     checked: [0],
-    list:{}
+    list:{},
+    date: new Date(),
   };
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -112,8 +111,10 @@ class TextFields extends React.Component {
     //api call to post data in database
     var details = {
      'name': this.state.name,
-     'shop': this.state.shop,
-     'id':this.state.id,
+     'shop_id': this.state.shop,
+     'number':this.state.id,
+     'items':{},
+     'date_sent':this.state.date,
      'token':this.state.t
  };
  
@@ -126,8 +127,8 @@ class TextFields extends React.Component {
  }
  formBody = formBody.join("&");
  
- var reqtype = this.state.type.toString();
- fetch('/'+reqtype, {
+
+ fetch('/admin/Createnewpakg', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -140,7 +141,6 @@ class TextFields extends React.Component {
    console.log("we are in this function");
    if(res){
     console.log(res);
-    console.log(res.token);
      console.log("After function");
    };
  }
