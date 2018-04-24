@@ -67,12 +67,8 @@ class App extends Component {
     console.log(token)
     this.setState({
       IsLoggedInHeadoffice:true,
-<<<<<<< HEAD
-     onDisplay:<HeadOfficeDrawer token={this.token}/>
-     
-=======
       onDisplay:<HeadOfficeDrawer token={token}/>
->>>>>>> 2d4686dca649f1f68c89894ac38c27c1b50e6947
+      
       
       
     })

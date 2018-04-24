@@ -15,6 +15,7 @@ import List, { ListItem, ListItemIcon, ListItemText,ListItemSecondaryAction } fr
 
 
 
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -41,26 +42,21 @@ const styles = theme => ({
   },
 });
 
-
-let sr = 0;
- function createData(sr, itemname, price, qty, lineTotal) {
- 
-  return {sr, itemname, price, qty, lineTotal};
-}
-
-const data = [
-  createData('1', 'Apple Iphone X ', 140000,1, 140000),
-
+var data = [
+  {sr: '1',itemname: 'Apple Iphone X ',price: 140000,qty:1,lineTotal: 140000}
 ];
+
 
 
 class TextFields extends React.Component {
   state = {
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
-    currency: 'EUR',
+    name:'',
+    sr: [1,2,3,4,5],
+    
+    
+    
   };
+  
 
   handleChange = name => event => {
     this.setState({
@@ -68,6 +64,14 @@ class TextFields extends React.Component {
     });
   };
 
+
+
+ addRow = () =>
+ {
+   console.log("kjsdjkdsf");
+   this.setState({ sr: [...this.state.sr, 56] });
+    
+ }
   
   render() {
     const { classes } = this.props;
@@ -95,7 +99,7 @@ class TextFields extends React.Component {
           <ListItemText primary="Item Name " />
 
           <ListItemSecondaryAction>
-                      <Button>Button</Button>
+                      <Button onClick={this.addRow.bind(this)}>Button</Button>
                       <IconButton aria-label="Add" >
                         <AddIcon />
                       </IconButton>
@@ -131,23 +135,21 @@ class TextFields extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
+        
+          {this.state.sr.map(n => {
             return (
-           <TableRow>
-              <TableCell >{n.sr}</TableCell>
-                <TableCell>{n.itemname}</TableCell>
-                <TableCell numeric>{n.price}</TableCell>
-                <TableCell > <NumericInput mobile  size="3" value={n.qty} min={0} max={50}  /></TableCell>
-                
-                <TableCell numeric>{n.lineTotal}</TableCell>
-                
-                
+              <TableRow>
+              <TableCell >{n}</TableCell>
               </TableRow>
+              
+
             );
+           
           })}
+          
         </TableBody>
       </Table>
-     
+    
     </Paper>
         </Grid>
       </Grid>
