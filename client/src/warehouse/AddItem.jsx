@@ -36,6 +36,7 @@ class TextFields extends React.Component {
     type: '',
     price: '',
     id: '',
+    date:new Date(),
     t:this.props.token,
   };
 
@@ -84,6 +85,7 @@ class TextFields extends React.Component {
        'price': this.state.price,
        'type':this.state.type,
         'id':this.state.id,
+        'date':this.state.date,
         'token':this.state.t
    };
    
