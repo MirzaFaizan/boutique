@@ -46,8 +46,16 @@ const styles = theme => ({
   },
 });
 
+function validate(name,shop,id) {
+  return {
+    name: name.length === 0,
+    shop: shop.length === 0,
+    id: id.length===0,
+  };
+}
 
 class TextFields extends React.Component {
+
   state = {
     name: '',
     id: '',
@@ -55,7 +63,21 @@ class TextFields extends React.Component {
     checked: [0],
     list:{},
     date: new Date(),
+    shop:''
   };
+
+  handleSubmit = (evt) => {
+    if (!this.canBeSubmitted()) {
+      evt.preventDefault();
+      return;
+    }
+    const { name,shop,id} = this.state;
+  }
+  canBeSubmitted() {
+    const errors = validate(this.state.name,this.state.shop,this.state.id);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -88,7 +110,7 @@ class TextFields extends React.Component {
 
   changeShop = e => {
     this.setState({
-      type: e.target.value
+      shop: e.target.value
     });
   }
 
@@ -157,6 +179,8 @@ class TextFields extends React.Component {
   //api call to get all items from api
   render() {
     const { classes } = this.props;
+    const errors = validate(this.state.name,this.state.shop,this.state.id);
+      const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <form className={classes.container} noValidate autoComplete="off"> 
@@ -218,7 +242,7 @@ class TextFields extends React.Component {
           ))}
         </List>
       </div>
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
         <AddIcon/>
         </Button>
       </form>

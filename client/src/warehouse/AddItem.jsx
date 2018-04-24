@@ -28,6 +28,14 @@ const styles = theme => ({
   },
 });
 
+function validate(name,type,price,id) {
+  return {
+    name: name.length === 0,
+    type: type.length === 0,
+    price: price.length === 0,
+    id: id.length===0
+  };
+}
 
 class TextFields extends React.Component {
 
@@ -40,6 +48,18 @@ class TextFields extends React.Component {
     t:this.props.token,
   };
 
+  handleSubmit = (evt) => {
+    if (!this.canBeSubmitted()) {
+      evt.preventDefault();
+      return;
+    }
+    const { name,type,price,id} = this.state;
+  }
+  canBeSubmitted() {
+    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.id);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
 
   handleChange = name => event => {
     this.setState({
@@ -126,6 +146,8 @@ class TextFields extends React.Component {
     //posting data to api call here
   render() {
     const { classes } = this.props;
+    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.id);
+      const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <form className={classes.container} noValidate autoComplete="off"> 
@@ -169,7 +191,7 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"/>
 
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
         <AddIcon/>
         </Button>
       </form>
