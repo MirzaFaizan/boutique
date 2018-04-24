@@ -46,9 +46,59 @@ const data = [
 ];
 
 
-function CustomizedTable(props) {
-  const { classes } = props;
-//api call here
+class CustomizedTable extends React.Component {
+  componentDidMount(){
+    var details = {
+     'token':this.state.t
+ };
+ 
+
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+ 
+ var reqtype = this.state.type.toString();
+ fetch('/'+reqtype, {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+   },
+   body: formBody
+ })
+ .then(res=>res.json())
+ .then(res=>{
+
+   console.log("we are in this function");
+   if(res){
+    console.log(res);
+    console.log(res.token);
+     console.log("After function");
+   };
+ }
+ );
+      this.setState({
+      userName:'',
+      Password:'',
+      type:''
+    })
+
+  }
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      t:this.props.token,
+    }
+  }
+  render() {
+    const { classes } = this.props;
+{/*
+
+}*/}
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -79,6 +129,8 @@ function CustomizedTable(props) {
     </Paper>
   );
 }
+  }
+  
 
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
