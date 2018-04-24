@@ -60,14 +60,14 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/ShowEmps', {
+    fetch('/head/ShowEmps', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
       },
       body: formBody
     })
-
+    .then(res=>res.json())
     .then(res=>{
       console.log("we are in this function");
       console.log(this.state.t);
