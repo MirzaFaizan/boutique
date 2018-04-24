@@ -46,38 +46,55 @@ const styles = theme => ({
   },
 });
 
-function validate(name,shop,id) {
-  return {
-    name: name.length === 0,
-    shop: shop.length === 0,
-    id: id.length===0,
-  };
-}
 
 class TextFields extends React.Component {
+  componentDidMount(){
+    var details = {
+     'token':this.state.t
+ };
+ 
+
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+ 
+ 
+ fetch('/admin/ShowArticles', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+   },
+   body: formBody
+ })
+ .then(res=>res.json())
+ .then(res=>{
+
+   console.log("we are in this function");
+   if(res){
+    console.log(res);
+    this.setState({
+      data:res
+    })
+     console.log("After function");
+   };
+ }
+ );
+     
+  }
 
   state = {
     name: '',
     id: '',
     t:this.props.token,
+    data:{},
     checked: [0],
     list:{},
     date: new Date(),
-    shop:''
   };
-
-  handleSubmit = (evt) => {
-    if (!this.canBeSubmitted()) {
-      evt.preventDefault();
-      return;
-    }
-    const { name,shop,id} = this.state;
-  }
-  canBeSubmitted() {
-    const errors = validate(this.state.name,this.state.shop,this.state.id);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-    return !isDisabled;
-  }
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -110,7 +127,7 @@ class TextFields extends React.Component {
 
   changeShop = e => {
     this.setState({
-      shop: e.target.value
+      type: e.target.value
     });
   }
 
@@ -179,8 +196,6 @@ class TextFields extends React.Component {
   //api call to get all items from api
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.name,this.state.shop,this.state.id);
-      const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <form className={classes.container} noValidate autoComplete="off"> 
@@ -218,31 +233,30 @@ class TextFields extends React.Component {
         <List>
           {/*0,1,2,3 to be replaced with json pacakage
           key = value, value can be replaced with id of items*/}
-          {[0, 1, 2, 3].map(value => (
+          {Object.values(this.state.data).map(type => (
             <ListItem
-              key={value}
+              key={type._id}
               role={undefined}
               dense
               button
-              onClick={this.handleToggle(value)}
+              onClick={this.handleToggle(type._id)}
               className={classes.listItem}
             >
               <Checkbox
-                checked={this.state.checked.indexOf(value) !== -1}
+                checked={this.state.checked.indexOf(type._id) !== -1}
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={`Line item ${value + 1}`} />
+              <ListItemText primary={type.item_name} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
-                  <CommentIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>
       </div>
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
         </Button>
       </form>
