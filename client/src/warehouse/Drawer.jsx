@@ -149,7 +149,7 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
             <Divider />
-            <ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>
+           {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
             </MuiThemeProvider>
             </Typography>
         </List>

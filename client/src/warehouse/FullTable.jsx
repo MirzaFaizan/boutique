@@ -76,23 +76,21 @@ class CustomizedTable extends React.Component {
    console.log("we are in this function");
    if(res){
     console.log(res);
-    console.log(res.token);
+    this.setState({
+      data:res
+    })
      console.log("After function");
    };
  }
  );
-      this.setState({
-      userName:'',
-      Password:'',
-      type:''
-    })
-
+     
   }
   constructor(props){
     super(props);
     
     this.state = {
       t:this.props.token,
+      data:{}
     }
   }
   render() {
@@ -109,21 +107,22 @@ class CustomizedTable extends React.Component {
             <CustomTableCell>Name</CustomTableCell>
             <CustomTableCell numeric>Type</CustomTableCell>
             <CustomTableCell numeric>Price</CustomTableCell>
+            <CustomTableCell numeric>Date</CustomTableCell>
             <CustomTableCell numeric>ID</CustomTableCell>
-            <CustomTableCell numeric>Status</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {/*data to be replaced with json pacakage from api*/}
-          {data.map(n => {
-            return (
-              <TableRow className={classes.row} key={n.id}>
-                <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{n.protein}</CustomTableCell>
-              </TableRow>
+          {Object.values(this.state.data).map((type) => {
+                 console.log(type);
+                 return (
+                  <TableRow className={classes.row} key={type._id}>
+                    <CustomTableCell>{type.item_name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.item_type}</CustomTableCell>
+                    <CustomTableCell numeric>{type.price}</CustomTableCell>
+                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
+                    <CustomTableCell numeric>{type._id}</CustomTableCell>
+                  </TableRow>
             );
           })}
         </TableBody>

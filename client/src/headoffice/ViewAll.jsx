@@ -107,9 +107,8 @@ class CustomizedTable extends React.Component {
             <TableRow>
               <CustomTableCell>Name</CustomTableCell>
               <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>Price</CustomTableCell>
-              <CustomTableCell numeric>ID</CustomTableCell>
-              <CustomTableCell numeric>Status</CustomTableCell>
+              <CustomTableCell numeric>CNIC</CustomTableCell>
+              <CustomTableCell numeric>Password</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -124,7 +123,7 @@ class CustomizedTable extends React.Component {
                   <TableRow className={classes.row} key={type.Emp_cnic}>
                     <CustomTableCell>{type.Emp_name}</CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_type}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
                   </TableRow>
                 );
