@@ -150,8 +150,7 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.StockHandleClick.bind(this)} >Stock</Button></ListItem>
             <Divider />
-            <ListItem><Button variant="raised" color="primary" onClick={this.ViewEmployessHandleClick.bind(this)}>View Employees</Button></ListItem>
-            <Divider/>
+           
             <ListItem><Button variant="raised" color="primary">Log Out </Button></ListItem>
             <Divider/>
             

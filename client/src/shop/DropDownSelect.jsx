@@ -45,21 +45,45 @@ const ranges = [
     label: 'ID # ',
   },
 ];
-
-class InputAdornments extends React.Component {
-  state = {
-    searchBy : 'Name',
-    value : 'name'
+function validate(search) {
+  return {
+    search: search.length === 0,
   };
+}
+class InputAdornments extends React.Component {
+  constructor(){
+    super();
+  this.state = {
+    searchBy : 'Name',
+    value : 'name',
+    search:''
+  }}
 
   handleChange = prop => event => {
     this.setState({ searchBy: event.target.value });
     
   };
 
+  handleSearchChange = (evt) => {
+    this.setState({ search: evt.target.value });
+  }
+  handleSubmit = (evt) => {
+    if (!this.canBeSubmitted()) {
+      evt.preventDefault();
+      return;
+    }
+    const { search} = this.state;
+  }
+  canBeSubmitted() {
+    const errors = validate(this.state.search);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
 
   render() {
     const { classes } = this.props;
+    const errors = validate(this.state.search);
+      const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <div className={classes.root}>
@@ -86,11 +110,11 @@ class InputAdornments extends React.Component {
           id="name"
           label={this.state.searchBy}
           className={classes.textField1}
-          
-          onChange={this.handleChange('name')}
+          value={this.state.search}
+          onChange={this.handleSearchChange}
           margin="normal"
         />
-        <Button color="primary" variant="raised" className={classes.button}>
+        <Button color="primary" variant="raised" className={classes.button} disabled={isDisabled}>
         Search
       </Button>
         
