@@ -65,7 +65,12 @@ const dropdowntypes = [
     label: 'Shop',
   },
 ];
-
+function validate(userName,Password) {
+  return {
+    userName: userName.length === 0,
+    Password: Password.length === 0,
+  };
+}
 
 class TextFields extends React.Component {
   constructor(props){
@@ -77,6 +82,19 @@ class TextFields extends React.Component {
       type:'admin'
     };
 
+  }
+  
+  handleSubmit = (evt) => {
+    if (!this.canBeSubmitted()) {
+      evt.preventDefault();
+      return;
+    }
+    const { qrId} = this.state;
+  }
+  canBeSubmitted() {
+    const errors = validate(this.state.qrId);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
   }
 
   handleChange = name => event => {
@@ -166,6 +184,9 @@ class TextFields extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const errors = validate(this.state.userName,this.state.Password);
+      const isDisabled = Object.keys(errors).some(x => errors[x]);
+
 
     return (
       <div>
@@ -230,7 +251,7 @@ class TextFields extends React.Component {
 </CardContent>
 
 <CardContent>
-  <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} >
+  <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} disabled={isDisabled}>
   Login
   </Button>
   </CardContent>
