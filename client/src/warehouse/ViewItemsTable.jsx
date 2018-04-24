@@ -47,66 +47,46 @@ const data = [
 
 
   {/*
-     var details = {
-     'token'=token
- };
- 
 
- var formBody = [];
- for (var property in details) {
-   var encodedKey = encodeURIComponent(property);
-   var encodedValue = encodeURIComponent(details[property]);
-   formBody.push(encodedKey + "=" + encodedValue);
- }
- formBody = formBody.join("&");
- 
- var reqtype = this.state.type.toString();
- fetch('/'+reqtype, {
-   method: 'POST',
-   headers: {
-     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-   },
-   body: formBody
- })
- .then(res=>res.json())
- .then(res=>{
-
-   console.log("we are in this function");
-   if(res){
-    console.log(res);
-    console.log(res.token);
-     if(res.type=="head"){
-      console.log('Head Login Successful');
-      {this.props.updateHeadOffice(res.token)}
-     }
-     else if(res.type=='admin'){
-      console.log('Ware House Login Successful');
-      {this.props.updateWarehouse(res.token)}
-     }
-     else if(res.type=='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
-      console.log('Shop Login Successful');
-      {this.props.updateShop(res.token)}
-     }
-     else{
-       console.log("error");
-     }
-     console.log("After function");
-   };
- }
- );
-      this.setState({
-      userName:'',
-      Password:'',
-      type:''
-    })
-
-  }
-  }
-*/}
-//}  
+*/}  
   
 
 class CustomizedTable extends React.Component {
+
+  componentDidMount() {
+    var details = {
+      'token':this.props.token
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  var reqtype = this.state.type.toString();
+  fetch('/'+reqtype, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    console.log("we are in this function");
+    if(res){
+     console.log(res);
+     console.log(res.token);
+      console.log("After function");
+    };
+  }
+  ); }
+
   constructor(props){
     super(props);
 
@@ -144,8 +124,7 @@ class CustomizedTable extends React.Component {
     </Paper>
   );
 }
-
-  }
+}
   
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
