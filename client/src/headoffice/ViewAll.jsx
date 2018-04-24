@@ -44,41 +44,94 @@ const data = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
+{/* */}
 
+class CustomizedTable extends React.Component {
 
-function CustomizedTable(props) {
-  const { classes } = props;
-//Api call here
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <CustomTableCell>Name</CustomTableCell>
-            <CustomTableCell numeric>Type</CustomTableCell>
-            <CustomTableCell numeric>Price</CustomTableCell>
-            <CustomTableCell numeric>ID</CustomTableCell>
-            <CustomTableCell numeric>Status</CustomTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {/*data replaced with json pacakage from api*/}
-          {data.map(n => {
-            return (
-              <TableRow className={classes.row} key={n.id}>
-                <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{n.protein}</CustomTableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+  componentDidMount(){
+    var details = {
+      'token':this.state.t
+  };
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    
+    fetch('/ShowEmps', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+      },
+      body: formBody
+    })
+
+    .then(res=>{
+      console.log("we are in this function");
+      console.log(this.state.t);
+      if(res){
+       console.log(res);
+       this.setState({
+         data:res
+       })
+        console.log("After function");
+        console.log(this.state.t);
+      };
+    }
+    );
+
+  };
+
+  constructor(props){
+    super(props)
+    this.state={
+      data:{},
+      t:this.props.token,
+    }
+    console.log('Constructor');
+    console.log(this.state.t);
+
+    var details = {
+      'token':this.state.t
+  };
+};
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <CustomTableCell>Name</CustomTableCell>
+              <CustomTableCell numeric>Type</CustomTableCell>
+              <CustomTableCell numeric>Price</CustomTableCell>
+              <CustomTableCell numeric>ID</CustomTableCell>
+              <CustomTableCell numeric>Status</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {/*data replaced with json pacakage from api*/}
+            {data.map(n => {
+              return (
+                <TableRow className={classes.row} key={n.id}>
+                  <CustomTableCell>{n.name}</CustomTableCell>
+                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
+                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
+                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
+                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
 }
+
 
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
