@@ -59,7 +59,8 @@ exports.CreatenewEmp= function(req, res)
      //console.log(req.body.name);
      var Emp = new emp_instance({Emp_name:req.body.name,Emp_password:req.body.password,
         Emp_cnic:req.body.cnic, 
-        Emp_type:req.body.type});
+        Emp_type:req.body.type,
+        shop_id:req.body.shopID});
     Emp.save(function (err) {
         if (err)
          return handleError(err);

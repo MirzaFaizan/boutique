@@ -5,5 +5,7 @@ var Controller= require('../Controller/shopCatalogController');
 router.post('/', Controller.loginandGetToken);
 var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
+router.post('/recievepkg',Controller.RecievePakg)
 module.exports = router;
+
 
