@@ -53,6 +53,7 @@ class TextFields extends React.Component {
     type: '',
     price: '',
     id: '',
+    t:this.props.token,
     checked: [0],
     list:{}
   };
@@ -109,13 +110,49 @@ class TextFields extends React.Component {
     console.log(this.state);
     this.changeList();
     //api call to post data in database
-    this.setState({
+    var details = {
+     'name': this.state.name,
+     'shop': this.state.shop,
+     'id':this.state.id,
+     'token':this.state.t
+ };
+ 
+
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+ 
+ var reqtype = this.state.type.toString();
+ fetch('/'+reqtype, {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+   },
+   body: formBody
+ })
+ .then(res=>res.json())
+ .then(res=>{
+
+   console.log("we are in this function");
+   if(res){
+    console.log(res);
+    console.log(res.token);
+     console.log("After function");
+   };
+ }
+ );
+      this.setState({
       name:'',
       shop:'',
-      id:'',
-      
+      id:''
     })
+
   }
+ 
 
   //api call to get all items from api
   render() {

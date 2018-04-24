@@ -22,6 +22,7 @@ import {
     Route
     }   from 'react-router-dom';
 import Notification from './Notifications';
+import Welcome from './Welcome'
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -88,7 +89,7 @@ class ResponsiveDrawer extends React.Component {
       this.state = {
       mobileOpen: false,
       t:this.props.token,
-      OnDisplay: <ViewAll/>,
+      OnDisplay: <Welcome />,
     };
 
 
@@ -111,7 +112,7 @@ class ResponsiveDrawer extends React.Component {
  ViewAllHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll/>
+        OnDisplay:<ViewAll token={this.state.t}/>
     })
     console.log("View All item Click")
   }

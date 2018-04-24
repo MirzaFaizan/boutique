@@ -24,7 +24,8 @@ import {
     }   from 'react-router-dom';
 import FullTable from './FullTable';
 import Notification from './Notifications';
-import BatchItems from './BatchItems'
+import BatchItems from './BatchItems';
+import Welcome from './Welcome';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -91,7 +92,8 @@ class ResponsiveDrawer extends React.Component {
 
     this.state = {
       mobileOpen: false,
-      OnDisplay: <AddItem/>,
+      OnDisplay: <Welcome/>,
+      t:this.props.token,
     };
 
 
@@ -104,7 +106,7 @@ class ResponsiveDrawer extends React.Component {
  AddItemHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddItem/>
+        OnDisplay:<AddItem token={this.state.t}/>
     })
     console.log("ADd item on click")
   }
@@ -112,7 +114,7 @@ class ResponsiveDrawer extends React.Component {
   batchitemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<BatchItems/>
+        OnDisplay:<BatchItems token={this.state.t}/>
     })
     console.log("ADd item on click")
   }
@@ -120,14 +122,14 @@ class ResponsiveDrawer extends React.Component {
   FullTableHandleClick = () => {
 
     this.setState({
-        OnDisplay:<FullTable token={this.props.token}/>
+        OnDisplay:<FullTable token={this.state.t}/>
     })
     console.log("ADd item on click")
   }
   ViewItemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewItems/>
+        OnDisplay:<ViewItems token={this.state.t}/>
     })
     console.log("ADd item on click")
   }

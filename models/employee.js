@@ -8,9 +8,10 @@ var EmpSchema = new Schema(
     Emp_password: {type: String, required: true, max: 50},
     Emp_cnic: {type: String, required: true,  max: 20},
     Emp_type: {type: String, required: true,  max: 50},
+    shop_id:  {type: String, max:20},
   }
 
 );
-
+ 
 //Export model
 module.exports = mongoose.model('Employee',EmpSchema);
