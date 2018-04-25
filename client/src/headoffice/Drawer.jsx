@@ -133,6 +133,8 @@ class ResponsiveDrawer extends React.Component {
            <Divider />
             <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All Employees</Button></ListItem>
             <Divider/>
+            <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
+            <Divider />
             </MuiThemeProvider>
             </Typography>
         </List>

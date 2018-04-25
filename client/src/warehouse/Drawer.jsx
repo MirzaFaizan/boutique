@@ -159,6 +159,8 @@ class ResponsiveDrawer extends React.Component {
             <Divider />
             <ListItem><Button onClick={this.batchitemsshowHandleClick.bind(this)} >Batch Items Show</Button></ListItem>
             <Divider />
+            <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
+            <Divider />
            {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
             </MuiThemeProvider>
             </Typography>

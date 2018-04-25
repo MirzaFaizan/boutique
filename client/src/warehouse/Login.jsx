@@ -181,6 +181,10 @@ class TextFields extends React.Component {
     });
   }
 
+  logoutScreen = () => {
+    this.props.logoutScreen()
+  }
+
 
   render() {
     const { classes } = this.props;

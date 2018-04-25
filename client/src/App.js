@@ -45,21 +45,22 @@ class App extends Component {
       }
       this.updateWareHouseDisplay.bind(this);
       this.updateShopDisplay.bind(this);
-      this.updateHeadOfficeDisplay.bind(this)
+      this.updateHeadOfficeDisplay.bind(this);
+      this.logoutFunction.bind(this);
     }
   updateWareHouseDisplay = (token) => {
     console.log(token);
     //now send token to the required component
     this.setState({
       IsLoggedInWarehouse:true,
-      onDisplay:<WarehouseDrawer token={token}/>
+      onDisplay:<WarehouseDrawer token={token} logoutScreen={this.logoutFunction}/>
     })
   }
 
   updateShopDisplay = (token) => {
     this.setState({
       IsLoggedinShop:true,
-      onDisplay:<ShopDrawer token={token}/>
+      onDisplay:<ShopDrawer token={token} logoutScreen={this.logoutFunction}/>
     })
   }
 
@@ -67,11 +68,17 @@ class App extends Component {
     console.log(token)
     this.setState({
       IsLoggedInHeadoffice:true,
-      onDisplay:<HeadOfficeDrawer token={token}/>
-      
-      
+      onDisplay:<HeadOfficeDrawer token={token} logoutScreen={this.logoutFunction}/>
     })
   }
+
+  logoutFunction = () => {
+    console.log('logging out')
+    this.setState({
+      onDisplay: <Login  updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
+    })
+  }
+
   render() {
     return (
       <div className="App">
