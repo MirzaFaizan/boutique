@@ -65,6 +65,8 @@ class TextFields extends React.Component {
     cnic: '',
     type:'admin',
     t:this.props.token,
+    shopID:'',
+    isDisabledshop:true
   }
 
 
@@ -109,8 +111,25 @@ canBeSubmitted() {
 
   changeType = e => {
     this.setState({
-      type: e.target.value
+      type: e.target.value,
     });
+    if(e.target.value==='shop'){
+      this.setState({
+        isDisabledshop:false,
+      })
+    }
+    else{
+      this.setState({
+        isDisabledshop:true
+      })
+    }
+    console.log(this.state.isDisabledshop);
+  }
+
+  changeShopID = e => {
+    this.setState({
+      shopID: e.target.value
+    })
   }
 
   handleClick = () => {
@@ -122,6 +141,7 @@ canBeSubmitted() {
        'type': this.state.type,
        'password':this.state.password,
         'cnic':this.state.cnic,
+        'shopID':this.state.shopID,
         'token':this.state.t
    };
    
@@ -155,7 +175,8 @@ canBeSubmitted() {
       username:'',
       password:'',
       cnic:'',
-      type:''
+      type:'',
+      isDisabledshop:true,
     })
   }
 
@@ -200,6 +221,18 @@ canBeSubmitted() {
           value={this.state.cnic}
           placeholder="Enter CNIC"
           onChange={e => this.changecnics(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          disabled={this.state.isDisabledshop}
+          id="shopid"
+          label="Shop ID"
+          value={this.state.shopID}
+          placeholder="Enter Shop ID"
+          onChange={e => this.changeShopID(e)}
           className={classes.textField}
           margin="normal"
         />

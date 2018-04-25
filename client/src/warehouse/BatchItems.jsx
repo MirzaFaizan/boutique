@@ -15,11 +15,12 @@ import CommentIcon from '@material-ui/icons/Comment';
 
 const styles = theme => ({
     root: {
-        width: '',
+        width:'80%',
         backgroundColor: theme.palette.background.paper,
         position: 'relative',
+        marginTop:'10px',
         overflow: 'auto',
-        maxHeight: 300,
+        maxHeight: 500,
       },
       listSection: {
         backgroundColor: 'inherit',
@@ -39,7 +40,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '20%',
+    width: '35%',
   },
   menu: {
     width: 200,
@@ -127,7 +128,7 @@ class TextFields extends React.Component {
 
   changeShop = e => {
     this.setState({
-      type: e.target.value
+      shop: e.target.value
     });
   }
 
@@ -147,12 +148,13 @@ class TextFields extends React.Component {
   handleClick = () => {
     console.log(this.state);
     this.changeList();
+    console.log(this.checked);
     //api call to post data in database
     var details = {
      'name': this.state.name,
      'shop_id': this.state.shop,
      'number':this.state.id,
-     'items':{},
+     'items':this.state.checked,
      'date_sent':this.state.date,
      'token':this.state.t
  };
@@ -187,7 +189,8 @@ class TextFields extends React.Component {
       this.setState({
       name:'',
       shop:'',
-      id:''
+      id:'',
+      checked: [0],
     })
 
   }
@@ -220,7 +223,8 @@ class TextFields extends React.Component {
           margin="normal"
         />
 
-          <TextField
+         {/*
+         <TextField
           id="id"
           label="ID"
           value={this.state.id}
@@ -228,6 +232,7 @@ class TextFields extends React.Component {
           onChange={e => this.changeID(e)}
           className={classes.textField}
           margin="normal"/>
+        */} 
           
     <div className={classes.root}>
         <List>
