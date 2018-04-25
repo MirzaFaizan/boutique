@@ -63,7 +63,7 @@ class CustomizedTable extends React.Component {
  formBody = formBody.join("&");
  
  
- fetch('/admin/ShowArticles', {
+ fetch('/admin/showPackages', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -100,14 +100,12 @@ class CustomizedTable extends React.Component {
 }*/}
   return (
     <Paper className={classes.root}>
-    <Search/>
+    {/*<Search/>*/}
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Name</CustomTableCell>
-            <CustomTableCell numeric>Type</CustomTableCell>
-            <CustomTableCell numeric>Price</CustomTableCell>
-            <CustomTableCell numeric>Date</CustomTableCell>
+            {/*<CustomTableCell>Items</CustomTableCell>*/}
+            <CustomTableCell numeric>Package Number</CustomTableCell>
             <CustomTableCell numeric>ID</CustomTableCell>
           </TableRow>
         </TableHead>
@@ -117,10 +115,8 @@ class CustomizedTable extends React.Component {
                  console.log(type);
                  return (
                   <TableRow className={classes.row} key={type._id}>
-                    <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell numeric>{type.item_type}</CustomTableCell>
-                    <CustomTableCell numeric>{type.price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
+                    {/*<CustomTableCell>{type.items}</CustomTableCell>*/}
+                    <CustomTableCell numeric>{type.package_number}</CustomTableCell>
                     <CustomTableCell numeric>{type._id}</CustomTableCell>
                   </TableRow>
             );

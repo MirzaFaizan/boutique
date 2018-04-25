@@ -1,4 +1,4 @@
-var express= require('express'); 
+var express= require('express');
 var app= express();
 var bcrypt= require('bcryptjs');
 var jwt    = require('jsonwebtoken');
@@ -23,7 +23,7 @@ var article_instance=require('../models/article');
 
 exports.loginandGetToken = function(req, res)
  {
-    emp_instance.findOne(  
+    emp_instance.findOne(
         // query
         {Emp_name:req.body.name}, (err, Emp) => {
 if (err) return res.status(200).send(err)
@@ -45,11 +45,11 @@ else
     //Generate JWT Token
     this.shopID=Emp.shop_id;
     const payload = {
-        name: req.body.name 
+        name: req.body.name
       };
           var token = jwt.sign(payload, config.secret, {expiresIn: 86400 // expires in 24 hours
         });
-        
+
  //          return the information including token as JSON
         return res.json({
             success: true,
@@ -57,7 +57,7 @@ else
             token: token,
             type: Emp.Emp_type,
             shopID:Emp.shop_id
-          });     
+          });
 }
         });
 };
@@ -65,8 +65,8 @@ else
 //Function to recieve a pakage
 exports.RecievePakg= function(req,res){
     //Fetch Pakage using its pakage number
-    pakg_instance.findOne(  
-        
+    pakg_instance.findOne(
+
         // query
         {package_number:req.body.number},
         // callback function
@@ -92,7 +92,7 @@ exports.RecievePakg= function(req,res){
                         if (err)
                          return handleError(err);});
                 }
-                res.json({message:'package Recieved,items added to shop inventory'}); 
+                res.json({message:'package Recieved,items added to shop inventory'});
                }
             }
         }
@@ -129,4 +129,26 @@ exports.makesale= function(req,res){
     }
    
  res.json('Done');   
+}
+
+/////////////Show Inventory by Shop Number function
+
+exports.shopinventoryshow= function(req,res){
+
+    shop_inventory.findOne(
+
+        // query
+        {shop_id:req.body.shopID},
+        // callback function
+        (err, shop) => {
+            if (err) return res.status(200).send(err)
+            if(shop==null)
+            return res.status(200).json(message='No Article at this Shop')
+            else
+            {
+                return res.json(shop);
+                res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
+                Console.log('ShowInventory Successfully fired.')
+               }
+            });
 }

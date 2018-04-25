@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import ReactDOM from 'react-dom'
+import Search from './DropDownSelect';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -46,76 +47,82 @@ const data = [
 ];
 
 
-  {/*
-
-*/}  
-  
-
 class CustomizedTable extends React.Component {
-
-  componentDidMount() {
+  componentDidMount(){
     var details = {
-      'token':this.props.token
-  };
-  
+     'token':this.state.t
+ };
  
-  var formBody = [];
-  for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  formBody = formBody.join("&");
-  
-  
-  fetch('/admin/ShowArticles', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-    },
-    body: formBody
-  })
-  .then(res=>res.json())
-  .then(res=>{
- 
-    console.log("we are in this function");
-    if(res){
-     console.log(res);
-      console.log("After function");
-    };
-  }
-  ); }
 
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+ 
+ 
+ fetch('/admin/ShowArticles', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+   },
+   body: formBody
+ })
+ .then(res=>res.json())
+ .then(res=>{
+
+   console.log("we are in this function");
+   if(res){
+    console.log(res);
+    this.setState({
+      data:res
+    })
+     console.log("After function");
+   };
+ }
+ );
+     
+  }
   constructor(props){
     super(props);
-
-    console.log('Constructor');
+    
+    this.state = {
+      t:this.props.token,
+      data:{}
+    }
   }
   render() {
-
     const { classes } = this.props;
+{/*
+
+}*/}
   return (
     <Paper className={classes.root}>
+    <Search/>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <CustomTableCell>Name</CustomTableCell>
             <CustomTableCell numeric>Type</CustomTableCell>
             <CustomTableCell numeric>Price</CustomTableCell>
+            <CustomTableCell numeric>Date</CustomTableCell>
             <CustomTableCell numeric>ID</CustomTableCell>
-            <CustomTableCell numeric>Status</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
-            return (
-              <TableRow className={classes.row} key={n.id}>
-                <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{n.protein}</CustomTableCell>
-              </TableRow>
+          {/*data to be replaced with json pacakage from api*/}
+          {Object.values(this.state.data).map((type) => {
+                 console.log(type);
+                 return (
+                  <TableRow className={classes.row} key={type._id}>
+                    <CustomTableCell>{type.item_name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.item_type}</CustomTableCell>
+                    <CustomTableCell numeric>{type.price}</CustomTableCell>
+                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
+                    <CustomTableCell numeric>{type._id}</CustomTableCell>
+                  </TableRow>
             );
           })}
         </TableBody>
@@ -123,8 +130,9 @@ class CustomizedTable extends React.Component {
     </Paper>
   );
 }
-}
+  }
   
+
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };

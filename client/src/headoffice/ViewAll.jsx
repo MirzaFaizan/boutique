@@ -107,14 +107,29 @@ class CustomizedTable extends React.Component {
             <TableRow>
               <CustomTableCell>Name</CustomTableCell>
               <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>Price</CustomTableCell>
-              <CustomTableCell numeric>ID</CustomTableCell>
-              <CustomTableCell numeric>Status</CustomTableCell>
+              <CustomTableCell numeric>CNIC</CustomTableCell>
+              <CustomTableCell numeric>Password</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {/*data replaced with json pacakage from api*/}
-            {data.map(n => {
+            {
+               Object.values(this.state.data).map((type) => {
+                 console.log(type.Emp_cnic);
+                 console.log(type.Emp_password);
+                 console.log(type.Emp_name);
+                 console.log(type.Emp_type);
+                 return (
+                  <TableRow className={classes.row} key={type.Emp_cnic}>
+                    <CustomTableCell>{type.Emp_name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.Emp_type}</CustomTableCell>
+                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
+                    <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                  </TableRow>
+                );
+              })
+            }
+            {/* {data.map(n => {
               return (
                 <TableRow className={classes.row} key={n.id}>
                   <CustomTableCell>{n.name}</CustomTableCell>
@@ -124,7 +139,7 @@ class CustomizedTable extends React.Component {
                   <CustomTableCell numeric>{n.protein}</CustomTableCell>
                 </TableRow>
               );
-            })}
+            })} */}
           </TableBody>
         </Table>
       </Paper>

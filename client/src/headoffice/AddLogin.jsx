@@ -50,15 +50,38 @@ const dropdowntypes = [
   },
 ];
 
+function validate(username,password,cnic) {
+  return {
+    userName: username.length === 0,
+    password: password.length === 0,
+    cnic: cnic.length === 0,
+  };
+}
 class TextFields extends React.Component {
+
   state = {
     username: '',
     password: '',
     cnic: '',
     type:'admin',
     t:this.props.token,
-  };
+    shopID:'',
+    isDisabledshop:true
+  }
 
+
+handleSubmit = (evt) => {
+  if (!this.canBeSubmitted()) {
+    evt.preventDefault();
+    return;
+  }
+  const { qrId} = this.state;
+}
+canBeSubmitted() {
+  const errors = validate(this.state.username,this.state.password,this.state.cnic);
+  const isDisabled = Object.keys(errors).some(x => errors[x]);
+  return !isDisabled;
+}
   handleChange = name => event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -88,8 +111,25 @@ class TextFields extends React.Component {
 
   changeType = e => {
     this.setState({
-      type: e.target.value
+      type: e.target.value,
     });
+    if(e.target.value==='shop'){
+      this.setState({
+        isDisabledshop:false,
+      })
+    }
+    else{
+      this.setState({
+        isDisabledshop:true
+      })
+    }
+    console.log(this.state.isDisabledshop);
+  }
+
+  changeShopID = e => {
+    this.setState({
+      shopID: e.target.value
+    })
   }
 
   handleClick = () => {
@@ -101,6 +141,7 @@ class TextFields extends React.Component {
        'type': this.state.type,
        'password':this.state.password,
         'cnic':this.state.cnic,
+        'shopID':this.state.shopID,
         'token':this.state.t
    };
    
@@ -134,7 +175,8 @@ class TextFields extends React.Component {
       username:'',
       password:'',
       cnic:'',
-      type:''
+      type:'',
+      isDisabledshop:true,
     })
   }
 
@@ -142,6 +184,8 @@ class TextFields extends React.Component {
   
   render() {
     const { classes } = this.props;
+    const errors = validate(this.state.username,this.state.password,this.state.cnic);
+      const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <Card className={classes.card}>
@@ -182,6 +226,18 @@ class TextFields extends React.Component {
         />
         </CardContent>
         <CardContent>
+        <TextField
+          disabled={this.state.isDisabledshop}
+          id="shopid"
+          label="Shop ID"
+          value={this.state.shopID}
+          placeholder="Enter Shop ID"
+          onChange={e => this.changeShopID(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
           <TextField
           id="type"
           select
@@ -205,7 +261,7 @@ class TextFields extends React.Component {
           </TextField>
 </CardContent>
         <CardContent>
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
         <AddIcon/>
         </Button>
         </CardContent>

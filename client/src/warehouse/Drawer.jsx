@@ -26,6 +26,7 @@ import FullTable from './FullTable';
 import Notification from './Notifications';
 import BatchItems from './BatchItems';
 import Welcome from './Welcome';
+import BatchItemsShow from './BatchShow';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -133,6 +134,13 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("ADd item on click")
   }
+  batchitemsshowHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<BatchItemsShow token={this.state.t}/>
+    })
+    console.log("ADd item on click")
+  }
   render() {
     const { classes, theme } = this.props;
 
@@ -149,7 +157,11 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
             <Divider />
-            <ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>
+            <ListItem><Button onClick={this.batchitemsshowHandleClick.bind(this)} >Batch Items Show</Button></ListItem>
+            <Divider />
+            <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
+            <Divider />
+           {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
             </MuiThemeProvider>
             </Typography>
         </List>

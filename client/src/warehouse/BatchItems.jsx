@@ -15,11 +15,12 @@ import CommentIcon from '@material-ui/icons/Comment';
 
 const styles = theme => ({
     root: {
-        width: '',
+        width:'80%',
         backgroundColor: theme.palette.background.paper,
         position: 'relative',
+        marginTop:'10px',
         overflow: 'auto',
-        maxHeight: 300,
+        maxHeight: 500,
       },
       listSection: {
         backgroundColor: 'inherit',
@@ -39,7 +40,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '20%',
+    width: '30%',
   },
   menu: {
     width: 200,
@@ -48,12 +49,53 @@ const styles = theme => ({
 
 
 class TextFields extends React.Component {
+  componentDidMount(){
+    var details = {
+     'token':this.state.t,
+ };
+ 
+
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+ 
+ 
+ fetch('/admin/ShowArticles', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+   },
+   body: formBody
+ })
+ .then(res=>res.json())
+ .then(res=>{
+
+   console.log("we are in this function");
+   if(res){
+    console.log(res);
+    this.setState({
+      data:res
+    })
+     console.log("After function");
+   };
+ }
+ );
+     
+  }
+
   state = {
     name: '',
     id: '',
     t:this.props.token,
+    data:{},
     checked: [0],
     list:{},
+    shop:'',
+    package_number:'',
     date: new Date(),
   };
   handleToggle = value => () => {
@@ -69,6 +111,7 @@ class TextFields extends React.Component {
 
     this.setState({
       checked: newChecked,
+      list:this.state.checked
     });
   };
 
@@ -88,7 +131,7 @@ class TextFields extends React.Component {
 
   changeShop = e => {
     this.setState({
-      type: e.target.value
+      shop: e.target.value
     });
   }
 
@@ -96,6 +139,12 @@ class TextFields extends React.Component {
   changeID = e => {
     this.setState({
       id: e.target.value,
+    });
+  }
+
+  changePackagenumber = e => {
+    this.setState({
+      package_number: e.target.value,
     });
   }
 
@@ -108,12 +157,13 @@ class TextFields extends React.Component {
   handleClick = () => {
     console.log(this.state);
     this.changeList();
+    console.log(this.state.checked);
     //api call to post data in database
     var details = {
      'name': this.state.name,
      'shop_id': this.state.shop,
-     'number':this.state.id,
-     'items':{},
+     'number':this.state.package_number,
+     'items':this.state.checked,
      'date_sent':this.state.date,
      'token':this.state.t
  };
@@ -148,7 +198,8 @@ class TextFields extends React.Component {
       this.setState({
       name:'',
       shop:'',
-      id:''
+      id:'',
+      checked: [0],
     })
 
   }
@@ -175,13 +226,23 @@ class TextFields extends React.Component {
           id="shop"
           label="Shop"
           value={this.state.shop}
-          placeholder="Enter Shop Name"
+          placeholder="Enter Shop ID"
           onChange={e => this.changeShop(e)}
           className={classes.textField}
           margin="normal"
         />
+            <TextField
+          id="pckgnumberr"
+          label="Package Number"
+          value={this.state.package_number}
+          placeholder="Enter Package Number"
+          onChange={e => this.changePackagenumber(e)}
+          className={classes.textField}
+          margin="normal"
+        />
 
-          <TextField
+         {/*
+         <TextField
           id="id"
           label="ID"
           value={this.state.id}
@@ -189,29 +250,30 @@ class TextFields extends React.Component {
           onChange={e => this.changeID(e)}
           className={classes.textField}
           margin="normal"/>
+        */} 
+        
           
     <div className={classes.root}>
         <List>
           {/*0,1,2,3 to be replaced with json pacakage
           key = value, value can be replaced with id of items*/}
-          {[0, 1, 2, 3].map(value => (
+          {Object.values(this.state.data).map(type => (
             <ListItem
-              key={value}
+              key={type._id}
               role={undefined}
               dense
               button
-              onClick={this.handleToggle(value)}
+              onClick={this.handleToggle(type._id)}
               className={classes.listItem}
             >
               <Checkbox
-                checked={this.state.checked.indexOf(value) !== -1}
+                checked={this.state.checked.indexOf(type._id) !== -1}
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={`Line item ${value + 1}`} />
+              <ListItemText primary={type.item_name} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
-                  <CommentIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
