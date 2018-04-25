@@ -40,7 +40,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '35%',
+    width: '30%',
   },
   menu: {
     width: 200,
@@ -51,7 +51,7 @@ const styles = theme => ({
 class TextFields extends React.Component {
   componentDidMount(){
     var details = {
-     'token':this.state.t
+     'token':this.state.t,
  };
  
 
@@ -94,6 +94,8 @@ class TextFields extends React.Component {
     data:{},
     checked: [0],
     list:{},
+    shop:'',
+    package_number:'',
     date: new Date(),
   };
   handleToggle = value => () => {
@@ -109,6 +111,7 @@ class TextFields extends React.Component {
 
     this.setState({
       checked: newChecked,
+      list:this.state.checked
     });
   };
 
@@ -139,6 +142,12 @@ class TextFields extends React.Component {
     });
   }
 
+  changePackagenumber = e => {
+    this.setState({
+      package_number: e.target.value,
+    });
+  }
+
   changeList = e => {
     this.setState({
       //list object = json pacakage from api
@@ -148,12 +157,12 @@ class TextFields extends React.Component {
   handleClick = () => {
     console.log(this.state);
     this.changeList();
-    console.log(this.checked);
+    console.log(this.state.checked);
     //api call to post data in database
     var details = {
      'name': this.state.name,
      'shop_id': this.state.shop,
-     'number':this.state.id,
+     'number':this.state.package_number,
      'items':this.state.checked,
      'date_sent':this.state.date,
      'token':this.state.t
@@ -217,8 +226,17 @@ class TextFields extends React.Component {
           id="shop"
           label="Shop"
           value={this.state.shop}
-          placeholder="Enter Shop Name"
+          placeholder="Enter Shop ID"
           onChange={e => this.changeShop(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+            <TextField
+          id="pckgnumberr"
+          label="Package Number"
+          value={this.state.package_number}
+          placeholder="Enter Package Number"
+          onChange={e => this.changePackagenumber(e)}
           className={classes.textField}
           margin="normal"
         />
@@ -233,6 +251,7 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"/>
         */} 
+        
           
     <div className={classes.root}>
         <List>
