@@ -1,4 +1,4 @@
-var express= require('express'); 
+var express= require('express');
 var app= express();
 var bcrypt= require('bcryptjs');
 var jwt    = require('jsonwebtoken');
@@ -17,11 +17,12 @@ var db = mongoose.connection;
 var shop_inventory = require('../models/shopinventory');
 var emp_instance= require('../models/employee');
 var pakg_instance= require('../models/package');
+
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
  {
-    emp_instance.findOne(  
+    emp_instance.findOne(
         // query
         {Emp_name:req.body.name}, (err, Emp) => {
 if (err) return res.status(200).send(err)
@@ -43,11 +44,11 @@ else
     //Generate JWT Token
     this.shopID=Emp.shop_id;
     const payload = {
-        name: req.body.name 
+        name: req.body.name
       };
           var token = jwt.sign(payload, config.secret, {expiresIn: 86400 // expires in 24 hours
         });
-        
+
  //          return the information including token as JSON
         return res.json({
             success: true,
@@ -55,15 +56,15 @@ else
             token: token,
             type: Emp.Emp_type,
             shopID:Emp.shop_id
-          });     
+          });
 }
         });
 };
 //Function to recieve a pakage
 exports.RecievePakg= function(req,res){
     //Fetch Pakage using its pakage number
-    pakg_instance.findOne(  
-        
+    pakg_instance.findOne(
+
         // query
         {package_number:req.body.number},
         // callback function
@@ -89,7 +90,7 @@ exports.RecievePakg= function(req,res){
                         if (err)
                          return handleError(err);});
                 }
-                res.json({message:'package Recieved,items added to shop inventory'}); 
+                res.json({message:'package Recieved,items added to shop inventory'});
                }
             }
         }
@@ -98,4 +99,34 @@ exports.RecievePakg= function(req,res){
     //Get Shop Id
     //Get Array Objects of Package Article Array
     //Insert articleid, shop id,article quantity as single object in shopinventory collection
+}
+
+
+/////////////Show Inventory by Shop Number function
+
+exports.shopinventoryshow= function(req,res){
+
+    shop_inventory.findOne(
+
+        // query
+        {shop_id:req.body.number},
+        // callback function
+        (err, shop_inventory) => {
+            if (err) return res.status(200).send(err)
+            if(shop_inventory==null)
+            return res.status(200).json(message='No Matching Shop Id')
+            else
+            {
+                if(shop_inventory.shop_id != req.body.shopID)
+                {
+                    res.json({message:'Mismatch Id '});
+                }
+               else{
+                return res.json(shop_inventory);
+                res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
+                Console.log('ShowInventory Successfully fired.')
+               }
+            }
+        }
+    );
 }
