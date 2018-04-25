@@ -4,11 +4,13 @@ var Schema = mongoose.Schema;
 
 var SaleSchema = new Schema(
   {
-    products:[{article_id: {type: String, required: true, max: 100},
-    article_name: {type: String, required: true, max: 100},
-    price: {type: String,  max: 100}}],
+    products:[{item_id: {type: String, required: true, max: 100},
+    item_name: {type: String, required: true, max: 100},
+    price: {type: Number,}}],
+
     date_sale: {type: Date},
     shop: {type: String,  max: 100},
+    total: {type:Number},
   }
 );
 
