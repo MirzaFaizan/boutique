@@ -142,13 +142,8 @@ exports.shopinventoryshow= function(req,res){
         // callback function
         (err, shop) => {
             if (err) return res.status(200).send(err)
-<<<<<<< HEAD
-            if(shop_inventory==null )
-            return res.status(200).json(message='No Matching Shop Id')
-=======
             if(shop==null)
             return res.status(200).json(message='No Article at this Shop')
->>>>>>> 1165d2189f13536fb0aa4dac91464be641bf05eb
             else
             {
                 return res.json(shop);

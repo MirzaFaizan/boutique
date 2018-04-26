@@ -53,7 +53,7 @@ class  CustomizedTable extends React.Component {
     
     var details = {
       'token':this.state.t,
-      'number':this.state.shop
+      'shopID':this.state.shop
   };
   console.log(details);
     var formBody = [];
@@ -100,7 +100,7 @@ class  CustomizedTable extends React.Component {
 
     var details = {
       'token':this.state.t,
-      'number':this.state.shop
+      'shopID':this.state.shop
   };
 };
   render()
