@@ -100,11 +100,11 @@ class CustomizedTable extends React.Component {
 }*/}
   return (
     <Paper className={classes.root}>
-    <Search/>
+    {/*<Search/>*/}
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Items</CustomTableCell>
+            {/*<CustomTableCell>Items</CustomTableCell>*/}
             <CustomTableCell numeric>Package Number</CustomTableCell>
             <CustomTableCell numeric>ID</CustomTableCell>
           </TableRow>
@@ -115,7 +115,7 @@ class CustomizedTable extends React.Component {
                  console.log(type);
                  return (
                   <TableRow className={classes.row} key={type._id}>
-                    <CustomTableCell>{type.items}</CustomTableCell>
+                    {/*<CustomTableCell>{type.items}</CustomTableCell>*/}
                     <CustomTableCell numeric>{type.package_number}</CustomTableCell>
                     <CustomTableCell numeric>{type._id}</CustomTableCell>
                   </TableRow>

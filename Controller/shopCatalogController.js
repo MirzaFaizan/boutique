@@ -17,7 +17,8 @@ var db = mongoose.connection;
 var shop_inventory = require('../models/shopinventory');
 var emp_instance= require('../models/employee');
 var pakg_instance= require('../models/package');
-
+var sales_instance= require('../models/sales');
+var article_instance=require('../models/article');  
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -60,6 +61,7 @@ else
 }
         });
 };
+
 //Function to recieve a pakage
 exports.RecievePakg= function(req,res){
     //Fetch Pakage using its pakage number
@@ -95,12 +97,39 @@ exports.RecievePakg= function(req,res){
             }
         }
     );
-    //Get package Number
-    //Get Shop Id
-    //Get Array Objects of Package Article Array
-    //Insert articleid, shop id,article quantity as single object in shopinventory collection
 }
 
+//Function to make new Sale
+exports.makesale= function(req,res){
+    var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,shop:req.body.shopID});  
+    //fetch details of all products from articles collection
+    for(var i=0; i<req.body.products.length; i++)
+    {
+       article_instance.findOne(     
+        // query
+        {item_id:req.body.products[i]},
+        {item_id:true,item_name: true,price: true},function(err,article){
+            if (err) return res.status(200).send(err)
+            else{
+             salesmodel.products.push(article);
+             salesmodel.total=salesmodel.total+article.price;
+            }
+            if(i=req.body.products.length)
+            {
+                    salesmodel.save(function(){
+                    console.log(salesmodel);});
+    //Delete all items from Articles collection
+        article_instance.deleteMany(req.body.products.item_id,function(err){
+        if(err)return handleError(err);})
+    //Delete all items from shopInventory collection
+        shop_inventory.deleteMany(req.body.products.item_id,function(err){
+        if(err)return handleError(err); })
+            }
+ });
+    }
+   
+ res.json('Done');   
+}
 
 /////////////Show Inventory by Shop Number function
 
@@ -109,24 +138,22 @@ exports.shopinventoryshow= function(req,res){
     shop_inventory.findOne(
 
         // query
-        {shop_id:req.body.number},
+        {shop_id:req.body.shopID},
         // callback function
-        (err, shop_inventory) => {
+        (err, shop) => {
             if (err) return res.status(200).send(err)
+<<<<<<< HEAD
             if(shop_inventory==null )
             return res.status(200).json(message='No Matching Shop Id')
+=======
+            if(shop==null)
+            return res.status(200).json(message='No Article at this Shop')
+>>>>>>> 1165d2189f13536fb0aa4dac91464be641bf05eb
             else
             {
-                if(shop_inventory.shop_id != req.body.shopID)
-                {
-                    res.json({message:'Mismatch Id '});
-                }
-               else{
-                return res.json(shop_inventory);
+                return res.json(shop);
                 res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
                 Console.log('ShowInventory Successfully fired.')
                }
-            }
-        }
-    );
+            });
 }

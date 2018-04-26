@@ -67,7 +67,7 @@ exports.CreatenewArticle= function(req, res)
           message: "Article id can not be empty"
       });
   }
-    var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type , price:req.body.price, 
+    var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,price:req.body.price, 
         date_added: req.body.date, item_id:req.body.id });
     articlemodel.save(function (err) {
         if (err)
