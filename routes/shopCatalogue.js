@@ -7,6 +7,5 @@ var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 router.post('/recievepkg',Controller.RecievePakg);
 router.post('/Sale',Controller.makesale);
-router.post('/recievepkg',Controller.RecievePakg)
 router.post('/shopinventory',Controller.shopinventoryshow)
 module.exports = router;
