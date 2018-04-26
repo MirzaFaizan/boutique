@@ -18,6 +18,7 @@ import StockTable from './StockTable';
 import RecieveBox from './RecieveBox';
 import ViewEmployees from './ViewEmployessTable';
 import createBrowserHistory from 'history/createBrowserHistory';
+import Welcome from './welcome';
 
 
 import { 
@@ -89,7 +90,8 @@ const theme2 = createMuiTheme({
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
-    OnDisplay: <NewSale/>,
+    t:this.props.token,
+      OnDisplay: <Welcome />,
     title : "New Sale"
   };
 
@@ -100,7 +102,7 @@ class ResponsiveDrawer extends React.Component {
  NewSaleHandleClick = () => {
 
     this.setState({
-        OnDisplay:<NewSale/>,
+        OnDisplay:<NewSale token={this.state.t}/>,
         title:"New Sale "
     }
   )
@@ -110,7 +112,7 @@ class ResponsiveDrawer extends React.Component {
   RecieveItemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<RecieveBox/>,
+        OnDisplay:<RecieveBox token={this.state.t}/>,
         title:"Recieve"
     })
     console.log("Recieve Box ")
@@ -119,7 +121,7 @@ class ResponsiveDrawer extends React.Component {
   StockHandleClick = () => {
 
     this.setState({
-        OnDisplay:<StockTable/>,
+        OnDisplay:<StockTable token={this.state.t}/>,
         title:"Stock"
     })
     console.log("ADd item on click")
@@ -127,7 +129,7 @@ class ResponsiveDrawer extends React.Component {
   ViewEmployessHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees/>,
+        OnDisplay:<ViewEmployees token={this.state.t}/>,
         title:"Employees"
     })
     console.log("ADd item on click")
@@ -151,7 +153,7 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button variant="raised" color="primary" onClick={this.StockHandleClick.bind(this)} >Stock</Button></ListItem>
             <Divider />
            
-            <ListItem><Button variant="raised" color="primary">Log Out </Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.props.logoutScreen}>Log Out </Button></ListItem>
             <Divider/>
             
             {/*<ListItem>Queue Details</ListItem>*/}

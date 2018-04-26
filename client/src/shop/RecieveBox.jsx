@@ -26,12 +26,19 @@ function validate(qrId) {
     qrId: qrId.length === 0,
   };
 }
+
 class TextFields extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
   this.state = {
-    qrId:''
-  }}
+    qrId:'',
+    t:this.props.token,
+    shop:'f10'
+  }
+  var details = {
+    'token':this.state.t
+  }
+}
   handleQrChange = (evt) => {
     this.setState({ qrId: evt.target.value });
   }
@@ -46,6 +53,45 @@ class TextFields extends React.Component {
     const errors = validate(this.state.qrId);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
+  }
+  handleRecieve = () =>
+  {
+    console.log(this.state);
+    var details = {
+      'token':this.state.t,
+      'number' : this.state.qrId,
+      'shop_id' : this.state.shop
+  };
+  console.log(details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    
+    fetch('/shop/recievepkg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+      },
+      body: formBody
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      console.log("we are in this function");
+      console.log(this.state.t);
+      if(res){
+       console.log(res);
+       this.setState({
+         data:res
+       })
+        console.log("After function");
+        console.log(this.state.t);
+      };
+    }
+    );
   }
   render() {
     const errors = validate(this.state.qrId);
@@ -63,7 +109,7 @@ class TextFields extends React.Component {
           value={this.state.qrId}
             onChange={this.handleQrChange}
         />
-        <Button color="primary" variant="raised" className={classes.button} disabled={isDisabled}>
+        <Button color="primary" variant="raised" className={classes.button} disabled={isDisabled} onClick={this.handleRecieve}>
         Recieve
       </Button>
       </form>

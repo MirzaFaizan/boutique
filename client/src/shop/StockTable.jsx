@@ -48,9 +48,64 @@ const data = [
  
 ];
 
-function CustomizedTable(props) {
-  const { classes } = props;
-  
+class  CustomizedTable extends React.Component {
+  componentDidMount(){
+    
+    var details = {
+      'token':this.state.t,
+      'number':this.state.shop
+  };
+  console.log(details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    
+    fetch('/shop/shopinventory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+      },
+      body: formBody
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      console.log("we are in this function");
+      console.log(this.state.t);
+      if(res){
+       console.log(res);
+       this.setState({
+         data:res
+       })
+        console.log("After function");
+        console.log(this.state.t);
+      };
+    }
+    );
+
+  };
+
+  constructor(props){
+    super(props)
+    this.state={
+      data:{},
+      t:this.props.token,
+      shop:'f10'
+    }
+    console.log('Constructor');
+    console.log(this.state.t);
+
+    var details = {
+      'token':this.state.t,
+      'number':this.state.shop
+  };
+};
+  render()
+  {
+    const { classes } = this.props;  
 
   return (
     <Paper className={classes.root}>
@@ -66,21 +121,26 @@ function CustomizedTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
-            return (
-              <TableRow className={classes.row} key={n.id}>
-                <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell numeric>{n.sr}</CustomTableCell>
-                <CustomTableCell numeric>{n.qty}</CustomTableCell>
-                <CustomTableCell numeric>{n.price}</CustomTableCell>
-                
-              </TableRow>
-            );
-          })}
+          {/*data replaced with json pacakage from api*/}
+          {
+               Object.values(this.state.data).map((type,i) => {
+                 console.log(type.item_id);
+                 
+                 return (
+                  <TableRow className={classes.row} key={type.Emp_cnic} key={i}>
+                    <CustomTableCell></CustomTableCell>
+                    <CustomTableCell numeric></CustomTableCell>
+                    <CustomTableCell numeric></CustomTableCell>
+                    <CustomTableCell numeric></CustomTableCell>
+                  </TableRow>
+                );
+              })
+            }
         </TableBody>
       </Table>
     </Paper>
   );
+}
 }
 
 CustomizedTable.propTypes = {

@@ -12,6 +12,8 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemIcon, ListItemText,ListItemSecondaryAction } from 'material-ui/List';
+import 'react-select/dist/react-select.css';
+import Select from 'react-select';
 
 
 
@@ -40,6 +42,14 @@ const styles = theme => ({
   table: {
     width: '100%',
   },
+  select:{
+    width:'100%',
+  },
+  prntBtn:{
+    width:'100%',
+    marginTop:theme.spacing.unit *2,
+    height:'60px'
+  }
 });
 
 var data = [
@@ -50,32 +60,40 @@ var data = [
 
 class TextFields extends React.Component {
   state = {
-    name:'',
-    sr: [1,2,3,4,5],
-    
-    
-    
+    sr: [1,2,3],
+    data:{name:'Item Name',price:5500},
+    t:this.props.token,
   };
-  
 
+  handleChangeSelected = (selectedOption) => {
+    this.setState({ selectedOption });
+    
+    
+  }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
-
-
-
  addRow = () =>
  {
-   console.log("kjsdjkdsf");
-   this.setState({ sr: [...this.state.sr, 56] });
-    
- }
-  
-  render() {
-    const { classes } = this.props;
+   console.log("Added Item in Table ");
+   this.setState(
+     { sr: [...this.state.sr, 56] },
 
+  );
+ }
+  render() {
+    const { selectedOption } = this.state;
+    const value = selectedOption && selectedOption.value;
+    const { classes } = this.props;
+    const data = 
+    [
+      {value : 'White Shirt' , label : 'White Shirt'},
+      {value : 'Pant' , label : 'Pant'},
+      {value : 'Laal Lehnga' , label : 'Laal Lehnga'},
+      
+    ];
     return (
       <div className={classes.root}>
       <Grid container spacing={24}>
@@ -84,17 +102,26 @@ class TextFields extends React.Component {
           <Paper className={classes.paper}>
           
       <form className={classes.container} noValidate autoComplete="off"> 
-       <TextField
+       {/*<TextField
           id="name"
           label="Search Item "
           placeholder="Enter Item Name "
           className={classes.textField}
           margin="normal"
           fullWidth
-        />   
+       /> */} 
+        <Select
+          name="form-field-name"
+          value={value}
+          onChange={this.addRow.bind(this)}
+          options={data}
+          className={classes.select}
+          /> 
+          <h2>Total : 4500</h2>
+          <Button variant="raised" color="primary" className={classes.prntBtn}  >Checkout</Button>
       </form>
       
-      <List component="nav">
+      {/*<List component="nav">
         <ListItem>
           <ListItemText primary="Item Name " />
 
@@ -114,7 +141,7 @@ class TextFields extends React.Component {
                       </IconButton>
                     </ListItemSecondaryAction>
         </ListItem>
-      </List>
+      </List>*/}
 
 
       </Paper>

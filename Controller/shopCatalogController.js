@@ -113,7 +113,7 @@ exports.shopinventoryshow= function(req,res){
         // callback function
         (err, shop_inventory) => {
             if (err) return res.status(200).send(err)
-            if(shop_inventory==null)
+            if(shop_inventory==null )
             return res.status(200).json(message='No Matching Shop Id')
             else
             {
