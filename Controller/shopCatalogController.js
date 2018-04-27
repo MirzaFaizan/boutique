@@ -118,7 +118,7 @@ exports.makesale= function(req,res){
         // query
         {item_id:req.body.products[i]},
         {item_id:true,item_name: true,price: true},function(err,article){
-            if (err) return res.status(200).send(err)
+            if (err) return re.json(err);
             else{
              salesmodel.products.push(article);
              salesmodel.total=salesmodel.total+article.price;
@@ -129,10 +129,10 @@ exports.makesale= function(req,res){
                     console.log(salesmodel);});
     //Delete all items from Articles collection
         article_instance.deleteMany(req.body.products.item_id,function(err){
-        if(err)return handleError(err);})
+        if(err)return res.json(err);})
     //Delete all items from shopInventory collection
         shop_inventory.deleteMany(req.body.products.item_id,function(err){
-        if(err)return handleError(err); })
+        if(err)return res.json(err); })
             }
  });
     }
@@ -143,21 +143,19 @@ exports.makesale= function(req,res){
 /////////////Show Inventory by Shop Number function
 
 exports.shopinventoryshow= function(req,res){
-
+    console.log(req.body.shopID);
     shop_inventory.findOne(
-
         // query
         {shop_id:req.body.shopID},
         // callback function
         (err, shop) => {
-            if (err) return res.status(200).send(err)
+            if (err) return res.json(err)
             if(shop==null)
-            return res.status(200).json(message='No Article at this Shop')
+            return res.json(message='No Article at this Shop')
             else
             {
-                return res.json(shop);
+                return res.json({shop});
                 res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
-                Console.log('ShowInventory Successfully fired.')
                }
             });
 }
