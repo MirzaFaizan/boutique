@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var SaleSchema = new Schema(
   {
-    products:[{item_id: {type: String, required: true, max: 100},
+    products:[{item_id: {type: Number, max: 100},
     item_name: {type: String, required: true, max: 100},
     price: {type: Number,}}],
 

@@ -61,12 +61,6 @@ else
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
-    // Validate request
-    if(!req.body.id) {
-      return res.status(400).send({
-          message: "Article id can not be empty"
-      });
-  }
     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,price:req.body.price, 
         date_added: req.body.date, item_id:req.body.id });
     articlemodel.save(function (err) {
@@ -143,11 +137,11 @@ exports.CreatePakage= function(req, res)
  {
      // Validate request
     if(!req.body.items | !req.body.number) {
-        return res.status(400).send({
+        return res.send({
             message: "Pakage content can not be empty"});
     }
-    var pakg = new pakg_instance({  package_number:req.body.number,items:req.body.items,shop_id:req.body.shop,
-        date_sent: req.body.date,status: req.body.status});
+    var pakg = new pakg_instance({package_number:req.body.number,items:req.body.items,shop_id:req.body.shop,
+        date_sent: req.body.date, status:'delivered'});
        pakg.save(function (err) {
         if (err)
          return handleError(err);

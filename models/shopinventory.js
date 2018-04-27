@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 
 var ShopInventorySchema = new Schema(
   {
-    item_id: {type: String,  max: 100},
-    shop_id: {type: String, required: true, max: 100},
+    item_id: {type:Number},
+    shop_id: {type: String, max: 100},
   }
 
 );

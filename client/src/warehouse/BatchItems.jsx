@@ -259,15 +259,15 @@ class TextFields extends React.Component {
           key = value, value can be replaced with id of items*/}
           {Object.values(this.state.data).map(type => (
             <ListItem
-              key={type._id}
+              key={type.item_id}
               role={undefined}
               dense
               button
-              onClick={this.handleToggle(type._id)}
+              onClick={this.handleToggle(type.item_id)}
               className={classes.listItem}
             >
               <Checkbox
-                checked={this.state.checked.indexOf(type._id) !== -1}
+                checked={this.state.checked.indexOf(type.item_id) !== -1}
                 tabIndex={-1}
                 disableRipple
               />
