@@ -161,10 +161,10 @@ class TextFields extends React.Component {
     //api call to post data in database
     var details = {
      'name': this.state.name,
-     'shop_id': this.state.shop,
+     'shop': this.state.shop,
      'number':this.state.package_number,
      'items':this.state.checked,
-     'date_sent':this.state.date,
+     'date':this.state.date,
      'token':this.state.t
  };
  
