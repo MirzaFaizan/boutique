@@ -8,7 +8,7 @@ var PackageSchema = new Schema(
     items: [{type: Number, }],
     shop_id: {type: String,  max: 100},
     date_sent: {type: Date},
-    status: {type: String,  max: 100},
+    status: {type: String,  max: 100, default:'delivered'},
   }
 );
 

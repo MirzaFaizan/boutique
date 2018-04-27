@@ -1,6 +1,5 @@
 var express= require('express');
 var app= express();
-var bcrypt= require('bcryptjs');
 var jwt    = require('jsonwebtoken');
 
 ///Connect to DataBasae
@@ -64,30 +63,40 @@ else
 
 //Function to recieve a pakage
 exports.RecievePakg= function(req,res){
+     
+    console.log(req.body.number);
+    console.log(req.body.shop_id);
+
+    
+    console.log(typeof(req.body.number));
+    console.log(typeof(req.body.shop_id));
     //Fetch Pakage using its pakage number
     pakg_instance.findOne(
-
         // query
         {package_number:req.body.number},
         // callback function
         (err, package) => {
-            if (err) return res.status(200).send(err)
+            if (err) return res.json(err)
             if(package==null)
-            return res.status(200).json(message='No Package With this number')
+            return res.json(message='No Package With this number')
             else
             {
-                if(package.shop_id != req.body.shopID)
+                if(package.shop_id != req.body.shop_id)
                 {
                     res.json({message:'This pakckage is not for this shop '});
                 }
+               else if(package.status != 'delivered')
+               {
+                res.json({message:'This pakckage has already been recieved!!! '});
+               }
                else{
-                package.status='Recived at shop  ' +(req.body.shopID);
+                package.status='Recived at shop  ' +(req.body.shop_id);
                 //var len= package.items.length();
                 package.save();
                 //Save pakage items in ShopInventory
                 for(var i=0; i<package.items.length; i++)
                 {
-                    shopInventory= new shop_inventory({item_id:package.items[i],shop_id:req.body.shopID});
+                    shopInventory= new shop_inventory({item_id:package.items[i],shop_id:req.body.shop_id});
                        shopInventory.save(function (err) {
                         if (err)
                          return handleError(err);});

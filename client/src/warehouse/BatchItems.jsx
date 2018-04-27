@@ -92,7 +92,7 @@ class TextFields extends React.Component {
     id: '',
     t:this.props.token,
     data:{},
-    checked: [0],
+    checked: [],
     list:{},
     shop:'',
     package_number:'',
@@ -199,7 +199,7 @@ class TextFields extends React.Component {
       name:'',
       shop:'',
       id:'',
-      checked: [0],
+      checked: [],
     })
 
   }
