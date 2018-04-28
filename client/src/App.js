@@ -4,7 +4,13 @@ import ShopDrawer from './shop/Drawer';
 import WarehouseDrawer from './warehouse/Drawer';
 import HeadOfficeDrawer from './headoffice/Drawer';
 import Login  from './warehouse/Login';
-
+import Button from 'material-ui/Button';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 class App extends Component {
 
@@ -41,13 +47,26 @@ class App extends Component {
           IsLoggedInHeadoffice:false,
           IsLoggedinShop:false,
         */
-        onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
+       open:false,
+        onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay} handleOpen={this.handleClickOpen}/>
       }
       this.updateWareHouseDisplay.bind(this);
       this.updateShopDisplay.bind(this);
       this.updateHeadOfficeDisplay.bind(this);
       this.logoutFunction.bind(this);
+      this.handleClickOpen.bind(this);
+      this.handleClose.bind(this);
     }
+
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+  
+    handleClose = () => {
+      this.setState({ open: false });
+    };
+
+  
   updateWareHouseDisplay = (token) => {
     console.log(token);
     //now send token to the required component
@@ -75,7 +94,7 @@ class App extends Component {
   logoutFunction = () => {
     console.log('logging out')
     this.setState({
-      onDisplay: <Login  updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
+      onDisplay: <Login  updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}  handleOpen={this.handleClickOpen}/>
     })
   }
 
@@ -83,6 +102,24 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.onDisplay}
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Invalid Username or Password
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
