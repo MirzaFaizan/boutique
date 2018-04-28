@@ -91,21 +91,29 @@ exports.RecievePakg= function(req,res){
                }
                else{
                 package.status='Recived at shop  ' +(req.body.shop_id);
-                //var len= package.items.length();
+            
                 package.save();
                 //Save pakage items in ShopInventory
                 for(var i=0; i<package.items.length; i++)
                 {
-                    shopInventory= new shop_inventory({item_id:package.items[i],shop_id:req.body.shop_id});
+                       
+                       article_instance.findOne(
+                           {item_id:package.items[i]},
+                           {item_id:true,item_name:true,price:true},
+                        // callback function
+                        (err, art) => {
+                            if (err) return res.json(err)
+                       shopInventory= new shop_inventory({item_id:art.item_id,item_name:art.item_name,
+                        price:art.price,shop_id:req.body.shop_id}); 
                        shopInventory.save(function (err) {
                         if (err)
-                         return handleError(err);});
-                }
-                res.json({message:'package Recieved,items added to shop inventory'});
-               }
+                         return res.json(err);});
+                });
+            }
+                res.json({message:'package Recieved,items added to shop inventory'});  
             }
         }
-    );
+        });
 }
 
 //Function to make new Sale
