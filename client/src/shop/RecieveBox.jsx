@@ -33,7 +33,7 @@ class TextFields extends React.Component {
   this.state = {
     qrId:'',
     t:this.props.token,
-    shop:'f10'
+    shop:this.props.shop,
   }
   var details = {
     'token':this.state.t
@@ -70,7 +70,6 @@ class TextFields extends React.Component {
       formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
-    
     fetch('/shop/recievepkg', {
       method: 'POST',
       headers: {

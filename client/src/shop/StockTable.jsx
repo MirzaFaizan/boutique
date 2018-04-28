@@ -73,19 +73,15 @@ class  CustomizedTable extends React.Component {
     })
     .then(res=>res.json())
     .then(res=>{
-      console.log("we are in this function");
-      console.log(this.state.t);
       if(res){
-       console.log(res);
        this.setState({
          data:res
        })
-        console.log("After function");
-        console.log(this.state.t);
+        console.log("Response : ");
+        console.log(res);
       };
     }
     );
-
   };
 
   constructor(props){
@@ -109,13 +105,12 @@ class  CustomizedTable extends React.Component {
 
   return (
     <Paper className={classes.root}>
-    <Select/>
+    {/*<Select/>*/}
       <Table className={classes.table}>
         <TableHead>
         <TableRow>
             <CustomTableCell>Item Name</CustomTableCell>
             <CustomTableCell numeric>ID #</CustomTableCell>
-            <CustomTableCell numeric>QTY</CustomTableCell>
             <CustomTableCell numeric>Price (Rs)</CustomTableCell>
             
           </TableRow>
@@ -124,14 +119,13 @@ class  CustomizedTable extends React.Component {
           {/*data replaced with json pacakage from api*/}
           {
                Object.values(this.state.data).map((type,i) => {
-                 console.log(type.item_id);
+                console.log(type)
                  
                  return (
-                  <TableRow className={classes.row} key={type.Emp_cnic} key={i}>
-                    <CustomTableCell></CustomTableCell>
-                    <CustomTableCell numeric></CustomTableCell>
-                    <CustomTableCell numeric></CustomTableCell>
-                    <CustomTableCell numeric></CustomTableCell>
+                  <TableRow className={classes.row}  key={i}>
+                    <CustomTableCell>{type.item_name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.item_id}</CustomTableCell>
+                    <CustomTableCell numeric>{type.price}</CustomTableCell>
                   </TableRow>
                 );
               })

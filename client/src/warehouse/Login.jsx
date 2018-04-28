@@ -145,7 +145,7 @@ class TextFields extends React.Component {
      }
      else if(res.type=='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
       console.log('Shop Login Successful');
-      {this.props.updateShop(res.token)}
+      {this.props.updateShop(res.token,res.shopID)}
      }
      else{
        this.props.handleOpen();

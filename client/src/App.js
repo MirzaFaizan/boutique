@@ -76,10 +76,10 @@ class App extends Component {
     })
   }
 
-  updateShopDisplay = (token) => {
+  updateShopDisplay = (token,shopID) => {
     this.setState({
       IsLoggedinShop:true,
-      onDisplay:<ShopDrawer token={token} logoutScreen={this.logoutFunction}/>
+      onDisplay:<ShopDrawer token={token} shop={shopID} logoutScreen={this.logoutFunction}/>
     })
   }
 

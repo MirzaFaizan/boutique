@@ -119,7 +119,7 @@ class ResponsiveDrawer extends React.Component {
   RecieveItemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<RecieveBox token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
+        OnDisplay:<RecieveBox token={this.state.t} shop={this.props.shop} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
         title:"Recieve"
     })
     console.log("Recieve Box ")
