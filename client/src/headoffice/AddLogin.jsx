@@ -166,8 +166,13 @@ canBeSubmitted() {
      console.log("we are in this function");
      if(res){
       console.log(res);
+      this.props.handleopen();
        console.log("After function");
-     };
+     }
+     else {
+       this.props.handleError();
+     }
+     ;
    }
    );
       //form saaf kia hai 

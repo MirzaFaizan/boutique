@@ -87,9 +87,14 @@ class TextFields extends React.Component {
        this.setState({
          data:res
        })
+       this.props.handleopen();
         console.log("After function");
         console.log(this.state.t);
-      };
+      }
+      else{
+        this.props.handleError();
+      }
+      ;
     }
     );
   }

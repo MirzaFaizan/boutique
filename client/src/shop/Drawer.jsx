@@ -19,7 +19,12 @@ import RecieveBox from './RecieveBox';
 import ViewEmployees from './ViewEmployessTable';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Welcome from './welcome';
-
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 import { 
     Router,
@@ -92,7 +97,9 @@ class ResponsiveDrawer extends React.Component {
     mobileOpen: false,
     t:this.props.token,
       OnDisplay: <Welcome />,
-    title : "New Sale"
+    title : "New Sale",
+    open:false,
+    openError:false,
   };
 
   handleDrawerToggle = () => {
@@ -112,7 +119,7 @@ class ResponsiveDrawer extends React.Component {
   RecieveItemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<RecieveBox token={this.state.t}/>,
+        OnDisplay:<RecieveBox token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
         title:"Recieve"
     })
     console.log("Recieve Box ")
@@ -134,6 +141,24 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("ADd item on click")
   }
+
+  handleClickDialogOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClickDialogClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleClickerrorDialogOpen = () => {
+    this.setState({ erroropen: true });
+  };
+
+  handleClickerrorDialogClose = () => {
+    this.setState({ erroropen: false });
+  };
+
+
   render() {
     const { classes, theme } = this.props;
 
@@ -213,7 +238,44 @@ class ResponsiveDrawer extends React.Component {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             {this.state.OnDisplay}
-            
+               {/*Open Dialog/Notification*/}
+            <Dialog
+          open={this.state.open}
+          onClose={this.handleClickDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+             Job Done!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+         <Dialog
+          open={this.state.erroropen}
+          onClose={this.handleClickerrorDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              There was an error, try again.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
             {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
           </main>
          
