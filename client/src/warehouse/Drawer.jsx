@@ -27,6 +27,12 @@ import Notification from './Notifications';
 import BatchItems from './BatchItems';
 import Welcome from './Welcome';
 import BatchItemsShow from './BatchShow';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -95,6 +101,8 @@ class ResponsiveDrawer extends React.Component {
       mobileOpen: false,
       OnDisplay: <Welcome/>,
       t:this.props.token,
+      open:false,
+      openError:false,
     };
 
 
@@ -107,7 +115,7 @@ class ResponsiveDrawer extends React.Component {
  AddItemHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddItem token={this.state.t}/>
+        OnDisplay:<AddItem token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("ADd item on click")
   }
@@ -115,7 +123,7 @@ class ResponsiveDrawer extends React.Component {
   batchitemsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<BatchItems token={this.state.t}/>
+        OnDisplay:<BatchItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("ADd item on click")
   }
@@ -141,6 +149,26 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("ADd item on click")
   }
+
+  
+  handleClickDialogOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClickDialogClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleClickerrorDialogOpen = () => {
+    this.setState({ erroropen: true });
+  };
+
+  handleClickerrorDialogClose = () => {
+    this.setState({ erroropen: false });
+  };
+
+
+
   render() {
     const { classes, theme } = this.props;
 
@@ -216,7 +244,44 @@ class ResponsiveDrawer extends React.Component {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             {this.state.OnDisplay}
-            <Notification/>
+            {/*Open Dialog/Notification*/}
+            <Dialog
+          open={this.state.open}
+          onClose={this.handleClickDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+             Added!!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+         <Dialog
+          open={this.state.erroropen}
+          onClose={this.handleClickerrorDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Not added, there was an error, Try again.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
             {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
           </main>
         </div>

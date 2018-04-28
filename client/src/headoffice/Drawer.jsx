@@ -23,6 +23,14 @@ import {
     }   from 'react-router-dom';
 import Notification from './Notifications';
 import Welcome from './Welcome'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
+
+
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -90,6 +98,8 @@ class ResponsiveDrawer extends React.Component {
       mobileOpen: false,
       t:this.props.token,
       OnDisplay: <Welcome />,
+      open:false,
+      openError:false,
     };
 
 
@@ -102,7 +112,7 @@ class ResponsiveDrawer extends React.Component {
  AddNewLoginHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddNewLogin token={this.state.t}/>
+        OnDisplay:<AddNewLogin token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("Add item on click");
   }
@@ -112,10 +122,27 @@ class ResponsiveDrawer extends React.Component {
  ViewAllHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll token={this.state.t}/>
+        OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
+
+
+  handleClickDialogOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClickDialogClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleClickerrorDialogOpen = () => {
+    this.setState({ erroropen: true });
+  };
+
+  handleClickerrorDialogClose = () => {
+    this.setState({ erroropen: false });
+  };
 
 
 
@@ -189,7 +216,44 @@ class ResponsiveDrawer extends React.Component {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             {this.state.OnDisplay}
-            <Notification/>
+            {/*User Modal*/}
+            <Dialog
+          open={this.state.open}
+          onClose={this.handleClickDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              User Added
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+         <Dialog
+          open={this.state.erroropen}
+          onClose={this.handleClickerrorDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              User not added, Try again.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClickDialogClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
             {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
           </main>
         </div>

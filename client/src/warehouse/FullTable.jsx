@@ -100,7 +100,7 @@ class CustomizedTable extends React.Component {
 }*/}
   return (
     <Paper className={classes.root}>
-    <Search/>
+    {/*<Search/>*/}
       <Table className={classes.table}>
         <TableHead>
           <TableRow>

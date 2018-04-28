@@ -129,10 +129,8 @@ class TextFields extends React.Component {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
    },
    body: formBody
- })
- .then(res=>res.json())
+ }).then(res=>res.json())
  .then(res=>{
-
    console.log("we are in this function");
    if(res){
     console.log(res);
@@ -150,6 +148,7 @@ class TextFields extends React.Component {
       {this.props.updateShop(res.token)}
      }
      else{
+       this.props.handleOpen();
        console.log("error");
      }
      console.log("After function");
@@ -159,7 +158,7 @@ class TextFields extends React.Component {
       this.setState({
       userName:'',
       Password:'',
-      type:''
+      type:'admin'
     })
 
   }
