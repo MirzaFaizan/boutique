@@ -1,6 +1,5 @@
 var express= require('express'); 
 var app= express();
-var bcrypt= require('bcryptjs');
 var jwt    = require('jsonwebtoken');
 
 ///Connect to DataBasae
@@ -61,23 +60,22 @@ else
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
-    // Validate request
-    if(!req.body.id) {
-      return res.status(400).send({
-          message: "Article id can not be empty"
-      });
-  }
     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,price:req.body.price, 
-        date_added: req.body.date, item_id:req.body.id });
-    articlemodel.save(function (err) {
+        date_added: req.body.date});
+        //fetch last document and increment article id
+        article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
+        if(latest!=null){ articlemodel.item_id=latest[0].item_id +1; }
+
+        //save new article
+        articlemodel.save(function (err) {
         if (err)
-         return handleError(err);
-      
+        return res.json(err);
         else
           return res.json({message:'Article Added Succesfully'});
           console.log("Data entered");
         // saved!
     });
+});
  }
  //Delete A Article
  exports.DeleteArticle= function(req, res)
@@ -141,16 +139,20 @@ exports.fetchoneArticle= function(req,res){
  //Function to create New Pakage
 exports.CreatePakage= function(req, res)
  {
+     console.log(req.body.items);
      // Validate request
     if(!req.body.items | !req.body.number) {
-        return res.status(400).send({
+        console.log('not validated');
+        return res.send({   
             message: "Pakage content can not be empty"});
     }
-    var pakg = new pakg_instance({  package_number:req.body.number,items:req.body.items,shop_id:req.body.shop,
-        date_sent: req.body.date,status: req.body.status});
+    var pakg = new pakg_instance({package_number:req.body.number,items:req.body.items.split(',').map(function(i){
+        return parseInt(i);}) ,shop_id:req.body.shop,
+        date_sent: req.body.date,
+    });
        pakg.save(function (err) {
         if (err)
-         return handleError(err);
+         return res.json(err);
         else
          return  res.json({message:'pakage Added Succesfully'});
           console.log("Data entered");

@@ -8,7 +8,7 @@ var ArticleSchema = new Schema(
     item_type: {type: String, required: true, max: 100},
     price: {type: Number},
     date_added: {type: Date},
-    item_id: {type: String,  max: 100},
+    item_id: {type: Number, default:1},
   }
 );
 
