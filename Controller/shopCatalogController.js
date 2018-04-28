@@ -144,7 +144,7 @@ exports.makesale= function(req,res){
 
 exports.shopinventoryshow= function(req,res){
     console.log(req.body.shopID);
-    shop_inventory.findOne(
+    shop_inventory.find(
         // query
         {shop_id:req.body.shopID},
         // callback function
@@ -154,7 +154,7 @@ exports.shopinventoryshow= function(req,res){
             return res.json(message='No Article at this Shop')
             else
             {
-                return res.json({shop});
+                return res.json(shop);
                 res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
                }
             });
