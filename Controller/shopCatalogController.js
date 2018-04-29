@@ -64,12 +64,6 @@ else
 //Function to recieve a pakage
 exports.RecievePakg= function(req,res){
      
-    console.log(req.body.number);
-    console.log(req.body.shop_id);
-
-    
-    console.log(typeof(req.body.number));
-    console.log(typeof(req.body.shop_id));
     //Fetch Pakage using its pakage number
     pakg_instance.findOne(
         // query
@@ -118,6 +112,11 @@ exports.RecievePakg= function(req,res){
 
 //Function to make new Sale
 exports.makesale= function(req,res){
+   req.body.products= req.body.products.split(',').map(function(i){
+        return parseInt(i);})
+    console.log(typeof(req.body.products));
+    console.log(req.body.products);
+    console.log(req.body.products.length);
     var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,shop:req.body.shopID});  
     //fetch details of all products from articles collection
     for(var i=0; i<req.body.products.length; i++)
@@ -133,8 +132,7 @@ exports.makesale= function(req,res){
             }
             if(i=req.body.products.length)
             {
-                    salesmodel.save(function(){
-                    console.log(salesmodel);});
+                    salesmodel.save(function(){});
     //Delete all items from Articles collection
         article_instance.deleteMany(req.body.products.item_id,function(err){
         if(err)return res.json(err);})
@@ -151,7 +149,6 @@ exports.makesale= function(req,res){
 /////////////Show Inventory by Shop Number function
 
 exports.shopinventoryshow= function(req,res){
-    console.log(req.body.shopID);
     shop_inventory.find(
         // query
         {shop_id:req.body.shopID},

@@ -60,12 +60,12 @@ else
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
-    var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,price:req.body.price, 
+     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,
+        price:parseInt(req.body.price), 
         date_added: req.body.date});
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
-        if(latest!=null){ articlemodel.item_id=latest[0].item_id +1; }
-
+        if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1; }
         //save new article
         articlemodel.save(function (err) {
         if (err)
