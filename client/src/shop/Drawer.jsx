@@ -109,7 +109,7 @@ class ResponsiveDrawer extends React.Component {
  NewSaleHandleClick = () => {
 
     this.setState({
-        OnDisplay:<NewSale token={this.state.t}/>,
+        OnDisplay:<NewSale token={this.state.t} shop={this.props.shop}/>,
         title:"New Sale "
     }
   )
@@ -128,7 +128,7 @@ class ResponsiveDrawer extends React.Component {
   StockHandleClick = () => {
 
     this.setState({
-        OnDisplay:<StockTable token={this.state.t}/>,
+        OnDisplay:<StockTable token={this.state.t} shop={this.props.shop}/>,
         title:"Stock"
     })
     console.log("ADd item on click")

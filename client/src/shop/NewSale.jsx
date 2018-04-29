@@ -20,6 +20,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ClearIcon from '@material-ui/icons/Clear';
 import Chip from 'material-ui/Chip';
+import Input from 'material-ui/Input';
 
 
 
@@ -164,6 +165,16 @@ const suggestions = [].map(suggestion => ({
   value: suggestion.label,
   label: suggestion.label,
   price : suggestion.price,
+  id:suggestions.id
+}));
+
+var row = [].map(row => ({
+  nam: row.nam,
+  pric : row.pric,
+  id:row.id
+}));
+var products = [].map(sale => ({
+
 }));
 
 class Option extends React.Component {
@@ -232,12 +243,14 @@ const ITEM_HEIGHT = 48;
 
 
 class TextFields extends React.Component {
+
   componentDidMount(){
     
     var details = {
       'token':this.state.t,
       'shopID':this.state.shop
   };
+
   console.log(details);
     var formBody = [];
     for (var property in details) {
@@ -270,12 +283,15 @@ class TextFields extends React.Component {
   constructor(props){
     super(props)
     this.state={
+      shop:this.props.shop,
       data:{},
       t:this.props.token,
-      shop:'f10'
+      total:0,
+      date:'2018-09-04 00:00:00.000'
     }
     console.log('Constructor');
     console.log(this.state.t);
+
 
     var details = {
       'token':this.state.t,
@@ -285,14 +301,16 @@ class TextFields extends React.Component {
 
 
   state = {
-    sr: [1,2,3],
+    
     data:{name:'Item Name',price:5500},
     t:this.props.token,
     multiLabel: [],
     price:[],
-    displayTable:'',
-    dummy:'',
-    data:{}
+    displayTable:{},
+    dummy:[],
+    data:{},
+    single: null,
+    
   };
 
   
@@ -300,22 +318,78 @@ class TextFields extends React.Component {
     this.setState({
       [name]: value,
     });
+   var x;
+    for(var i=0;i<suggestions.length;i++)
+    {
+      if(suggestions[i].value == value)
+      {
+        console.log("selected is at index ");
+        console.log(i);
+        x = i;
+      }
+    }
+    console.log("Selected item details");
+    console.log(suggestions[x]);
+    const {displayTable,dummy,total} = this.state;
 
-    const {displayTable} = this.state;
-    const newDisplay = [displayTable];
-    newDisplay.push(<TableRow>
-        <TableCell></TableCell>
-        <TableCell >{this.state.multiLabel}</TableCell>
-        <TableCell numeric>-</TableCell>
-      </TableRow>);
+      row.push({nam:suggestions[x].value,pric:suggestions[x].price,id:suggestions[x].id})
+      products.push(suggestions[x].id);
+
       this.setState({
-          displayTable : newDisplay
+        total:suggestions[x].price + this.state.total
       })
-    
+      console.log("value of toal : ");
+      console.log(this.state.total);
+      console.log("Data in Row :")
+      console.log(row);
+      console.log("Ids to be Sold:")
+      console.log(products);
 
   };
 
+  handleSale = () =>
+  {
+    console.log("function is calling ");
+      var detailsItem = {
+        'token':this.state.t,
+        'products':products,
+        'shopID':this.state.shop,
+        'sale':this.state.date,
+      }
+  
+    console.log(detailsItem);
+    
+      var formBody = [];
+      for (var property in detailsItem) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(detailsItem[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      
+      fetch('/shop/Sale', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      })
+      .then(res=>res.json())
+      .then(res=>{
+        if(res){
+          console.log("Response : ");
+          console.log(res);
+        };
+      }
+      );
+    
+    };
+ 
+ 
+
   render() {
+    console.log("data in suggestions:");
+    console.log(suggestions);
     const { selectedOption } = this.state;
     const { classes } = this.props;
     return (
@@ -326,45 +400,24 @@ class TextFields extends React.Component {
           <Paper className={classes.paper}>
           
       <form className={classes.container} noValidate autoComplete="off"> 
-       {/*<TextField
-          id="name"
-          label="Search Item "
-          placeholder="Enter Item Name "
-          className={classes.textField}
-          margin="normal"
+       
+          <Input
           fullWidth
-       />  
-        <Select
-          name="form-field-name"
-          value={value}
-          onChange={this.addRow.bind(this)}
-          options={data}
-          className={classes.select}
-          />*/}
-          <TextField
-          fullWidth
-          value={this.state.multiLabel}
-          onChange={this.handleChange('multiLabel')}
+          inputComponent={SelectWrapped}
+          value={this.state.single}
+          onChange={this.handleChange('single')}
           placeholder="Search Items"
-          name="react-select-chip-label"
-          label="With label"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            inputComponent: SelectWrapped,
-            inputProps: {
-              classes,
-              multi: true,
-              instanceId: 'react-select-chip-label',
-              id: 'react-select-chip-label',
-              simpleValue: true,
-              options: suggestions,
-            },
+          id="react-select-single"
+          inputProps={{
+            classes,
+            name: 'react-select-single',
+            instanceId: 'react-select-single',
+            simpleValue: true,
+            options: suggestions,
           }}
         />
-          <h2>Total : 0</h2>
-          <Button variant="raised" color="primary" className={classes.prntBtn}  >Checkout</Button>
+          <h2>Total : {this.state.total}</h2>
+          <Button variant="raised" color="primary" className={classes.prntBtn} onClick={this.handleSale}  >Checkout</Button>
       </form>
       
       {/*<List component="nav">
@@ -399,19 +452,27 @@ class TextFields extends React.Component {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>SR # </TableCell>
+
             <TableCell >Item Name </TableCell>
             <TableCell numeric>Price</TableCell>
             
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.displayTable}
+        {Object.values(row).map((tr,i)=>{
+            return(<TableRow key={i}>
+              <TableCell>{tr.nam}</TableCell>
+              <TableCell>{tr.pric}</TableCell>
+            </TableRow>)
+          })}
         { Object.values(this.state.data).map((type,i) => {
   console.log(type)
-  suggestions.push({value:type.item_name,label:type.item_name,price:type.price})
+  suggestions.push({value:type.item_name,label:type.item_name,price:type.price,id:type.item_id})
+ 
 })
 }
+
+
           
         </TableBody>
       </Table>
@@ -425,7 +486,7 @@ class TextFields extends React.Component {
   }
 }
 
-TextFields.propTypes = {
+Table.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

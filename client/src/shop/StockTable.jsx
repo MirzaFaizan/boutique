@@ -89,7 +89,8 @@ class  CustomizedTable extends React.Component {
     this.state={
       data:{},
       t:this.props.token,
-      shop:'f10'
+      shop:this.props.shop,
+      
     }
     console.log('Constructor');
     console.log(this.state.t);
