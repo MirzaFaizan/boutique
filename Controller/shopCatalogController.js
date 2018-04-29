@@ -98,7 +98,7 @@ exports.RecievePakg= function(req,res){
                         (err, art) => {
                             if (err) return res.json(err)
                        shopInventory= new shop_inventory({item_id:art.item_id,item_name:art.item_name,
-                        price:art.price,shop_id:req.body.shop_id}); 
+                       price:art.price,shop_id:req.body.shop_id}); 
                        shopInventory.save(function (err) {
                         if (err)
                          return res.json(err);});
@@ -110,13 +110,11 @@ exports.RecievePakg= function(req,res){
         });
 }
 
+
 //Function to make new Sale
 exports.makesale= function(req,res){
-   req.body.products= req.body.products.split(',').map(function(i){
-        return parseInt(i);})
-    console.log(typeof(req.body.products));
-    console.log(req.body.products);
-    console.log(req.body.products.length);
+req.body.products= req.body.products.split(',').map(function(i){
+    return parseInt(i);})
     var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,shop:req.body.shopID});  
     //fetch details of all products from articles collection
     for(var i=0; i<req.body.products.length; i++)
@@ -125,26 +123,29 @@ exports.makesale= function(req,res){
         // query
         {item_id:req.body.products[i]},
         {item_id:true,item_name: true,price: true},function(err,article){
-            if (err) return re.json(err);
+            if (err) return res.json(err);
             else{
              salesmodel.products.push(article);
              salesmodel.total=salesmodel.total+article.price;
             }
-            if(i=req.body.products.length)
+            if(salesmodel.products.length === req.body.products.length)
             {
+                    console.log(salesmodel.products.length);
                     salesmodel.save(function(){});
     //Delete all items from Articles collection
-        article_instance.deleteMany(req.body.products.item_id,function(err){
-        if(err)return res.json(err);})
+         article_instance.deleteMany({item_id: {$in:req.body.products}},function(err){
+         if(err)return res.json(err);})
     //Delete all items from shopInventory collection
-        shop_inventory.deleteMany(req.body.products.item_id,function(err){
-        if(err)return res.json(err); })
+         shop_inventory.deleteMany({item_id: {$in:req.body.products}},function(err){
+         if(err)return res.json(err); })
             }
  });
     }
    
  res.json('Done');   
 }
+
+
 
 /////////////Show Inventory by Shop Number function
 
