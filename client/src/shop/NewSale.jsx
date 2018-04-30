@@ -273,6 +273,7 @@ class TextFields extends React.Component {
        this.setState({
          data:res
        })
+       
         console.log("Response : ");
         console.log(res);
       };
@@ -379,6 +380,9 @@ class TextFields extends React.Component {
         if(res){
           console.log("Response : ");
           console.log(res);
+          this.setState({total:0})
+          products.splice(0,2);
+          row.splice(0,2);
         };
       }
       );
