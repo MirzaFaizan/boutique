@@ -176,7 +176,6 @@ var row = [].map(row => ({
 var products = [].map(sale => ({
 
 }));
-
 class Option extends React.Component {
   handleClick = event => {
     this.props.onSelect(this.props.option, event);
@@ -288,7 +287,8 @@ class TextFields extends React.Component {
       data:{},
       t:this.props.token,
       total:0,
-      date:'2018-09-04 00:00:00.000'
+      date:'2018-09-04 00:00:00.000',
+     
     }
     console.log('Constructor');
     console.log(this.state.t);
@@ -345,6 +345,8 @@ class TextFields extends React.Component {
       console.log(row);
       console.log("Ids to be Sold:")
       console.log(products);
+      console.log("number of items in array :");
+      console.log(row.length - 1);
 
   };
 
@@ -381,8 +383,19 @@ class TextFields extends React.Component {
           console.log("Response : ");
           console.log(res);
           this.setState({total:0})
-          products.splice(0,2);
-          row.splice(0,2);
+          var siz = products.length;
+          console.log("Before Splicing products ");
+          console.log(products);
+          products.splice(0,siz);
+          console.log("After Splicing products ");
+          console.log(products);
+          console.log("Before Splicing Rows ");
+          console.log(row);
+          row.splice(0,siz);
+          console.log("After Splicing Rows ");
+          console.log(row);
+          
+
         };
       }
       );
