@@ -36,9 +36,9 @@ const styles = theme => ({
   },
 
   card: {
-    marginLeft:650,
-    marginRight:650,
-    marginTop:100,
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginTop:60,
     maxWidth: 345,
   },
   media: {
