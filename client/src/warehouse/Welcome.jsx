@@ -18,11 +18,14 @@ const CustomTableCell = withStyles(theme => ({
 
 const styles = theme => ({
   root: {
-    width:'',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+   // width: 'auto',
+    //height:'auto',
+    //marginTop: theme.spacing.unit * 3,
   },
 });
+
+
+
 
 {/* */}
 
@@ -31,7 +34,8 @@ class CustomizedTable extends React.Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
-        <Typography>Welcome</Typography>
+        <Typography variant="display4">Welcome</Typography>
+        <Typography variant="display2">Select Options from Left Menu</Typography>
       </Paper>
     );
   }
