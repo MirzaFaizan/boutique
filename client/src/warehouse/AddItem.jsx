@@ -7,8 +7,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
-
-
+import qr from 'qr-image';
 const styles = theme => ({
   button: {
     margin:theme.spacing.unit,
@@ -28,6 +27,7 @@ const styles = theme => ({
   },
 });
 
+
 function validate(name,type,price,id) {
   return {
     name: name.length === 0,
@@ -46,6 +46,7 @@ class TextFields extends React.Component {
     id: '',
     date:new Date(),
     t:this.props.token,
+    QRImg: {},
   };
 
   handleSubmit = (evt) => {
@@ -94,8 +95,19 @@ class TextFields extends React.Component {
   }
 
   list = {}
-
+  qrimg = null
   handleClick = () => {
+    var qr_svg = qr.image('I love QR!', { type: 'png' });
+    var svg_string = qr.imageSync(this.state.id, { type: 'png' });
+    var decoder = new TextDecoder('utf8');
+    var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
+    b64encoded = "data:image/gif;base64,"+b64encoded;
+    console.log({b64encoded});
+    if(b64encoded){
+      this.qrimg={b64encoded};
+    }
+  
+    console.log(this.qrimg);
     console.log(this.state);
     console.log(this.props.token);
     //api call to store data in database here
