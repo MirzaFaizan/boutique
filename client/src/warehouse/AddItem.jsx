@@ -106,7 +106,10 @@ class TextFields extends React.Component {
     if(b64encoded){
       this.qrimg={b64encoded};
     }
-  
+    var popup = window.open();
+    popup.document.write("<html><head></head><body>\n" +
+    "<img src='" + this.qrimg.b64encoded + "'/><script>(function(){alert('gotit')})();<script></body></html>");
+    popup.focus();
     console.log(this.qrimg);
     console.log(this.state);
     console.log(this.props.token);
