@@ -111,7 +111,7 @@ class TextFields extends React.Component {
     }
     var popup = window.open();
     popup.document.write("<html><head></head><body>\n" +
-    "<img src='" + this.qrimg.b64encoded + "'/><script>(function(){alert('gotit')})();<script></body></html>");
+    "<div style='margin-top:10%;width:100%;'><center><img style='width:20%;' src='" + this.qrimg.b64encoded + "'/></br>Price :"+this.state.price+"/-</center></div></body></html>");
     popup.focus();
     console.log(this.qrimg);
     console.log(this.state);
