@@ -123,7 +123,7 @@ class CustomizedTable extends React.Component {
                  return (
                   <TableRow className={classes.row} key={type.Emp_cnic}>
                     <CustomTableCell>{type.Emp_name}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_type}</CustomTableCell>
+                    <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
                   </TableRow>
