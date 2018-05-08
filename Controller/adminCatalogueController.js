@@ -144,10 +144,13 @@ exports.CreatePakage= function(req, res)
         return res.send({   
             message: "Pakage content can not be empty"});
     }
-    var pakg = new pakg_instance({package_number:req.body.number,items:req.body.items.split(',').map(function(i){
+    var pakg = new pakg_instance({items:req.body.items.split(',').map(function(i){
         return parseInt(i);}) ,shop_id:req.body.shop,
         date_sent: req.body.date,
     });
+     //fetch last document and increment article id
+     pakg_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
+        if(latest[0]!=null){ pakg.package_number=latest[0].package_number + 1; }
        pakg.save(function (err) {
         if (err)
          return res.json(err);
@@ -156,6 +159,7 @@ exports.CreatePakage= function(req, res)
           console.log("Data entered");
         // saved!
     });
+});
  }
  exports.ShowPakages= function(req,res){
     pakg_instance.find()

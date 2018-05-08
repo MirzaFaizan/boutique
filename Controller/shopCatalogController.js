@@ -1,7 +1,6 @@
 var express= require('express');
 var app= express();
 var jwt    = require('jsonwebtoken');
-
 ///Connect to DataBasae
 var mongoose = require('mongoose');
 var config= require('../DBconfig');
