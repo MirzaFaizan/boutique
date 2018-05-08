@@ -205,6 +205,7 @@ class TextFields extends React.Component {
       shop:'',
       id:'',
       checked: [],
+      package_number:''
     })
 
   }
@@ -275,6 +276,7 @@ class TextFields extends React.Component {
                 checked={this.state.checked.indexOf(type.item_id) !== -1}
                 tabIndex={-1}
                 disableRipple
+                color="primary"
               />
               <ListItemText primary={type.item_name} />
               <ListItemSecondaryAction>
