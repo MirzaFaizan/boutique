@@ -36,7 +36,6 @@ function validate(name,type,price) {
     name: name.length === 0,
     type: type.length === 0,
     price: price.length === 0
-    
   };
 }
 
