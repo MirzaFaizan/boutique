@@ -31,12 +31,12 @@ const styles = theme => ({
 });
 
 
-function validate(name,type,price,id) {
+function validate(name,type,price) {
   return {
     name: name.length === 0,
     type: type.length === 0,
-    price: price.length === 0,
-    id: id.length===0
+    price: price.length === 0
+    
   };
 }
 
@@ -60,7 +60,7 @@ class TextFields extends React.Component {
     const { name,type,price,id} = this.state;
   }
   canBeSubmitted() {
-    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.id);
+    const errors = validate(this.state.name,this.state.type,this.state.price);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
@@ -91,11 +91,7 @@ class TextFields extends React.Component {
     });
   }
 
-  changeID = e => {
-    this.setState({
-      id: e.target.value,
-    });
-  }
+  
 
   list = {}
   qrimg = null
@@ -209,7 +205,8 @@ class TextFields extends React.Component {
          margin="normal"
        />
 
-         <TextField
+        {/*
+        <TextField
          id="id"
          label="ID"
          value={this.state.id}
@@ -217,6 +214,7 @@ class TextFields extends React.Component {
          onChange={e => this.changeID(e)}
          className={classes.textField}
          margin="normal"/>
+        */} 
 
        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
        <AddIcon/>
