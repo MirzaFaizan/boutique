@@ -21,9 +21,8 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ClearIcon from '@material-ui/icons/Clear';
 import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
-
-
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import Icon from 'material-ui/Icon';
 
 const styles = theme => ({
   root: {
@@ -176,7 +175,6 @@ var row = [].map(row => ({
 var products = [].map(sale => ({
 
 }));
-
 class Option extends React.Component {
   handleClick = event => {
     this.props.onSelect(this.props.option, event);
@@ -288,7 +286,8 @@ class TextFields extends React.Component {
       data:{},
       t:this.props.token,
       total:0,
-      date:'2018-09-04 00:00:00.000'
+      date:'2018-09-04 00:00:00.000',
+     
     }
     console.log('Constructor');
     console.log(this.state.t);
@@ -311,6 +310,7 @@ class TextFields extends React.Component {
     dummy:[],
     data:{},
     single: null,
+    display :'inline'
     
   };
 
@@ -339,12 +339,15 @@ class TextFields extends React.Component {
       this.setState({
         total:suggestions[x].price + this.state.total
       })
+      this.setState({data:{}})
       console.log("value of toal : ");
       console.log(this.state.total);
       console.log("Data in Row :")
       console.log(row);
       console.log("Ids to be Sold:")
       console.log(products);
+      console.log("number of items in array :");
+      console.log(row.length - 1);
 
   };
 
@@ -381,15 +384,42 @@ class TextFields extends React.Component {
           console.log("Response : ");
           console.log(res);
           this.setState({total:0})
-          products.splice(0,2);
-          row.splice(0,2);
+          var siz = products.length;
+          console.log("Before Splicing products ");
+          console.log(products);
+          products.splice(0,siz);
+          console.log("After Splicing products ");
+          console.log(products);
+          console.log("Before Splicing Rows ");
+          console.log(row);
+          row.splice(0,siz);
+          console.log("After Splicing Rows ");
+          console.log(row);
+          this.setState({data:{}})
+          
+
         };
       }
       );
     
     };
- 
- 
+    removeProduct = (item) =>
+    {
+      console.log("Currently Removing id => " + item);
+      console.log("Before Removing => ");
+      console.log(products);
+      console.log(row);
+      const index = products.indexOf(item);
+      const indexrow = row.indexOf(item);
+      console.log("Index of Requested at Row = > "+ indexrow);
+      console.log("Index of request : " + index);
+      products.splice(index,1);
+      row.splice(0,1);
+      console.log("After Removing => ");
+      console.log(products)
+      console.log(row)
+      
+    }
 
   render() {
     console.log("data in suggestions:");
@@ -449,7 +479,6 @@ class TextFields extends React.Component {
 
       </Paper>
         </Grid>
-      
         <Grid item xs={12} sm={7}>
        
         <Paper className={classes.root}>
@@ -463,10 +492,13 @@ class TextFields extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-        {Object.values(row).map((tr,i)=>{
+        {
+          Object.values(row).map((tr,i)=>{
             return(<TableRow key={i}>
+            
               <TableCell>{tr.nam}</TableCell>
               <TableCell>{tr.pric}</TableCell>
+              
             </TableRow>)
           })}
         { Object.values(this.state.data).map((type,i) => {
@@ -476,7 +508,7 @@ class TextFields extends React.Component {
 })
 }
 
-
+ 
           
         </TableBody>
       </Table>
