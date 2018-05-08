@@ -8,7 +8,7 @@ import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   button: {
@@ -193,7 +193,9 @@ canBeSubmitted() {
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
-      <Card className={classes.card}>
+      <div>
+        <Typography variant="display2">Add a new Employee</Typography>
+        <Card className={classes.card}>
       <form className={classes.container} noValidate autoComplete="off"> 
       <CardContent>
       <TextField
@@ -272,6 +274,8 @@ canBeSubmitted() {
         </CardContent>
         </form>
       </Card>
+      </div>
+      
     );
   }
 }

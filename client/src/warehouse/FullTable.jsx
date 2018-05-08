@@ -4,7 +4,9 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Search from './DropDownSelect';
-
+import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -22,8 +24,14 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
   table: {
     minWidth: 700,
+  },
+  tablehead : {
+    align:'center',
   },
   row: {
     '&:nth-of-type(odd)': {
@@ -73,25 +81,107 @@ class CustomizedTable extends React.Component {
  .then(res=>res.json())
  .then(res=>{
 
-   console.log("we are in this function");
+   //console.log("we are in this function");
    if(res){
-    console.log(res);
+    //console.log(res);
     this.setState({
       data:res
     })
-     console.log("After function");
+     //console.log("After function");
    };
  }
- );
-     
+ );   
+}
+
+  deleteClick = (index) => {
+    console.log({index})
+    console.log(this.state.data[index])
+    var details = {
+      'token':this.state.t,
+      'id':this.state.data[index].item_id,
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
   }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/admin/DeleteArticle', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    //console.log("we are in this function");
+    if(res){
+      console.log(res);
+      var details = {
+        'token':this.state.t
+    };  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/admin/ShowArticles', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    //console.log("we are in this function");
+    if(res){
+     //console.log(res);
+     this.setState({
+       data:res
+     })
+      //console.log("After function");
+    };
+  }
+  );   
+      console.log("After function");
+    };
+  }
+  ); 
+
+  }
+
+  deleteClickHandler = () => {
+    this.setState({
+      isDisabled:false,
+      buttonisDisabled:false,
+    })
+  }
+
   constructor(props){
     super(props);
     
     this.state = {
       t:this.props.token,
-      data:{}
+      data:{},
+      id:'',
+      
     }
+
+   this.deleteClick =  this.deleteClick.bind(this);
   }
   render() {
     const { classes } = this.props;
@@ -102,32 +192,41 @@ class CustomizedTable extends React.Component {
     <Paper className={classes.root}>
     {/*<Search/>*/}
       <Table className={classes.table}>
-        <TableHead>
+        <TableHead className={classes.tablehead}>
           <TableRow>
+          <CustomTableCell>Sr No.</CustomTableCell>
             <CustomTableCell>Name</CustomTableCell>
-            <CustomTableCell numeric>Type</CustomTableCell>
-            <CustomTableCell numeric>Price</CustomTableCell>
-            <CustomTableCell numeric>Date</CustomTableCell>
-            <CustomTableCell numeric>ID</CustomTableCell>
+            <CustomTableCell >Type</CustomTableCell>
+            <CustomTableCell >Price</CustomTableCell>
+            <CustomTableCell >Date</CustomTableCell>
+            <CustomTableCell >ID</CustomTableCell>
+            <CustomTableCell >Delete</CustomTableCell> 
           </TableRow>
         </TableHead>
         <TableBody>
           {/*data to be replaced with json pacakage from api*/}
-          {Object.values(this.state.data).map((type) => {
+          {Object.values(this.state.data).map((type,index) => {
                  console.log(type);
                  return (
-                  <TableRow className={classes.row} key={type._id}>
+                  <TableRow className={classes.row} key={type._id} selectable={true}>
+                    <CustomTableCell>{index+1}</CustomTableCell>
                     <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell numeric>{type.item_type}</CustomTableCell>
-                    <CustomTableCell numeric>{type.price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
-                    <CustomTableCell numeric>{type._id}</CustomTableCell>
+                    <CustomTableCell >{type.item_type}</CustomTableCell>
+                    <CustomTableCell >{type.price}</CustomTableCell>
+                    <CustomTableCell >{type.date_added}</CustomTableCell>
+                    <CustomTableCell >{type._id}</CustomTableCell>
+                    <CustomTableCell >
+                    <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                    <DeleteIcon />
+                    </Button>
+                    </CustomTableCell>
                   </TableRow>
             );
-          })}
+          })
+          }
         </TableBody>
       </Table>
-    </Paper>
+      </Paper>
   );
 }
   }

@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
+import Typography from 'material-ui/Typography';
 
 
 const styles = theme => ({
@@ -156,51 +157,55 @@ class TextFields extends React.Component {
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
-      <form className={classes.container} noValidate autoComplete="off"> 
+      <div>
+        <Typography variant="display2"> Add an Item</Typography>
+        <form className={classes.container} noValidate autoComplete="off"> 
+      
+      <TextField
+         id="name"
+         label="Name"
+         value={this.state.name}
+         placeholder="Enter Name of Product"
+         className={classes.textField}
+         onChange={e => this.changeName(e)}
+         margin="normal"
+         refs='name'
+         
+       />
        <TextField
-          id="name"
-          label="Name"
-          value={this.state.name}
-          placeholder="Enter Name of Product"
-          className={classes.textField}
-          onChange={e => this.changeName(e)}
-          margin="normal"
-          refs='name'
-          
-        />
-        <TextField
-          id="type"
-          label="Type"
-          value={this.state.type}
-          placeholder="Enter Type of Product"
-          onChange={e => this.changeType(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-          
-        <TextField
-          id="price"
-          label="Price"
-          value={this.state.price}
-          placeholder="Enter Price of Product"
-          onChange={e => this.changePrice(e)}
-          className={classes.textField}
-          margin="normal"
-        />
+         id="type"
+         label="Type"
+         value={this.state.type}
+         placeholder="Enter Type of Product"
+         onChange={e => this.changeType(e)}
+         className={classes.textField}
+         margin="normal"
+       />
+         
+       <TextField
+         id="price"
+         label="Price"
+         value={this.state.price}
+         placeholder="Enter Price of Product"
+         onChange={e => this.changePrice(e)}
+         className={classes.textField}
+         margin="normal"
+       />
 
-          <TextField
-          id="id"
-          label="ID"
-          value={this.state.id}
-          placeholder="Enter ID of Product"
-          onChange={e => this.changeID(e)}
-          className={classes.textField}
-          margin="normal"/>
+         <TextField
+         id="id"
+         label="ID"
+         value={this.state.id}
+         placeholder="Enter ID of Product"
+         onChange={e => this.changeID(e)}
+         className={classes.textField}
+         margin="normal"/>
 
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
-        <AddIcon/>
-        </Button>
-      </form>
+       <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
+       <AddIcon/>
+       </Button>
+     </form>
+      </div>
     );
   }
 }
