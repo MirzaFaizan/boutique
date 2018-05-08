@@ -7,6 +7,8 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
+import qr from 'qr-image';
+import Typography from 'material-ui/Typography';
 
 
 const styles = theme => ({
@@ -28,12 +30,12 @@ const styles = theme => ({
   },
 });
 
-function validate(name,type,price,id) {
+
+function validate(name,type,price) {
   return {
     name: name.length === 0,
     type: type.length === 0,
-    price: price.length === 0,
-    id: id.length===0
+    price: price.length === 0
   };
 }
 
@@ -46,6 +48,7 @@ class TextFields extends React.Component {
     id: '',
     date:new Date(),
     t:this.props.token,
+    QRImg: {},
   };
 
   handleSubmit = (evt) => {
@@ -56,7 +59,7 @@ class TextFields extends React.Component {
     const { name,type,price,id} = this.state;
   }
   canBeSubmitted() {
-    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.id);
+    const errors = validate(this.state.name,this.state.type,this.state.price);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
@@ -87,15 +90,25 @@ class TextFields extends React.Component {
     });
   }
 
-  changeID = e => {
-    this.setState({
-      id: e.target.value,
-    });
-  }
+  
 
   list = {}
-
+  qrimg = null
   handleClick = () => {
+    var qr_svg = qr.image('I love QR!', { type: 'png' });
+    var svg_string = qr.imageSync(this.state.id, { type: 'png' });
+    var decoder = new TextDecoder('utf8');
+    var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
+    b64encoded = "data:image/gif;base64,"+b64encoded;
+    console.log({b64encoded});
+    if(b64encoded){
+      this.qrimg={b64encoded};
+    }
+    var popup = window.open();
+    popup.document.write("<html><head></head><body>\n" +
+    "<img src='" + this.qrimg.b64encoded + "'/><script>(function(){alert('gotit')})();<script></body></html>");
+    popup.focus();
+    console.log(this.qrimg);
     console.log(this.state);
     console.log(this.props.token);
     //api call to store data in database here
@@ -156,51 +169,57 @@ class TextFields extends React.Component {
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
-      <form className={classes.container} noValidate autoComplete="off"> 
+      <div>
+        <Typography variant="display2"> Add an Item</Typography>
+        <form className={classes.container} noValidate autoComplete="off"> 
+      
+      <TextField
+         id="name"
+         label="Name"
+         value={this.state.name}
+         placeholder="Enter Name of Product"
+         className={classes.textField}
+         onChange={e => this.changeName(e)}
+         margin="normal"
+         refs='name'
+         
+       />
        <TextField
-          id="name"
-          label="Name"
-          value={this.state.name}
-          placeholder="Enter Name of Product"
-          className={classes.textField}
-          onChange={e => this.changeName(e)}
-          margin="normal"
-          refs='name'
-          
-        />
-        <TextField
-          id="type"
-          label="Type"
-          value={this.state.type}
-          placeholder="Enter Type of Product"
-          onChange={e => this.changeType(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-          
-        <TextField
-          id="price"
-          label="Price"
-          value={this.state.price}
-          placeholder="Enter Price of Product"
-          onChange={e => this.changePrice(e)}
-          className={classes.textField}
-          margin="normal"
-        />
+         id="type"
+         label="Type"
+         value={this.state.type}
+         placeholder="Enter Type of Product"
+         onChange={e => this.changeType(e)}
+         className={classes.textField}
+         margin="normal"
+       />
+         
+       <TextField
+         id="price"
+         label="Price"
+         value={this.state.price}
+         placeholder="Enter Price of Product"
+         onChange={e => this.changePrice(e)}
+         className={classes.textField}
+         margin="normal"
+       />
 
-          <TextField
-          id="id"
-          label="ID"
-          value={this.state.id}
-          placeholder="Enter ID of Product"
-          onChange={e => this.changeID(e)}
-          className={classes.textField}
-          margin="normal"/>
+        {/*
+        <TextField
+         id="id"
+         label="ID"
+         value={this.state.id}
+         placeholder="Enter ID of Product"
+         onChange={e => this.changeID(e)}
+         className={classes.textField}
+         margin="normal"/>
+        */} 
 
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
-        <AddIcon/>
-        </Button>
-      </form>
+       <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
+       <AddIcon/>
+       </Button>
+     </form>
+      </div>
     );
   }
 }

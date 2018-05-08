@@ -181,7 +181,7 @@ class ResponsiveDrawer extends React.Component {
         <MuiThemeProvider theme={theme2}>
            <ListItem><Button onClick={this.AddItemHandleClick.bind(this)} >Add Item</Button></ListItem>
            <Divider />
-            <ListItem><Button onClick={this.FullTableHandleClick.bind(this)}>Search</Button></ListItem>
+            <ListItem><Button onClick={this.FullTableHandleClick.bind(this)}>All Items</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
             <Divider />

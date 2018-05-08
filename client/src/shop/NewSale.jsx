@@ -24,9 +24,6 @@ import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Icon from 'material-ui/Icon';
 
-
-
-
 const styles = theme => ({
   root: {
     flexGrow: 1,

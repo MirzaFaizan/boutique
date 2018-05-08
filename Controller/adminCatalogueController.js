@@ -80,24 +80,22 @@ exports.CreatenewArticle= function(req, res)
  //Delete A Article
  exports.DeleteArticle= function(req, res)
  {
-  article_instance.findOneAndRemove(req.params.id)
-  .then(article => {
-      if(!article) {
-          return res.status(404).send({
-              message: "Article not found with id " + req.params.id
-          });
-      }
-      res.send({message: "Article deleted successfully!"});
-  }).catch(err => {
-      if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-          return res.status(404).send({
-              message: "Article not found with id " + req.params.id
-          });                
-      }
-      return res.status(500).send({
-          message: "Could not delete Article with id " + req.params.id
-      });
-  });
+    article_instance.deleteOne(  
+        
+        // query
+        {item_id:req.body.id},
+    
+        //{Emp_name: true,Emp_cnic:true,Emp_type:true},
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==null)
+            return res.status(200).json(message='No Article With this id');
+            else
+            return res.status(200).json('Article deleted Successfully');
+        }
+    );
  }
  //Function to Fetch all Articles
 
