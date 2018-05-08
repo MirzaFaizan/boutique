@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-
+import Typography from 'material-ui/Typography';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -102,6 +102,7 @@ class CustomizedTable extends React.Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
+      <Typography variant="display2"> All Employees</Typography>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>

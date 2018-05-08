@@ -54,11 +54,11 @@ const styles = theme => ({
 const dropdowntypes = [
   {
     value: 'admin',
-    label: 'Admin',
+    label: 'Warehouse',
   },
   {
     value: 'head',
-    label: 'Head',
+    label: 'Head Office',
   },
   {
     value: 'shop',
