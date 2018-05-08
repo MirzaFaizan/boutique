@@ -274,6 +274,7 @@ class TextFields extends React.Component {
        this.setState({
          data:res
        })
+       this.updateSuggestions();
        
         console.log("Response : ");
         console.log(res);
@@ -317,6 +318,13 @@ class TextFields extends React.Component {
     
   };
 
+  updateSuggestions= () =>
+  {
+    Object.values(this.state.data).map((type,i) => {
+      console.log(type)
+      suggestions.push({value:type.item_name,label:type.item_name,price:type.price,id:type.item_id})
+    })
+  }
   
   handleChange = name => value => {
     this.setState({
@@ -406,22 +414,29 @@ class TextFields extends React.Component {
       );
     
     };
-    removeProduct = (item) =>
+    removeProduct = (item,price) =>
     {
-      console.log("Currently Removing id => " + item);
+      const tot = this.state.total;
+      this.setState({
+        total: tot - price
+      })
+      console.log("Row Data : ");
+      console.log(row);
+      var delr = row.findIndex(x => x.id === item);
+      console.log("Getting Remove request for id :");
+      console.log(item);
       console.log("Before Removing => ");
       console.log(products);
-      console.log(row);
       const index = products.indexOf(item);
-      const indexrow = row.indexOf(item);
-      console.log("Index of Requested at Row = > "+ indexrow);
       console.log("Index of request : " + index);
       products.splice(index,1);
-      row.splice(0,1);
+      row.splice(delr,1);
+      console.log("After Removing Row");
+      console.log(row);
       console.log("After Removing => ");
-      console.log(products)
-      console.log(row)
-      
+      console.log(products);
+      this.forceUpdate();
+
     }
 
   render() {
@@ -491,6 +506,7 @@ class TextFields extends React.Component {
 
             <TableCell >Item Name </TableCell>
             <TableCell numeric>Price</TableCell>
+            <TableCell>Delete </TableCell>
             
           </TableRow>
         </TableHead>
@@ -500,16 +516,15 @@ class TextFields extends React.Component {
             return(<TableRow key={i}>
             
               <TableCell>{tr.nam}</TableCell>
-              <TableCell>{tr.pric}</TableCell>
-              
-            </TableRow>)
+              <TableCell numeric>{tr.pric}</TableCell>
+              <TableCell>
+              <IconButton className={classes.button} aria-label="Delete" onClick={this.removeProduct.bind(this,tr.id,tr.pric)}>
+                <DeleteIcon />
+                </IconButton>
+              </TableCell>
+      </TableRow>)
           })}
-        { Object.values(this.state.data).map((type,i) => {
-  console.log(type)
-  suggestions.push({value:type.item_name,label:type.item_name,price:type.price,id:type.item_id})
- 
-})
-}
+       
 
  
           
