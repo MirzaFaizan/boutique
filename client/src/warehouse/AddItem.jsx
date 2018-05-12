@@ -105,8 +105,16 @@ class TextFields extends React.Component {
       this.qrimg={b64encoded};
     }
     var popup = window.open();
-    popup.document.write("<html><head></head><body>\n" +
-    "<div style='margin-top:10%;width:100%;'><center><img style='width:20%;' src='" + this.qrimg.b64encoded + "'/></br>Price :"+this.state.price+"/-</center></div></body></html>");
+    popup.document.write("<html><head><link rel='stylesheet' "+
+    "href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'"+
+    "integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body>\n" +
+    "<div style='margin-top:10%;' class='container'>"+
+    "<div class='row'><div class='col-md-3'></div><div class='col-md-3'><div class='container'>"+
+    "<div style ='border:2px solid;'>"+
+    "<img style='width:20%' class='pull-right'" +
+    "src='" + this.qrimg.b64encoded + "'/><p>Price :"+this.state.price+"</p>"+
+    "</div></div></div></div></div></body></html>"
+    );
     popup.focus();
     console.log(this.qrimg);
     console.log(this.state);
