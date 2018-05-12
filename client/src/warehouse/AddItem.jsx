@@ -105,19 +105,19 @@ class TextFields extends React.Component {
       this.qrimg={b64encoded};
     }
     var popup = window.open();
-    popup.document.write("<html><head><link rel='stylesheet' "+
-    "href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'"+
-    "integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body>\n" +
-    "<div style='margin-top:10%;' class='container'>"+
-    "<div class='row'><div class='col-md-3'></div><div class='col-md-3'><div class='container'>"+
-    "<div style ='border:2px solid;'>"+
-    "<img style='width:20%' class='pull-right'" +
-    "src='" + this.qrimg.b64encoded + "'/>"+
-    "<ul><li>Price :"+this.state.price+"</li>"+
-    "<li>Price :"+this.state.price+"</li>"+
-    "<li>Price :"+this.state.price+"</li>"+
-    "<li>Price :"+this.state.price+"</li></ul>"+
-    "</div></div></div></div></div></body></html>"
+    popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
+      +"<title>Print This</title></head>"+
+      "<body class='container'><div class='row'>"+
+        "<div class='col-md-4'></div><div class='col-md-4' style='border: 5px solid;'>"+
+          "<div class='row'><div class='col-md-6'>"+
+                "<ul style='list-style-type: square'>"+
+                  "<strong>Poshwear studio</strong>"+
+                  "<li>price</li>"+
+                  "<li>type</li>"+
+                  "<li>name</li>"+
+                "</ul></div>"+
+            "<div class='col-md-6'><img src='"+this.b64encoded+"' alt='img here'></div>"+
+            "</div></div><div class='col-md-4'></div></div></body></html>"
     );
     popup.focus();
     console.log(this.qrimg);
