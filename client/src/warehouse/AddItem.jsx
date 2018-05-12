@@ -108,13 +108,13 @@ class TextFields extends React.Component {
     popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
       +"<title>Print This</title></head>"+
       "<body class='container'><div class='row'>"+
-        "<div class='col-md-4'></div><div class='col-md-4' style='border: 5px solid;'>"+
+        "<div class='col-md-4'></div><div class='col-md-4' style='border: 2px solid;'>"+
           "<div class='row'><div class='col-md-6'>"+
                 "<ul style='list-style-type: square'>"+
                   "<strong>Poshwear studio</strong>"+
-                  "<li>price</li>"+
-                  "<li>type</li>"+
-                  "<li>name</li>"+
+                  "<li>"+this.state.name+"</li>"+
+                  "<li>"+this.state.type+"</li>"+
+                  "<li>"+this.state.price+"</li>"+
                 "</ul></div>"+
             "<div class='col-md-6'><img src='"+this.b64encoded+"' alt='img here'></div>"+
             "</div></div><div class='col-md-4'></div></div></body></html>"
