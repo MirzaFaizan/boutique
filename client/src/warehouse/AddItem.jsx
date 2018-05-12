@@ -112,7 +112,11 @@ class TextFields extends React.Component {
     "<div class='row'><div class='col-md-3'></div><div class='col-md-3'><div class='container'>"+
     "<div style ='border:2px solid;'>"+
     "<img style='width:20%' class='pull-right'" +
-    "src='" + this.qrimg.b64encoded + "'/><p>Price :"+this.state.price+"</p>"+
+    "src='" + this.qrimg.b64encoded + "'/>"+
+    "<ul><li>Price :"+this.state.price+"</li>"+
+    "<li>Price :"+this.state.price+"</li>"+
+    "<li>Price :"+this.state.price+"</li>"+
+    "<li>Price :"+this.state.price+"</li></ul>"+
     "</div></div></div></div></div></body></html>"
     );
     popup.focus();
