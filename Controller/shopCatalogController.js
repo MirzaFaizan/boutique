@@ -135,8 +135,8 @@ req.body.products= req.body.products.split(',').map(function(i){
          article_instance.deleteMany({item_id: {$in:req.body.products}},function(err){
          if(err)return res.json(err);})
     //Delete all items from shopInventory collection
-         shop_inventory.deleteMany({item_id: {$in:req.body.products}},function(err){
-         if(err)return res.json(err); })
+         shop_inventory.updateMany({item_id: {$in:req.body.products}},{$set: { sold : true } },function(err){
+         if(err)return res.json(err);})
             }
  });
     }

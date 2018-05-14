@@ -1,4 +1,4 @@
-var express= require('express'); 
+var express= require('express');
 var app= express();
 var jwt    = require('jsonwebtoken');
 var config= require('../DBconfig');
@@ -33,18 +33,18 @@ else
    // res.send('login Successfull and token generated');
     //Generate JWT Token
     const payload = {
-        name: nam 
+        name: nam
       };
           var token = jwt.sign(payload, config.secret, {expiresIn: 86400 // expires in 24 hours
         });
-        
+
  //          return the information including token as JSON
         return res.json({
             success: true,
             message: 'Enjoy your token!',
             token: token,
             type: 'head'
-          });     
+          });
 }
 };
 
@@ -54,16 +54,29 @@ exports.CreatenewEmp= function(req, res)
   //  bcrypt.hash(req.body.password, 10, function(err, hash) {
     //    req.body.password= hash;
       //  console.log(req.body.password);
-      
+
      //console.log(req.body.name);
-     var Emp = new emp_instance({Emp_name:req.body.name,Emp_password:req.body.password,
-        Emp_cnic:req.body.cnic, 
+     var Emp = new emp_instance({
+        Emp_name:req.body.name,
+        Emp_password:req.body.password,
+        Emp_cnic:req.body.cnic,
         Emp_type:req.body.type,
-        shop_id:req.body.shopID});
+        shop_id:req.body.shopID,
+        Emp_username:req.body.username,
+        Emp_city:req.body.city,
+        Emp_zip:req.body.zip,
+        Emp_state:req.body.countrystate,
+        Emp_phone:req.body.phone,
+        Emp_country:req.body.country,
+        shop_address:req.body.shopaddress,
+        Emp_nationality:req.body.nationality,
+        Emp_address:req.body.address,
+        Emp_mobile:req.body.mobile,
+      });
     Emp.save(function (err) {
         if (err)
          return handleError(err);
-      
+         
         else
           res.send({msg:"Data Entered Successfully"});
           console.log("Data entered");
@@ -86,12 +99,12 @@ exports.CreatenewEmp= function(req, res)
 };
 //Funtion To Fetch an Employee
 exports.fetchoneemp= function(req,res){
-    emp_instance.findOne(  
+    emp_instance.findOne(
         // query
         {Emp_cnic:req.body.cnic},
-    
+
         {Emp_name: true,Emp_cnic:true,Emp_type:true},
-    
+
         // callback function
         (err, Emp) => {
             if (err) return res.status(200).send(err)
@@ -117,7 +130,7 @@ exports.Deleteemp= function(req, res)
       if(err.kind === 'Emp_cnic' || err.name === 'NotFound') {
           return res.status(404).send({
               message: "Employee not found with cnic " + req.body.cnic
-          });                
+          });
       }
       return res.status(500).send({
           message: "Could not delete Employee with cnic " + req.params.cnic
