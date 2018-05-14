@@ -176,8 +176,20 @@ class TextFields extends React.Component {
       this.qrimg={b64encoded};
     }
     var popup = window.open();
-    popup.document.write("<html><head></head><body>\n" +
-    "<div style='margin-top:10%;width:100%;'><center><img style='width:20%;' src='" + this.qrimg.b64encoded + "'/></br>Price :"+this.state.price+"/-</center></div></body></html>");
+    popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
+      +"<title>Print This</title></head>"+
+      "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
+        "<div class='col-md-4'></div><div class='col-md-4' style='border: 2px solid;'>"+
+          "<div class='row'><div class='col-md-6'>"+
+                "<ul style='list-style-type: square; padding-top:20px'>"+
+                  "<strong>Poshwear studio</strong>"+
+                  "<li> Name : "+this.state.name+"</li>"+
+                  "<li> Type : "+this.state.type+"</li>"+
+                  "<li>Price : Rs "+this.state.price+"/-</li>"+
+                "</ul></div>"+
+            "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
+            "</div></div><div class='col-md-4'></div></div></body></html>"
+    );
     popup.focus();
     console.log(this.qrimg);
     console.log(this.state);
