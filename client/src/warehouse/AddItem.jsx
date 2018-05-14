@@ -9,12 +9,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from 'material-ui/Icon';
 import qr from 'qr-image';
 import Typography from 'material-ui/Typography';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 
 const styles = theme => ({
   button: {
     margin:theme.spacing.unit,
     display:'flex',
+    marginTop: '5%'
   },
   container: {
     display: 'flex',
@@ -24,12 +26,45 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: '25%',
+    marginTop: '5%'
+  },
+  textField2: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: '25%',
+    marginTop: '6%'
   },
   menu: {
     width: 200,
   },
 });
 
+const dropdowntypes = [
+  {
+    value: 'Women Clothing',
+    label: 'Women Clothing',
+  },
+  {
+    value: 'Men Clothing',
+    label: 'Men Clothing',
+  },
+  {
+    value: 'Jewelry',
+    label: 'Jewelry',
+  },
+  {
+    value: 'Ladies Bag',
+    label: 'Ladies Bag',
+  },
+  {
+    value: 'Peshawari Chappal',
+    label: 'Peshawari Chappal',
+  },
+  {
+    value: 'Home Decor',
+    label: 'Home Decor',
+  },
+];
 
 function validate(name,type,price) {
   return {
@@ -43,9 +78,9 @@ class TextFields extends React.Component {
 
     state = {
     name: '',
-    type: '',
+    type: 'Women Clothing',
     price: '',
-    id: '',
+    newid: 'pw-wc-',
     date:new Date(),
     t:this.props.token,
     QRImg: {},
@@ -56,7 +91,7 @@ class TextFields extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { name,type,price,id} = this.state;
+    const { name,type,price,newid} = this.state;
   }
   canBeSubmitted() {
     const errors = validate(this.state.name,this.state.type,this.state.price);
@@ -82,6 +117,42 @@ class TextFields extends React.Component {
     this.setState({
       type: e.target.value
     });
+    if(this.state.type==='Women Clothing')
+    {
+      this.setState({
+        newid:'pw-wc-'
+      })
+    }
+    if(this.state.type==='Men Clothing')
+    {
+      this.setState({
+        newid:'pw-gc-'
+      })
+    }
+    if(this.state.type==='Jewelry')
+    {
+      this.setState({
+        newid:'pw-jw-'
+      })
+    }
+    if(this.state.type==='Ladies Bag')
+    {
+      this.setState({
+        newid:'pw-lb-'
+      })
+    }
+    if(this.state.type==='Peshawari Chappal')
+    {
+      this.setState({
+        newid:'pw-pc-'
+      })
+    }
+    if(this.state.type==='Home Decor')
+    {
+      this.setState({
+        newid:'pw-hd-'
+      })
+    }
   }
 
   changePrice = e => {
@@ -117,7 +188,7 @@ class TextFields extends React.Component {
        'name': this.state.name,
        'price': this.state.price,
        'type':this.state.type,
-        'id':this.state.id,
+        'newid':this.state.newid,
         'date':this.state.date,
         'token':this.state.t
    };
@@ -155,9 +226,9 @@ class TextFields extends React.Component {
    );  //form saaf kia hai 
     this.setState({
       name:'',
-      type:'',
+      type:'Women Clothing',
       price:'',
-      id:'',
+      newid:'pw-wc-',
       t:this.props.token,
     })
   }
@@ -165,7 +236,7 @@ class TextFields extends React.Component {
     //posting data to api call here
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.id);
+    const errors = validate(this.state.name,this.state.type,this.state.price,this.state.newid);
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
@@ -184,15 +255,26 @@ class TextFields extends React.Component {
          refs='name'
          
        />
-       <TextField
-         id="type"
-         label="Type"
-         value={this.state.type}
-         placeholder="Enter Type of Product"
-         onChange={e => this.changeType(e)}
-         className={classes.textField}
-         margin="normal"
-       />
+     <TextField
+          id="type"
+          select
+          className={classes.textField2}
+          value={this.state.type}
+          onChange={e=>this.changeType(e)}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+        >
+          {dropdowntypes.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+          </TextField>
          
        <TextField
          id="price"
@@ -203,7 +285,7 @@ class TextFields extends React.Component {
          className={classes.textField}
          margin="normal"
        />
-
+        
         {/*
         <TextField
          id="id"
