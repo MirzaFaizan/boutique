@@ -66,7 +66,7 @@ exports.CreatenewArticle= function(req, res)
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
         if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1;
-        articlemodel.id2=req.body.newid+latest[0].item_id+1}
+        articlemodel.id2=req.body.newid+(latest[0].item_id+1)}
         else{articlemodel.id2=req.body.newid+'001'}
         
         //save new article
