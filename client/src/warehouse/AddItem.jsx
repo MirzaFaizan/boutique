@@ -167,7 +167,7 @@ class TextFields extends React.Component {
   qrimg = null
   handleClick = () => {
     var qr_svg = qr.image('I love QR!', { type: 'png' });
-    var svg_string = qr.imageSync(this.state.id, { type: 'png' });
+    var svg_string = qr.imageSync(this.state.newid, { type: 'png' });
     var decoder = new TextDecoder('utf8');
     var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
     b64encoded = "data:image/gif;base64,"+b64encoded;

@@ -214,7 +214,7 @@ class CustomizedTable extends React.Component {
                     <CustomTableCell >{type.item_type}</CustomTableCell>
                     <CustomTableCell >{type.price}</CustomTableCell>
                     <CustomTableCell >{type.date_added}</CustomTableCell>
-                    <CustomTableCell >{type._id}</CustomTableCell>
+                    <CustomTableCell >{type.id2}</CustomTableCell>
                     <CustomTableCell >
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />

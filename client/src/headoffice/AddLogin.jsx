@@ -66,7 +66,17 @@ class TextFields extends React.Component {
     type:'admin',
     t:this.props.token,
     shopID:'',
-    isDisabledshop:true
+    isDisabledshop:true,
+    shopaddress:'',
+    city:'',
+    countryState:'',
+    zip:'',
+    phone:'',
+    nationality:'',
+    country:'',
+    mobile:'',
+    email:'',
+    address:''
   }
 
 
@@ -75,7 +85,7 @@ handleSubmit = (evt) => {
     evt.preventDefault();
     return;
   }
-  const { qrId} = this.state;
+  const {qrId} = this.state;
 }
 canBeSubmitted() {
   const errors = validate(this.state.username,this.state.password,this.state.cnic);
@@ -108,7 +118,38 @@ canBeSubmitted() {
     });
   }
 
+  changecity = e => {
+    this.setState({
+      city: e.target.value
+    });
+  }
 
+  changezip = e => {
+    this.setState({
+      zip: e.target.value
+    });
+  }
+  changephone = e => {
+    this.setState({
+      phone: e.target.value
+    });
+  }
+  changeemail = e => {
+    this.setState({
+      email: e.target.value
+    });
+  }
+  changemobile = e => {
+    this.setState({
+      mobile: e.target.value
+    });
+  }
+
+  changenationality = e => {
+    this.setState({
+      nationality: e.target.value
+    });
+  }
   changeType = e => {
     this.setState({
       type: e.target.value,
@@ -132,6 +173,30 @@ canBeSubmitted() {
     })
   }
 
+  changeShopAddress = e => {
+    this.setState({
+      shopaddress: e.target.value
+    })
+  }
+
+  changestate = e => {
+    this.setState({
+      countryState: e.target.value
+    })
+  }
+
+  changecountry = e => {
+    this.setState({
+      country: e.target.value
+    })
+  }
+
+  changeaddres = e => {
+    this.setState({
+      address: e.target.value
+    })
+  }
+
   handleClick = () => {
     console.log(this.props.token);
     //api call to store data in database here
@@ -142,7 +207,17 @@ canBeSubmitted() {
        'password':this.state.password,
         'cnic':this.state.cnic,
         'shopID':this.state.shopID,
-        'token':this.state.t
+        'token':this.state.t,
+        'shopaddress':this.state.shopaddress,
+        'city':this.state.city,
+        'countrystate':this.state.countryState,
+        'zip':this.state.zip,
+        'phone':this.state.phone,
+        'nationality':this.state.nationality,
+        'country':this.state.country,
+        'mobile':this.state.mobile,
+        'email':this.state.email,
+        'address':this.state.address,
    };
    
    var formBody = [];
@@ -182,6 +257,17 @@ canBeSubmitted() {
       cnic:'',
       type:'',
       isDisabledshop:true,
+      shopaddress:'',
+      city:'',
+      state:'',
+      zip:'',
+      phone:'',
+      nationality:'',
+      country:'',
+      mobile:'',
+      email:'',
+      address:'',
+      countryState:''
     })
   }
 
@@ -207,7 +293,6 @@ canBeSubmitted() {
           onChange={e => this.changeuserName(e)}
           margin="normal"
           refs='name'
-          
         />
         </CardContent>
         <CardContent>
@@ -234,12 +319,124 @@ canBeSubmitted() {
         </CardContent>
         <CardContent>
         <TextField
+          id="city"
+          label="City"
+          value={this.state.city}
+          placeholder="Enter City"
+          onChange={e => this.changecity(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="email"
+          label="Email"
+          value={this.state.email}
+          placeholder="Enter Email"
+          onChange={e => this.changeemail(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="nationality"
+          label="Nationality"
+          value={this.state.nationality}
+          placeholder="Enter Email"
+          onChange={e => this.changenationality(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="Phone"
+          label="Phone"
+          value={this.state.phone}
+          placeholder="Enter Phone"
+          onChange={e => this.changephone(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="country"
+          label="Country"
+          value={this.state.country}
+          placeholder="Enter City"
+          onChange={e => this.changecountry(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="zip"
+          label="Zip"
+          value={this.state.zip}
+          placeholder="Enter Zip"
+          onChange={e => this.changezip(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="mobile"
+          label="mobile"
+          value={this.state.mobile}
+          placeholder="Enter Mobile"
+          onChange={e => this.changemobile(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="address"
+          label="address"
+          value={this.state.address}
+          placeholder="Enter Address"
+          onChange={e => this.changeaddres(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="state"
+          label="State"
+          value={this.state.countryState}
+          placeholder="Enter State"
+          onChange={e => this.changestate(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
           disabled={this.state.isDisabledshop}
           id="shopid"
           label="Shop ID"
           value={this.state.shopID}
           placeholder="Enter Shop ID"
           onChange={e => this.changeShopID(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          disabled={this.state.isDisabledshop}
+          id="shopaddress"
+          label="Shop Address"
+          value={this.state.shopaddress}
+          placeholder="Enter Shop Address"
+          onChange={e => this.changeShopAddress(e)}
           className={classes.textField}
           margin="normal"
         />
