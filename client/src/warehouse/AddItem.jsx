@@ -81,6 +81,33 @@ const sizetypes = [
   },
 ];
 
+const shoesizetypes = [
+  {
+    value: '9',
+    label: '9',
+  },
+  {
+    value: '10',
+    label: '10',
+  },
+  {
+    value: '11',
+    label: '11',
+  },
+  {
+    value: '12',
+    label: '12',
+  },
+  {
+    value: '13',
+    label: '13',
+  },
+  {
+    value: '14',
+    label: '14',
+  },
+]
+
 function validate(name,type,price) {
   return {
     name: name.length === 0,
@@ -343,6 +370,27 @@ class TextFields extends React.Component {
           margin="normal"
         >
           {sizetypes.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+          </TextField>
+
+          <TextField
+          id="shoesize"
+          select
+          className={classes.textField2}
+          value={this.state.size}
+          onChange={e=>this.changesize(e)}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+        >
+          {shoesizetypes.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

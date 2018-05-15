@@ -110,6 +110,7 @@ class CustomizedTable extends React.Component {
               <CustomTableCell numeric>Type</CustomTableCell>
               <CustomTableCell numeric>CNIC</CustomTableCell>
               <CustomTableCell numeric>Password</CustomTableCell>
+              <CustomTableCell numeric>Shop ID</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -126,6 +127,7 @@ class CustomizedTable extends React.Component {
                     <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
                     <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
                   </TableRow>
                 );
               })
