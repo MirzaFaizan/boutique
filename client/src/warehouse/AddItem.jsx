@@ -66,6 +66,21 @@ const dropdowntypes = [
   },
 ];
 
+const sizetypes = [
+  {
+    value: 'large',
+    label: 'Large',
+  },
+  {
+    value: 'medium',
+    label: 'Medium',
+  },
+  {
+    value: 'small',
+    label: 'Small',
+  },
+];
+
 function validate(name,type,price) {
   return {
     name: name.length === 0,
@@ -84,6 +99,9 @@ class TextFields extends React.Component {
     date:new Date(),
     t:this.props.token,
     QRImg: {},
+    isDisabled:true,
+    isDisabledsize:true,
+    size:'large'
   };
 
   handleSubmit = (evt) => {
@@ -120,37 +138,43 @@ class TextFields extends React.Component {
     if(this.state.type==='Women Clothing')
     {
       this.setState({
-        newid:'pw-wc-'
+        newid:'pw-wc-',
+        isDisabledsize:true,
       })
     }
     if(this.state.type==='Men Clothing')
     {
       this.setState({
-        newid:'pw-gc-'
+        newid:'pw-gc-',
+        isDisabledsize:false,
       })
     }
     if(this.state.type==='Jewelry')
     {
       this.setState({
-        newid:'pw-jw-'
+        newid:'pw-jw-',
+        isDisabledsize:true,
       })
     }
     if(this.state.type==='Ladies Bag')
     {
       this.setState({
-        newid:'pw-lb-'
+        newid:'pw-lb-',
+        isDisabledsize:true,
       })
     }
     if(this.state.type==='Peshawari Chappal')
     {
       this.setState({
-        newid:'pw-pc-'
+        newid:'pw-pc-',
+        isDisabledsize:false,
       })
     }
     if(this.state.type==='Home Decor')
     {
       this.setState({
-        newid:'pw-hd-'
+        newid:'pw-hd-',
+        isDisabledsize:true,
       })
     }
   }
@@ -161,7 +185,11 @@ class TextFields extends React.Component {
     });
   }
 
-  
+  changesize = e => {
+    this.setState({
+      size:e.target.value
+    })
+  }
 
   list = {}
   qrimg = null
@@ -202,7 +230,8 @@ class TextFields extends React.Component {
        'type':this.state.type,
         'newid':this.state.newid,
         'date':this.state.date,
-        'token':this.state.t
+        'token':this.state.t,
+        'size':this.state.size
    };
    
    var formBody = [];
@@ -242,6 +271,8 @@ class TextFields extends React.Component {
       price:'',
       newid:'pw-wc-',
       t:this.props.token,
+      size:'large',
+      isDisabledsize:true
     })
   }
 
@@ -280,8 +311,7 @@ class TextFields extends React.Component {
             },
           }}
           margin="normal"
-        >
-          {dropdowntypes.map(option => (
+        > {dropdowntypes.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -297,7 +327,29 @@ class TextFields extends React.Component {
          className={classes.textField}
          margin="normal"
        />
-        
+
+          <TextField
+          id="size"
+          select
+          className={classes.textField2}
+          value={this.state.size}
+          onChange={e=>this.changesize(e)}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+        >
+          {sizetypes.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+          </TextField>
+
+         
         {/*
         <TextField
          id="id"
