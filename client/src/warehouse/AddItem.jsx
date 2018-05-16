@@ -236,9 +236,10 @@ class TextFields extends React.Component {
           "<div class='row'><div class='col-xs-6'>"+
                 "<ul style='list-style-type: square; padding-top:20px'>"+
                   "<strong>Poshwear studio</strong>"+
-                  "<li> Name : "+this.state.name+"</li>"+
-                  "<li> Type : "+this.state.size+"</li>"+
-                  "<li>Price : Rs "+this.state.price+"/-</li>"+
+                  "<li>"+this.state.name+"</li>"+
+                  "<li> Size : "+this.state.size+"</li>"+
+                  "<li>Rs "+this.state.price+"/-</li>"+
+                  "<li> ID :"+this.state.newid+"/-</li>"+
                 "</ul></div>"+
             "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
             "</div></div><div class='col-md-4'></div></div></body></html>"
