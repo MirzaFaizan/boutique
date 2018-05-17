@@ -138,7 +138,8 @@ class TextFields extends React.Component {
     QRImg: {},
     isDisabled:true,
     isDisabledsize:true,
-    size:'large'
+    size:'large',
+    resid:null
   };
 
   handleSubmit = (evt) => {
@@ -233,32 +234,7 @@ class TextFields extends React.Component {
   list = {}
   qrimg = null
   handleClick = () => {
-    var qr_svg = qr.image('I love QR!', { type: 'png' });
-    var svg_string = qr.imageSync(this.state.newid, { type: 'png' });
-    var decoder = new TextDecoder('utf8');
-    var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
-    b64encoded = "data:image/gif;base64,"+b64encoded;
-    console.log({b64encoded});
-    if(b64encoded){
-      this.qrimg={b64encoded};
-    }
-    var popup = window.open();
-    popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
-      +"<title>Print This</title></head>"+
-      "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
-        "<div class='col-md-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
-          "<div class='row'><div class='col-xs-6'>"+
-                "<ul style='list-style-type: square; padding-top:20px'>"+
-                  "<strong>Poshwear studio</strong>"+
-                  "<li>"+this.state.name+"</li>"+
-                  "<li> Size : "+this.state.size+"</li>"+
-                  "<li>Rs "+this.state.price+"/-</li>"+
-                  "<li>"+this.state.newid+"/-</li>"+
-                "</ul></div>"+
-            "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
-            "</div></div><div class='col-md-4'></div></div></body></html>"
-    );
-    popup.focus();
+ 
     console.log(this.qrimg);
     console.log(this.state);
     console.log(this.props.token);
@@ -295,8 +271,44 @@ class TextFields extends React.Component {
      console.log("we are in this function");
      if(res){
       console.log(res);
+      this.setState({
+        resid:res.id
+      });
+      
+
+
+      console.log(this.state.resid);
+   var qr_svg = qr.image('I love QR!', { type: 'png' });
+   var svg_string = qr.imageSync(this.state.resid, { type: 'png' });
+   var decoder = new TextDecoder('utf8');
+   var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
+   b64encoded = "data:image/gif;base64,"+b64encoded;
+   console.log({b64encoded});
+   if(b64encoded){
+     this.qrimg={b64encoded};
+   }
+
+   var popup = window.open();
+   popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
+     +"<title>Print This</title></head>"+
+     "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
+       "<div class='col-md-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
+         "<div class='row'><div class='col-xs-6'>"+
+               "<ul style='list-style-type: square; padding-top:20px'>"+
+                 "<strong>Poshwear studio</strong>"+
+                 "<li>"+this.state.name+"</li>"+
+                 "<li> Size : "+this.state.size+"</li>"+
+                 "<li>Rs "+this.state.price+"/-</li>"+
+                 "<li>"+res.id+"</li>"+
+               "</ul></div>"+
+           "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
+           "</div></div><div class='col-md-4'></div></div></body></html>"
+   );
+   popup.focus();
+
+
+      
       this.props.handleopen();
-       console.log("After function");
 
      }
      else{
@@ -304,16 +316,57 @@ class TextFields extends React.Component {
      }
      ;
    }
-   );  //form saaf kia hai 
-    this.setState({
-      name:'',
-      type:'Women Clothing',
-      price:'',
-      newid:'pw-wc-',
-      t:this.props.token,
-      size:'large',
-      isDisabledsize:true
-    })
+   ).then(function(){
+        
+   //form saaf kia hai 
+   this.setState({
+    name:'',
+    type:'Women Clothing',
+    price:'',
+    newid:'pw-wc-',
+    t:this.props.token,
+    size:'large',
+    isDisabledsize:true,
+    resid:null
+  })
+
+   });
+   
+   if(this.state.resid){
+        //image
+   console.log(this.state.resid);
+   var qr_svg = qr.image('I love QR!', { type: 'png' });
+   var svg_string = qr.imageSync(this.state.newid, { type: 'png' });
+   var decoder = new TextDecoder('utf8');
+   var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
+   b64encoded = "data:image/gif;base64,"+b64encoded;
+   console.log({b64encoded});
+   if(b64encoded){
+     this.qrimg={b64encoded};
+   }
+
+   var popup = window.open();
+   popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
+     +"<title>Print This</title></head>"+
+     "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
+       "<div class='col-md-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
+         "<div class='row'><div class='col-xs-6'>"+
+               "<ul style='list-style-type: square; padding-top:20px'>"+
+                 "<strong>Poshwear studio</strong>"+
+                 "<li>"+this.state.name+"</li>"+
+                 "<li> Size : "+this.state.size+"</li>"+
+                 "<li>Rs "+this.state.price+"/-</li>"+
+                 "<li>"+this.state.resid+"</li>"+
+               "</ul></div>"+
+           "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
+           "</div></div><div class='col-md-4'></div></div></body></html>"
+   );
+   popup.focus();
+
+
+
+   }
+
   }
 
     //posting data to api call here
