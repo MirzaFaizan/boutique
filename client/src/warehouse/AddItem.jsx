@@ -132,7 +132,7 @@ class TextFields extends React.Component {
     name: '',
     type: 'Women Clothing',
     price: '',
-    newid: 'pw-wc-',
+    newid: '',
     date:new Date(),
     t:this.props.token,
     QRImg: {},
@@ -169,45 +169,47 @@ class TextFields extends React.Component {
   };
 
   changeType = e => {
+    console.log(e.target.value);
     this.setState({
       type: e.target.value
     });
-    if(this.state.type==='Women Clothing')
+    if(e.target.value==-'Women Clothing')
     {
       this.setState({
+
         newid:'pw-wc-',
         isDisabledsize:true,
       })
     }
-    if(this.state.type==='Men Clothing')
+    if(e.target.value==='Men Clothing')
     {
       this.setState({
         newid:'pw-gc-',
         isDisabledsize:false,
       })
     }
-    if(this.state.type==='Jewelry')
+    if(e.target.value==='Jewelry')
     {
       this.setState({
         newid:'pw-jw-',
         isDisabledsize:true,
       })
     }
-    if(this.state.type==='Ladies Bag')
+    if(e.target.value==='Ladies Bag')
     {
       this.setState({
         newid:'pw-lb-',
         isDisabledsize:true,
       })
     }
-    if(this.state.type==='Peshawari Chappal')
+    if(e.target.value==='Peshawari Chappal')
     {
       this.setState({
         newid:'pw-pc-',
         isDisabledsize:false,
       })
     }
-    if(this.state.type==='Home Decor')
+    if(e.target.value==='Home Decor')
     {
       this.setState({
         newid:'pw-hd-',
