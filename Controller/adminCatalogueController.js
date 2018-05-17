@@ -75,8 +75,7 @@ exports.CreatenewArticle= function(req, res)
         if (err)
         return res.json(err);
         else
-          return res.json({message:'Article Added Succesfully'});
-          console.log("Data entered");
+          return res.json({id:articlemodel.id2,message:'Article Added Succesfully'});
         // saved!
     });
 });
@@ -126,7 +125,7 @@ exports.fetchoneArticle= function(req,res){
         // query
         {item_id:req.body.id},
     
-        //{Emp_name: true,Emp_cnic:true,Emp_type:true},
+        
     
         // callback function
         (err, article) => {
