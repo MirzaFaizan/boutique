@@ -8,6 +8,7 @@ var ArticleSchema = new Schema(
     item_type: {type: String, required: true, max: 100},
     price: {type: Number},
     date_added: {type: Date},
+    size: {type: String},
     item_id: {type: Number, default: 1},
     id2:{type:String,required: true,max:100},
     sold: {type : Boolean, default:false},
