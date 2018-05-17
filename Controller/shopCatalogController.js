@@ -132,10 +132,10 @@ req.body.products= req.body.products.split(',').map(function(i){
                     console.log(salesmodel.products.length);
                     salesmodel.save(function(){});
     //Delete all items from Articles collection
-         article_instance.deleteMany({item_id: {$in:req.body.products}},function(err){
+         shop_inventory.deleteMany({item_id: {$in:req.body.products}},function(err){
          if(err)return res.json(err);})
     //Delete all items from shopInventory collection
-         shop_inventory.updateMany({item_id: {$in:req.body.products}},{$set: { sold : true } },function(err){
+         article_instance.updateMany({item_id: {$in:req.body.products}},{$set: { sold : true } },function(err){
          if(err)return res.json(err);})
             }
  });
