@@ -316,22 +316,7 @@ class TextFields extends React.Component {
      }
      ;
    }
-   ).then(function(){
-        
-   //form saaf kia hai 
-   this.setState({
-    name:'',
-    type:'Women Clothing',
-    price:'',
-    newid:'pw-wc-',
-    t:this.props.token,
-    size:'large',
-    isDisabledsize:true,
-    resid:null
-  })
-
-   });
-   
+   ); 
    if(this.state.resid){
         //image
    console.log(this.state.resid);
