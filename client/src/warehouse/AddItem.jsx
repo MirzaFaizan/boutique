@@ -292,7 +292,7 @@ class TextFields extends React.Component {
    popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
      +"<title>Print This</title></head>"+
      "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
-       "<div class='col-md-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
+       "<div class='col-xs-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
          "<div class='row'><div class='col-xs-6'>"+
                "<ul style='list-style-type: square; padding-top:20px'>"+
                  "<strong>Poshwear studio</strong>"+
@@ -301,8 +301,8 @@ class TextFields extends React.Component {
                  "<li>Rs "+this.state.price+"/-</li>"+
                  "<li>"+res.id+"</li>"+
                "</ul></div>"+
-           "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
-           "</div></div><div class='col-md-4'></div></div></body></html>"
+           "<div class='col-xs-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
+           "</div></div><div class='col-xs-4'></div></div></body></html>"
    );
    popup.focus();
 
@@ -334,7 +334,7 @@ class TextFields extends React.Component {
    popup.document.write("<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>"
      +"<title>Print This</title></head>"+
      "<body class='container'><div style='margin-top:20%;'><div class='row'>"+
-       "<div class='col-md-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
+       "<div class='col-xs-4'></div><div class='col-xs-4' style='border: 2px solid;'>"+
          "<div class='row'><div class='col-xs-6'>"+
                "<ul style='list-style-type: square; padding-top:20px'>"+
                  "<strong>Poshwear studio</strong>"+
@@ -343,8 +343,8 @@ class TextFields extends React.Component {
                  "<li>Rs "+this.state.price+"/-</li>"+
                  "<li>"+this.state.resid+"</li>"+
                "</ul></div>"+
-           "<div class='col-md-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
-           "</div></div><div class='col-md-4'></div></div></body></html>"
+           "<div class='col-xs-6'><img src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
+           "</div></div><div class='col-xs-4'></div></div></body></html>"
    );
    popup.focus();
 
