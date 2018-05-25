@@ -161,10 +161,16 @@ const styles = theme => ({
 
 
 const suggestions = [].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
+  value: suggestion.id,
+  label: suggestion.id,
   price : suggestion.price,
   id:suggestions.id
+}));
+const Idsuggestions = [].map(Idsuggestion => ({
+  value: Idsuggestion.id,
+  label: Idsuggestion.id,
+  price :Idsuggestion.price,
+  id:Idsuggestions.id
 }));
 
 var row = [].map(row => ({
@@ -272,6 +278,7 @@ class TextFields extends React.Component {
          data:res
        })
        this.updateSuggestions();
+       this.updateIdSuggestions();
        
         console.log("Response : ");
         console.log(res);
@@ -322,8 +329,17 @@ class TextFields extends React.Component {
       suggestions.push({value:type.item_name,label:type.item_name,price:type.price,id:type.item_id})
     })
   }
+  updateIdSuggestions= () =>
+  {
+    Object.values(this.state.data).map((type,i) => {
+      console.log(type)
+      Idsuggestions.push({value:type.item_id,label:type.item_name,price:type.price,id:type.item_id})
+    })
+  }
   
   handleChange = name => value => {
+
+    if(value){
     this.setState({
       [name]: value,
     });
@@ -356,6 +372,45 @@ class TextFields extends React.Component {
       console.log(products);
       console.log("number of items in array :");
       console.log(row.length - 1);
+    }
+
+  };
+  handleIdChange = name => value => {
+
+    if(value){
+    this.setState({
+      [name]: value,
+    });
+   var x;
+    for(var i=0;i<Idsuggestions.length;i++)
+    {
+      if(Idsuggestions[i].value == value)
+      {
+        console.log("selected is at index ");
+        console.log(i);
+        x = i;
+      }
+    }
+    console.log("Selected item details");
+    console.log(Idsuggestions[x]);
+    const {displayTable,dummy,total} = this.state;
+
+      row.push({nam:Idsuggestions[x].value,pric:Idsuggestions[x].price,id:Idsuggestions[x].id})
+      products.push(suggestions[x].id);
+
+      this.setState({
+        total:Idsuggestions[x].price + this.state.total
+      })
+      this.setState({data:{}})
+      console.log("value of toal : ");
+      console.log(this.state.total);
+      console.log("Data in Row :")
+      console.log(row);
+      console.log("Ids to be Sold:")
+      console.log(products);
+      console.log("number of items in array :");
+      console.log(row.length - 1);
+    }
 
   };
 
@@ -439,6 +494,9 @@ class TextFields extends React.Component {
   render() {
     console.log("data in suggestions:");
     console.log(suggestions);
+    console.log("data in IDsuggestions:");
+    console.log(Idsuggestions);
+    console.log("data in IDsuggestions:");
     const { selectedOption } = this.state;
     const { classes } = this.props;
     return (
@@ -450,12 +508,12 @@ class TextFields extends React.Component {
           
       <form className={classes.container} noValidate autoComplete="off"> 
        
-          <Input
+          {/*<Input
           fullWidth
           inputComponent={SelectWrapped}
           value={this.state.single}
           onChange={this.handleChange('single')}
-          placeholder="Search Items"
+          placeholder="Search Items By Name"
           id="react-select-single"
           inputProps={{
             classes,
@@ -464,7 +522,24 @@ class TextFields extends React.Component {
             simpleValue: true,
             options: suggestions,
           }}
-        />
+        />*/}
+         
+       
+       <Input
+       fullWidth
+       inputComponent={SelectWrapped}
+       value={this.state.single}
+       onChange={this.handleIdChange('single')}
+       placeholder="Search Items By Id"
+       id="react-select-single"
+       inputProps={{
+         classes,
+         name: 'react-select-single',
+         instanceId: 'react-select-single',
+         simpleValue: true,
+         options: Idsuggestions,
+       }}
+     />
           <h2>Total : {this.state.total}</h2>
           <Button variant="raised" color="primary" className={classes.prntBtn} onClick={this.handleSale}  >Checkout</Button>
       </form>
