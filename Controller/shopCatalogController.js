@@ -92,12 +92,12 @@ exports.RecievePakg= function(req,res){
                        
                        article_instance.findOne(
                            {item_id:package.items[i]},
-                           {item_id:true,item_name:true,price:true},
+                           {item_id:true,item_name:true,price:true,id2:true},
                         // callback function
                         (err, art) => {
                             if (err) return res.json(err)
                        shopInventory= new shop_inventory({item_id:art.item_id,item_name:art.item_name,
-                       price:art.price,shop_id:req.body.shop_id}); 
+                       price:art.price,id2:art.id2,shop_id:req.body.shop_id}); 
                        shopInventory.save(function (err) {
                         if (err)
                          return res.json(err);});
