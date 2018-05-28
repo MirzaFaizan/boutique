@@ -333,7 +333,7 @@ class TextFields extends React.Component {
   {
     Object.values(this.state.data).map((type,i) => {
       console.log(type)
-      Idsuggestions.push({value:type.item_id,label:type.item_name,price:type.price,id:type.item_id})
+      Idsuggestions.push({value:type.id2,label:type.item_name,price:type.price,id:type.item_id})
     })
   }
   
