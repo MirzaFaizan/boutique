@@ -178,7 +178,7 @@ class TextFields extends React.Component {
     this.setState({
       type: e.target.value
     });
-    if(e.target.value==-'Women Clothing')
+    if(e.target.value==='Women Clothing')
     {
       this.setState({
 
