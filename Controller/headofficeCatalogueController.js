@@ -84,6 +84,9 @@ exports.CreatenewEmp= function(req, res)
     });
 //});
 }
+
+
+
  //Function to Fetch all Employyess
  exports.fetchallemps= function(req,res){
     emp_instance.find()
