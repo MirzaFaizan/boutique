@@ -51,9 +51,6 @@ else
 //Function to Create new Employee
 exports.CreatenewEmp= function(req, res)
  {
-  //  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    //    req.body.password= hash;
-      //  console.log(req.body.password);
 
      //console.log(req.body.name);
      var Emp = new emp_instance({
@@ -75,7 +72,7 @@ exports.CreatenewEmp= function(req, res)
       });
     Emp.save(function (err) {
         if (err)
-         return handleError(err);
+         return res.json(err);
          
         else
           res.send({msg:"Data Entered Successfully"});
