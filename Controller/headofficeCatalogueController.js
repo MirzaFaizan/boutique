@@ -51,15 +51,14 @@ else
 //Function to Create new Employee
 exports.CreatenewEmp= function(req, res)
  {
-
-     //console.log(req.body.name);
+     console.log(req.body.name);
      var Emp = new emp_instance({
         Emp_name:req.body.name,
+        Emp_username:req.body.username,
         Emp_password:req.body.password,
         Emp_cnic:req.body.cnic,
         Emp_type:req.body.type,
         shop_id:req.body.shopID,
-        Emp_username:req.body.username,
         Emp_city:req.body.city,
         Emp_zip:req.body.zip,
         Emp_state:req.body.countrystate,

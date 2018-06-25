@@ -60,23 +60,24 @@ function validate(username,password,cnic) {
 class TextFields extends React.Component {
 
   state = {
+    name: '',
     username: '',
     password: '',
     cnic: '',
     type:'admin',
-    t:this.props.token,
-    shopID:'',
-    isDisabledshop:true,
-    shopaddress:'',
+    shopID:'default',
     city:'',
-    countryState:'',
     zip:'',
+    countryState:'',
     phone:'',
-    nationality:'',
     country:'',
+    shopaddress:'default',
+    nationality:'',
+    address:'',
     mobile:'',
     email:'',
-    address:''
+    t:this.props.token,
+    isDisabledshop:true,
   }
 
 
@@ -94,7 +95,7 @@ canBeSubmitted() {
 }
   handleChange = name => event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      name: event.target.value,
     });
     console.log(this.state)
   };
@@ -105,6 +106,14 @@ canBeSubmitted() {
       username: e.target.value
     });
   };
+
+  //change name
+  changeName = e => {
+    this.setState({
+      name: e.target.value
+    });
+  };
+
 
   changepassword = e => {
     this.setState({
@@ -167,6 +176,7 @@ canBeSubmitted() {
     console.log(this.state.isDisabledshop);
   }
 
+
   changeShopID = e => {
     this.setState({
       shopID: e.target.value
@@ -202,22 +212,23 @@ canBeSubmitted() {
     //api call to store data in database here
       console.log(this.state)
       var details = {
-       'name': this.state.username,
-       'type': this.state.type,
-       'password':this.state.password,
+        'name':this.state.name,
+        'username': this.state.username,
+        'password':this.state.password,
         'cnic':this.state.cnic,
+        'type': this.state.type,
         'shopID':this.state.shopID,
-        'token':this.state.t,
-        'shopaddress':this.state.shopaddress,
         'city':this.state.city,
-        'countrystate':this.state.countryState,
         'zip':this.state.zip,
+        'countrystate':this.state.countryState,
         'phone':this.state.phone,
-        'nationality':this.state.nationality,
         'country':this.state.country,
-        'mobile':this.state.mobile,
-        'email':this.state.email,
+        'shopaddress':this.state.shopaddress,
+        'nationality':this.state.nationality,
         'address':this.state.address,
+        'mobile':this.state.mobile,
+        'token':this.state.t,
+        'email':this.state.email,
    };
    
    var formBody = [];
@@ -238,11 +249,10 @@ canBeSubmitted() {
    .then(res=>res.json())
    .then(res=>{
   
-     console.log("we are in this function");
+     console.log("API response function");
      if(res){
       console.log(res);
       this.props.handleopen();
-       console.log("After function");
      }
      else {
        this.props.handleError();
@@ -252,6 +262,7 @@ canBeSubmitted() {
    );
       //form saaf kia hai 
     this.setState({
+      name: '',
       username:'',
       password:'',
       cnic:'',
@@ -295,6 +306,20 @@ canBeSubmitted() {
           refs='name'
         />
         </CardContent>
+
+      <CardContent>
+      <TextField
+          id="Name"
+          label="Name"
+          value={this.state.name}
+          placeholder="Enter Name"
+          className={classes.textField}
+          onChange={e => this.changeName(e)}
+          margin="normal"
+          refs='name'
+        />
+        </CardContent>
+
         <CardContent>
         <TextField
           id="password"
