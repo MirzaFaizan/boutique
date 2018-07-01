@@ -2,18 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import AddIcon from '@material-ui/icons/Add';
-import Icon from 'material-ui/Icon';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 
 const styles = theme => ({
   button: {
