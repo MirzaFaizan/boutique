@@ -12,7 +12,7 @@ import Divider from 'material-ui/Divider';
 import Paper from "material-ui/Paper";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import NewSale from './NewSale';
 import StockTable from './StockTable';
 import RecieveBox from './RecieveBox';
@@ -27,11 +27,8 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 import { 
-    Router,
-    Route
+    Router
     }   from 'react-router-dom';
-
-import Notification from './Notifications';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;

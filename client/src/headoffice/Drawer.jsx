@@ -9,19 +9,15 @@ import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import Divider from 'material-ui/Divider';
-import Paper from "material-ui/Paper"
-import {indigo500} from "material-ui";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import AddNewLogin from './AddLogin';
 import ViewAll from './ViewAll';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
-    Router,
-    Route
+    Router
     }   from 'react-router-dom';
-import Notification from './Notifications';
 import Welcome from './Welcome'
 import Dialog, {
   DialogActions,

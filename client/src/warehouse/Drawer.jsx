@@ -9,21 +9,16 @@ import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import Divider from 'material-ui/Divider';
-import Paper from "material-ui/Paper"
-import {indigo500} from "material-ui";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import AddItem from './AddItem';
-import Table from './FullTable';
 import ViewItems from './ViewItemsTable';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
-    Router,
-    Route
+    Router
     }   from 'react-router-dom';
 import FullTable from './FullTable';
-import Notification from './Notifications';
 import BatchItems from './BatchItems';
 import Welcome from './Welcome';
 import BatchItemsShow from './BatchShow';
