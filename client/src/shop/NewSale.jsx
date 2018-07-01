@@ -2,17 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import NumericInput from 'react-numeric-input';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import AddIcon from '@material-ui/icons/Add';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemIcon, ListItemText,ListItemSecondaryAction } from 'material-ui/List';
 import 'react-select/dist/react-select.css';
 import Select from 'react-select';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -22,7 +17,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Icon from 'material-ui/Icon';
 
 const styles = theme => ({
   root: {
@@ -297,20 +291,13 @@ class TextFields extends React.Component {
       date:'2018-09-04 00:00:00.000',
      
     }
-    console.log('Constructor');
-    console.log(this.state.t);
 
-
-    var details = {
-      'token':this.state.t,
-      'shopID':this.state.shop
-  };
+    
 };
 
 
   state = {
     
-    data:{name:'Item Name',price:5500},
     t:this.props.token,
     multiLabel: [],
     price:[],
@@ -319,13 +306,11 @@ class TextFields extends React.Component {
     data:{},
     single: null,
     display :'inline'
-    
   };
 
   updateSuggestions= () =>
   {
     Object.values(this.state.data).map((type,i) => {
-      console.log(type)
       suggestions.push({value:type.item_name,label:type.item_name,price:type.price,id:type.item_id})
     })
   }
@@ -346,7 +331,7 @@ class TextFields extends React.Component {
    var x;
     for(var i=0;i<suggestions.length;i++)
     {
-      if(suggestions[i].value == value)
+      if(suggestions[i].value === value)
       {
         console.log("selected is at index ");
         console.log(i);
@@ -355,8 +340,7 @@ class TextFields extends React.Component {
     }
     console.log("Selected item details");
     console.log(suggestions[x]);
-    const {displayTable,dummy,total} = this.state;
-
+    
       row.push({nam:suggestions[x].value,pric:suggestions[x].price,id:suggestions[x].id})
       products.push(suggestions[x].id);
 
@@ -384,32 +368,18 @@ class TextFields extends React.Component {
    var x;
     for(var i=0;i<Idsuggestions.length;i++)
     {
-      if(Idsuggestions[i].value == value)
+      if(Idsuggestions[i].value === value)
       {
-        console.log("selected is at index ");
-        console.log(i);
         x = i;
       }
     }
-    console.log("Selected item details");
-    console.log(Idsuggestions[x]);
-    const {displayTable,dummy,total} = this.state;
-
       row.push({nam:Idsuggestions[x].value,pric:Idsuggestions[x].price,id:Idsuggestions[x].id})
       products.push(suggestions[x].id);
 
       this.setState({
         total:Idsuggestions[x].price + this.state.total
       })
-      this.setState({data:{}})
-      console.log("value of toal : ");
-      console.log(this.state.total);
-      console.log("Data in Row :")
-      console.log(row);
-      console.log("Ids to be Sold:")
-      console.log(products);
-      console.log("number of items in array :");
-      console.log(row.length - 1);
+      this.setState({data:{}});
     }
 
   };
@@ -492,12 +462,6 @@ class TextFields extends React.Component {
     }
 
   render() {
-    console.log("data in suggestions:");
-    console.log(suggestions);
-    console.log("data in IDsuggestions:");
-    console.log(Idsuggestions);
-    console.log("data in IDsuggestions:");
-    const { selectedOption } = this.state;
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -507,24 +471,6 @@ class TextFields extends React.Component {
           <Paper className={classes.paper}>
           
       <form className={classes.container} noValidate autoComplete="off"> 
-       
-          {/*<Input
-          fullWidth
-          inputComponent={SelectWrapped}
-          value={this.state.single}
-          onChange={this.handleChange('single')}
-          placeholder="Search Items By Name"
-          id="react-select-single"
-          inputProps={{
-            classes,
-            name: 'react-select-single',
-            instanceId: 'react-select-single',
-            simpleValue: true,
-            options: suggestions,
-          }}
-        />*/}
-         
-       
        <Input
        fullWidth
        inputComponent={SelectWrapped}
@@ -543,29 +489,6 @@ class TextFields extends React.Component {
           <h2>Total : {this.state.total}</h2>
           <Button variant="raised" color="primary" className={classes.prntBtn} onClick={this.handleSale}  >Checkout</Button>
       </form>
-      
-      {/*<List component="nav">
-        <ListItem>
-          <ListItemText primary="Item Name " />
-
-          <ListItemSecondaryAction>
-                      <Button onClick={this.addRow.bind(this)}>Button</Button>
-                      <IconButton aria-label="Add" >
-                        <AddIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem button component="a" >
-          <ListItemText primary="Item Name " />
-
-          <ListItemSecondaryAction>
-                      <IconButton aria-label="Add">
-                        <AddIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-        </ListItem>
-      </List>*/}
-
 
       </Paper>
         </Grid>
