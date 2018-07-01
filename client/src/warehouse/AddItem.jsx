@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Icon from 'material-ui/Icon';
 import qr from 'qr-image';
 import Typography from 'material-ui/Typography';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 
 const styles = theme => ({
@@ -151,7 +147,6 @@ class TextFields extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { name,type,price,newid} = this.state;
   }
   canBeSubmitted() {
     const errors = validate(this.state.name,this.state.type,this.state.price);
@@ -278,16 +273,9 @@ class TextFields extends React.Component {
       this.setState({
         resid:res.id
       });
-      
-
-
-      console.log(this.state.resid);
-   var qr_svg = qr.image('I love QR!', { type: 'png' });
    var svg_string = qr.imageSync(this.state.resid, { type: 'png' });
-   var decoder = new TextDecoder('utf8');
    var b64encoded = btoa(String.fromCharCode.apply(null, svg_string));
    b64encoded = "data:image/gif;base64,"+b64encoded;
-   console.log({b64encoded});
    if(b64encoded){
      this.qrimg={b64encoded};
    }
