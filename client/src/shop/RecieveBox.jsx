@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 const styles = theme => ({
@@ -35,9 +34,6 @@ class TextFields extends React.Component {
     t:this.props.token,
     shop:this.props.shop,
   }
-  var details = {
-    'token':this.state.t
-  }
 }
   handleQrChange = (evt) => {
     this.setState({ qrId: evt.target.value });
@@ -47,8 +43,7 @@ class TextFields extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { qrId} = this.state;
-  }
+}
   canBeSubmitted() {
     const errors = validate(this.state.qrId);
     const isDisabled = Object.keys(errors).some(x => errors[x]);

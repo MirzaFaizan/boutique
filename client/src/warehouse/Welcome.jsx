@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import {  TableCell} from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
@@ -16,18 +16,6 @@ const CustomTableCell = withStyles(theme => ({
   },
 }))(TableCell);
 
-const styles = theme => ({
-  root: {
-   // width: 'auto',
-    //height:'auto',
-    //marginTop: theme.spacing.unit * 3,
-  },
-});
-
-
-
-
-{/* */}
 
 class CustomizedTable extends React.Component {
   render() {
@@ -46,4 +34,4 @@ CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedTable);
+export default withStyles(CustomizedTable);
