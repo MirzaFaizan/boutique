@@ -2,13 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import { InputAdornment } from 'material-ui/Input';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from 'material-ui/Button';
 
 const styles = theme => ({
@@ -72,7 +68,6 @@ class InputAdornments extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { search} = this.state;
   }
   canBeSubmitted() {
     const errors = validate(this.state.search);
