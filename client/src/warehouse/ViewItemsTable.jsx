@@ -82,10 +82,8 @@ class CustomizedTable extends React.Component {
   }
   render() {
     const { classes } = this.props;
-{/*
 
-}*/}
-  return (
+    return (
     <Paper className={classes.root}>
     <Search/>
       <Table className={classes.table}>

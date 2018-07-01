@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import Select from './DropDownSelect';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -32,21 +30,7 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, sr, qty, price) {
-  id += 1;
-  return { id, name, sr, qty, price};
-}
 
-const data = [
-  createData('Item name . . . . ', 184937, 56, 2450),
-  createData('Item name . . . . ', 184937, 56, 2450),
-  createData('Item name . . . . ', 184937, 56, 2450),
-  createData('Item name . . . . ', 184937, 56, 2450),
-  createData('Item name . . . . ', 184937, 56, 2450),
- 
- 
-];
 
 class  CustomizedTable extends React.Component {
   componentDidMount(){
@@ -92,13 +76,7 @@ class  CustomizedTable extends React.Component {
       shop:this.props.shop,
       
     }
-    console.log('Constructor');
-    console.log(this.state.t);
-
-    var details = {
-      'token':this.state.t,
-      'shopID':this.state.shop
-  };
+    
 };
   render()
   {
@@ -106,7 +84,6 @@ class  CustomizedTable extends React.Component {
 
   return (
     <Paper className={classes.root}>
-    {/*<Select/>*/}
       <Table className={classes.table}>
         <TableHead>
         <TableRow>
@@ -117,7 +94,6 @@ class  CustomizedTable extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/*data replaced with json pacakage from api*/}
           {
                Object.values(this.state.data).map((type,i) => {
                 console.log(type)

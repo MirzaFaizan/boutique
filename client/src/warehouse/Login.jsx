@@ -82,7 +82,6 @@ class TextFields extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { qrId} = this.state;
   }
   canBeSubmitted() {
     const errors = validate(this.state.qrId);
@@ -128,34 +127,30 @@ class TextFields extends React.Component {
    if(res){
     console.log(res);
     console.log(res.token);
-     if(res.type=="head"){
-      console.log('Head Login Successful');
-      {this.props.updateHeadOffice(res.token)}
+     if(res.type==="head"){
+      this.props.updateHeadOffice(res.token);
      }
-     else if(res.type=='admin'){
-      console.log('Ware House Login Successful');
-      {this.props.updateWarehouse(res.token)}
+     else if(res.type==='admin'){
+      this.props.updateWarehouse(res.token);
      }
-     else if(res.type=='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
-      console.log('Shop Login Successful');
-      {this.props.updateShop(res.token,res.shopID)}
+     else if(res.type==='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
+      this.props.updateShop(res.token,res.shopID);
      }
      else{
        this.props.handleOpen();
-       console.log("error");
      }
-     console.log("After function");
    };
  }
  );
-      this.setState({
+  
+ 
+ this.setState({
       userName:'',
       Password:'',
       type:'admin'
     })
 
   }
-  //change function
   changeUsername = e => {
     this.setState({
       userName: e.target.value

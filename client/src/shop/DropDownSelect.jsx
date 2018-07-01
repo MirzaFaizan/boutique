@@ -68,7 +68,6 @@ class InputAdornments extends React.Component {
       evt.preventDefault();
       return;
     }
-    const { search} = this.state;
   }
   canBeSubmitted() {
     const errors = validate(this.state.search);

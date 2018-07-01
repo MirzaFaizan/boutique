@@ -53,10 +53,6 @@ const styles = theme => ({
   chip: {
     margin: theme.spacing.unit / 4,
   },
-  // We had to use a lot of global selectors in order to style react-select.
-  // We are waiting on https://github.com/JedWatson/react-select/issues/1679
-  // to provide a much better implementation.
-  // Also, we had to reset the default style injected by the library.
   '@global': {
     '.Select-control': {
       display: 'flex',
@@ -489,7 +485,6 @@ class TextFields extends React.Component {
           <h2>Total : {this.state.total}</h2>
           <Button variant="raised" color="primary" className={classes.prntBtn} onClick={this.handleSale}  >Checkout</Button>
       </form>
-
       </Paper>
         </Grid>
         <Grid item xs={12} sm={7}>

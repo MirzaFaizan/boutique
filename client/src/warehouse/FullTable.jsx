@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import Search from './DropDownSelect';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const CustomTableCell = withStyles(theme => ({
@@ -40,20 +38,6 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const data = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 
 class CustomizedTable extends React.Component {
   componentDidMount(){
@@ -81,13 +65,10 @@ class CustomizedTable extends React.Component {
  .then(res=>res.json())
  .then(res=>{
 
-   //console.log("we are in this function");
    if(res){
-    //console.log(res);
     this.setState({
       data:res
     })
-     //console.log("After function");
    };
  }
  );   
@@ -147,13 +128,10 @@ class CustomizedTable extends React.Component {
   .then(res=>res.json())
   .then(res=>{
  
-    //console.log("we are in this function");
     if(res){
-     //console.log(res);
      this.setState({
        data:res
      })
-      //console.log("After function");
     };
   }
   );   
@@ -185,9 +163,7 @@ class CustomizedTable extends React.Component {
   }
   render() {
     const { classes } = this.props;
-{/*
 
-}*/}
   return (
     <Paper className={classes.root}>
     {/*<Search/>*/}
