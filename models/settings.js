@@ -6,7 +6,7 @@ var settingSchema = new Schema({
     currency_type: {type : String, default: 'PKR'},
     tax_setting:{type : String , default: '50'},
     company_name: {type : String , default: 'nerdware'},
-    Set_Email: {type : String , default: 'abc@example.com'},
+    Set_Email: {type : String , default: 'nerdwaretech@outlook.com'},
     Set_address: {type : String ,default: 'f8'},
     Set_compNTS: {type : String , default: '1122'}
 });
