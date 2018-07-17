@@ -13,4 +13,5 @@ router.post('/SetSettings', headController.updateSettings);
 router.post('/viewsales', headController.sales1);
 router.post('/sales', headController.createNewSale1);
 router.post('/customerdetails', headController.cusDetails);
+router.post('/fetchcustdetails',headController.fetchCusDetails);
 module.exports = router;

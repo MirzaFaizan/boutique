@@ -233,7 +233,6 @@ exports.Deleteemp = function (req, res) {
     cusD.save(function (err) {
         if (err)
             return res.json(err);
-
         else
             res.send({
                 msg: "Data Entered Successfully"

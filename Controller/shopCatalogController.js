@@ -17,6 +17,7 @@ var emp_instance= require('../models/employee');
 var pakg_instance= require('../models/package');
 var sales_instance= require('../models/sales');
 var article_instance=require('../models/article');  
+var cusDetails_instance=require('../models/customerDetails');
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -163,4 +164,37 @@ exports.shopinventoryshow= function(req,res){
                 res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
                }
             });
+}
+
+//function to enter customer details
+exports.cusDetails = function(req , res){
+    var cusD = new cusDetails_instance({
+        customerName: req.body.cN,
+        customerPhone: req.body.cP,
+});
+cusD.save(function (err) {
+    if (err)
+        return res.json(err);
+    else
+        res.send({
+            msg: "Data Entered Successfully"
+        });
+    console.log("Data entered");
+    // saved!
+});
+};
+
+//function to fetch customer details
+exports.fetchCusDetails = function(req , res){
+    cusDetails_instance.find()
+    .then(cus =>{
+    if(cus.length == 0){
+        res.json({
+            msg: "No data available to show"
+        })
+    } else
+    res.json(cus);
+    }).catch(err => {
+        message: err.message || "Some errors occurred while retrieving customer details."
+    });
 }

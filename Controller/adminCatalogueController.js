@@ -105,6 +105,7 @@ exports.CreatenewArticle= function(req, res)
 
  exports.FetchAllArticle= function(req,res){
     article_instance.find()
+
     .then(article => {
         if(article==null){ res.json({message:'No Article Found'})}
         else
@@ -115,6 +116,7 @@ exports.CreatenewArticle= function(req, res)
         });
     });
 };
+
 
 //Funtion To Fetch an Article
 
@@ -192,6 +194,26 @@ exports.Showonepakg= function(req,res){
             return res.status(200).json(message='No Package With this number')
             else
             return res.status(200).json(package)
+        }
+    );
+};
+
+
+exports.Articletype= function(req,res){
+    article_instance.find(  
+        
+        // query
+        {item_type:req.body.type},
+    
+        
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==null)
+            return res.status(200).json(message='No Article With this type')
+            else
+            return res.status(200).json(article)
         }
     );
 };
