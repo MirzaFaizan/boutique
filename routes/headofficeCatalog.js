@@ -10,6 +10,7 @@ router.post('/ShowEmps', headController.fetchallemps);
 router.post('/searchemp', headController.fetchoneemp);
 router.post('/Deleteemp', headController.Deleteemp);
 router.post('/SetSettings', headController.updateSettings);
+router.post('/FetchSettings', headController.fetchsettings);
 router.post('/viewsales', headController.sales1);
 router.post('/sales', headController.createNewSale1);
 router.post('/customerdetails', headController.cusDetails);
