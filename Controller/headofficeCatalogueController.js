@@ -207,6 +207,24 @@ exports.Deleteemp = function (req, res) {
             // saved!
         });
     };
+
+         //fucntion to fetch settings
+    exports.fetchsettings = function (req , res) {
+        set_instance.find()
+        .then(sett => {
+            if(sett.length == 0){
+                res.json({
+                    msg: "No data available to show"
+                })
+            } else
+                 res.json(sett);
+        }).catch(err => {
+            return res.status(500).send({
+                message: err.message || "Some errors occured while retrieving settings."
+            });
+        });
+    }
+
         //function to fetch sales
     exports.sales1 = function (req, res) {
             sales_instance.find()
