@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
+import TextField from 'material-ui/TextField';
+import { Button } from 'material-ui';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -34,9 +34,11 @@ const styles = theme => ({
 
 class CustomizedTable extends React.Component {
 
-  componentWillMount(){
+  handleClick = () =>{
     var details = {
-      'token':this.state.t
+      'token':this.state.t,
+      'cN':this.state.name,
+      'cP':this.state.phone,
   };
     var formBody = [];
     for (var property in details) {
@@ -46,7 +48,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/head/fetchcustdetails', {
+    fetch('/head/addcustomerdetails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -73,49 +75,52 @@ class CustomizedTable extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      data:{},
       t:this.props.token,
+      name:'',
+      phone:''
     }
 };
+
+changeName = e => {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  changePhone = e => {
+    this.setState({
+      phone: e.target.value
+    })
+  }
 
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Phone</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/*data replaced with json pacakage from api*/}
-            {
-               Object.values(this.state.data).map((type,index) => {
-                 return (
-                  <TableRow className={classes.row} key={index}>
-                    <CustomTableCell>{type.customerName}</CustomTableCell>
-                    <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
-          </TableBody>
-        </Table>
-      </Paper>
+         <div>
+               <TextField
+          id="name"
+          label="Name"
+          value={this.state.name}
+          placeholder="Enter Customer Name"
+          className={classes.textField}
+          onChange={e => this.changeName(e)}
+          margin="normal"
+          refs='name'
+        />
+      
+      <TextField
+          id="phone"
+          label="Phone"
+          value={this.state.phone}
+          placeholder="Enter Phone Number"
+          className={classes.textField}
+          onChange={e => this.changePhone(e)}
+          margin="normal"
+          refs='name'
+        />
+        <Button onClick={this.handleClick}>Add</Button>
+       
+          </div>
     );
   }
 }

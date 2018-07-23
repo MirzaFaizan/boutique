@@ -29,6 +29,9 @@ import Dialog, {
 import { 
     Router
     }   from 'react-router-dom';
+import CustomerDetails from './ExtraFeatures/CustomerDetails';
+import AddCustomerDetails from './ExtraFeatures/AddCustomerDetails';
+
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -177,7 +180,14 @@ class ResponsiveDrawer extends React.Component {
   CustomerDetailsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<CustomerDetails token={this.state.t} />
+    })
+    console.log("View All item Click")
+  }
+  AddCustomerDetailsHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<AddCustomerDetails token={this.state.t} />
     })
     console.log("View All item Click")
   }
@@ -253,6 +263,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button onClick={this.SummarySalesReportHandleClick.bind(this)}>Summary Sales Report</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
+            <Divider/>
+            <ListItem><Button onClick={this.AddCustomerDetailsHandleClick.bind(this)}>Add Customer Details</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
             <Divider/>

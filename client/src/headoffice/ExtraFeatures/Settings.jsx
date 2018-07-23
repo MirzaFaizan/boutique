@@ -47,17 +47,11 @@ const dropdowntypes = [
   },
 ];
 
-function validate(currencyType,companyName,email) {
-  return {
-    currencyType: currencyType.length === 0,
-    companyName: companyName.length === 0,
-    email: email.length === 0,
-  };
-}
+
 class TextFields extends React.Component {
 
   state = {
-currencyType:'',
+    currencyType:'',
 taxSetting:'',
 companyName:'',
 setEmail:'',
@@ -96,38 +90,25 @@ t:this.props.token,
      console.log("API response function");
      if(res){
       console.log(res);
-      this.props.handleopen();
+      this.setState({
+        setEmail:res[0].Set_Email,
+        setaddress:res[0].Set_address,
+        companyNts:res[0].Set_compNTS,
+        companyName:res[0].company_name,
+        currencyType:res[0].currency_type,
+        taxSetting:res[0].tax_setting,
+    })
+    console.log(this.state);
      }
      else {
          console.log(res);
-       this.props.handleError();
      }
      ;
    }
    );
-      //form saaf kia hai 
-    this.setState({
-        currencyType:'',
-        taxSetting:'',
-        companyName:'',
-        setEmail:'',
-        setaddress:'',
-        companyNts:'',
-    })
   }
 
-handleSubmit = (evt) => {
-  if (!this.canBeSubmitted()) {
-    evt.preventDefault();
-    return;
-  }
-  
-}
-canBeSubmitted() {
-  const errors = validate(this.state.companyName,this.state.currencyType,this.state.setEmail);
-  const isDisabled = Object.keys(errors).some(x => errors[x]);
-  return !isDisabled;
-}
+
   handleChange = name => event => {
     this.setState({
       name: event.target.value,
@@ -179,23 +160,14 @@ canBeSubmitted() {
     //api call to store data in database here
       console.log(this.state)
       var details = {
-        'name':this.state.name,
-        'username': this.state.username,
-        'password':this.state.password,
-        'cnic':this.state.cnic,
-        'type': this.state.type,
-        'shopID':this.state.shopID,
-        'city':this.state.city,
-        'zip':this.state.zip,
-        'countrystate':this.state.countryState,
-        'phone':this.state.phone,
-        'country':this.state.country,
-        'shopaddress':this.state.shopaddress,
-        'nationality':this.state.nationality,
-        'address':this.state.address,
-        'mobile':this.state.mobile,
+        'ctype':this.state.currencyType,
+        'ts':this.state.taxSetting,
+        'cn':this.state.companyName,
+        'se':this.state.setEmail,
+        'sa':this.state.setaddress,
+        'sc':this.state.companyNts,
         'token':this.state.t,
-        'email':this.state.email,
+       
    };
    
    var formBody = [];
@@ -206,7 +178,7 @@ canBeSubmitted() {
    }
    formBody = formBody.join("&");
    
-   fetch('/head/AddEmp', {
+   fetch('/head/SetSettings', {
      method: 'POST',
      headers: {
        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -219,31 +191,19 @@ canBeSubmitted() {
      console.log("API response function");
      if(res){
       console.log(res);
-      this.props.handleopen();
-     }
-     else {
-       this.props.handleError();
+     
      }
      ;
    }
    );
-      //form saaf kia hai 
-    this.setState({
-        currencyType:'',
-        taxSetting:'',
-        companyName:'',
-        setEmail:'',
-        setaddress:'',
-        companyNts:'',
-    })
+    
   }
 
     
   
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.companyName,this.state.currencyType,this.state.setEmail);
-      const isDisabled = Object.keys(errors).some(x => errors[x]);
+   
 
     return (
       <div>
@@ -255,7 +215,7 @@ canBeSubmitted() {
           id="Currency Type"
           label="Currency Type"
           value={this.state.currencyType}
-          placeholder="Enter Currency Type"
+          placeholder={this.state.currencyType}
           className={classes.textField}
           onChange={e => this.changecurrencySetting(e)}
           margin="normal"
@@ -321,7 +281,7 @@ canBeSubmitted() {
         />
         </CardContent>
         <CardContent>
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick}>
         <AddIcon/>
         </Button>
         </CardContent>

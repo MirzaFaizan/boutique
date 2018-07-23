@@ -25,8 +25,10 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import Settings from './ExtraFeatures/Settings'
-
+import Settings from './ExtraFeatures/Settings';
+import CustomerDetails from './ExtraFeatures/CustomerDetails';
+import AddCustomerDetails from './ExtraFeatures/AddCustomerDetails';
+import ViewSales from './ExtraFeatures/Sales';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -126,7 +128,7 @@ class ResponsiveDrawer extends React.Component {
   SalesHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<ViewSales token={this.state.t}/>
     })
     console.log("View All item Click")
   }
@@ -196,7 +198,14 @@ class ResponsiveDrawer extends React.Component {
   CustomerDetailsHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<CustomerDetails token={this.state.t} />
+    })
+    console.log("View All item Click")
+  }
+  AddCustomerDetailsHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<AddCustomerDetails token={this.state.t} />
     })
     console.log("View All item Click")
   }
@@ -265,6 +274,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
+            <Divider/>
+            <ListItem><Button onClick={this.AddCustomerDetailsHandleClick.bind(this)}>Add Customer Details</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.SummarySalesReportHandleClick.bind(this)}>Summary Sales Report</Button></ListItem>
             <Divider/>
