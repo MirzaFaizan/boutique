@@ -16,7 +16,7 @@ var emp_instance = require('../models/employee');
 var set_instance = require('../models/settings');
 var sales_instance = require('../models/sales');
 var cus_instance = require('../models/customerDetails');
-
+var purchase_instance = require('../models/purchasing');
 //Function to Authenticate and Authorize head
 exports.loginandGetToken = function (req, res) {
 
@@ -52,7 +52,6 @@ exports.loginandGetToken = function (req, res) {
 
 //Function to Create new Employee
 exports.CreatenewEmp = function (req, res) {
-    console.log(req.body.name);
     var Emp = new emp_instance({
         Emp_name: req.body.name,
         Emp_username: req.body.username,
@@ -255,7 +254,6 @@ exports.Deleteemp = function (req, res) {
             res.send({
                 msg: "Data Entered Successfully"
             });
-        console.log("Data entered");
         // saved!
     });
 };
@@ -273,5 +271,39 @@ exports.Deleteemp = function (req, res) {
         }).catch(err => {
             message: err.message || "Some errors occurred while retrieving customer details."
         });
-    }
+    };
     
+
+    /// PURCHASE CURD OPERATIONS
+
+    exports.addPurchase= function(req,res){
+        var purchase = new purchase_instance({
+            item_name: req.body.name,
+            item_desc: req.body.desc,
+            price: req.body.price,
+            date_added: req.body.date
+        });
+
+        purchase.save(()=>{
+            if (err)
+                return res.json(err);
+            else
+                res.send({
+                    msg: "Data Entered Successfully"
+                });
+        })
+    }
+
+    exports.viewPurchase = function(req,res){
+        purchase_instance.find()
+        .then(cus =>{
+        if(cus.length == 0){
+            res.json({
+                msg: "No Purchase data available to show"
+            })
+        } else
+        res.json(cus);
+        }).catch(err => {
+            message: err.message || "Some errors occurred while retrieving customer details."
+        });
+    }

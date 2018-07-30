@@ -12,4 +12,4 @@ var PurchaseSchema = new Schema(
 );
 
 //Export model
-module.exports = mongoose.model('Purchasing', ArticleSchema);
+module.exports = mongoose.model('Purchasing', PurchaseSchema);
