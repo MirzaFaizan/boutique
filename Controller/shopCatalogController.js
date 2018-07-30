@@ -18,6 +18,7 @@ var pakg_instance= require('../models/package');
 var sales_instance= require('../models/sales');
 var article_instance=require('../models/article');  
 var cusDetails_instance=require('../models/customerDetails');
+var article_instance = require('../models/article');
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -198,3 +199,23 @@ exports.fetchCusDetails = function(req , res){
         message: err.message || "Some errors occurred while retrieving customer details."
     });
 }
+
+//function to find article by type
+exports.Articletype= function(req,res){
+    article_instance.find(  
+        
+        // query
+        {item_type:req.body.type},
+    
+        
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==0)
+            return res.status(200).json(message='No Article With this type')
+            else
+            return res.status(200).json(article)
+        }
+    );
+};

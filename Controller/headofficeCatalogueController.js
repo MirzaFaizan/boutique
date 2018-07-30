@@ -17,6 +17,7 @@ var set_instance = require('../models/settings');
 var sales_instance = require('../models/sales');
 var cus_instance = require('../models/customerDetails');
 var purchase_instance = require('../models/purchasing');
+var article_instance = require('../models/article');
 //Function to Authenticate and Authorize head
 exports.loginandGetToken = function (req, res) {
 
@@ -151,7 +152,7 @@ exports.Deleteemp = function (req, res) {
         });
 }
 
-    exports.updateSettings = function (req, res) {
+   exports.updateSettings = function (req, res) {
     set_instance.find()
         .then(sett => {
             if (sett.length == 0) {
@@ -327,3 +328,22 @@ exports.Deleteemp = function (req, res) {
             });
         });
     }
+//function to find article by type
+    exports.Articletype= function(req,res){
+        article_instance.find(  
+            
+            // query
+            {item_type:req.body.type},
+        
+            
+        
+            // callback function
+            (err, article) => {
+                if (err) return res.status(200).send(err)
+                if(article==0)
+                return res.status(200).json(message='No Article With this type')
+                else
+                return res.status(200).json(article)
+            }
+        );
+    };

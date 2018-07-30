@@ -210,7 +210,7 @@ exports.Articletype= function(req,res){
         // callback function
         (err, article) => {
             if (err) return res.status(200).send(err)
-            if(article==null)
+            if(article==0)
             return res.status(200).json(message='No Article With this type')
             else
             return res.status(200).json(article)
