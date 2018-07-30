@@ -15,6 +15,7 @@ import List, { ListItem } from 'material-ui/List';
 import AddNewLogin from './AddLogin';
 import ViewAll from './ViewAll';
 import createBrowserHistory from 'history/createBrowserHistory';
+import Purchase from './ExtraFeatures/Purchase';
 import { 
     Router
     }   from 'react-router-dom';
@@ -135,7 +136,7 @@ class ResponsiveDrawer extends React.Component {
   PurchaseHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Purchase token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }

@@ -13,8 +13,6 @@ router.post('/showArticles',Controller.FetchAllArticle);
 router.post('/show1Article',Controller.fetchoneArticle);
 router.post('/Createnewpakg',Controller.CreatePakage);
 router.post('/findbytype',Controller.Articletype);
-//router.post('/showPackages',Controller.ShowPakages);
-//router.post('/show1Package',Controller.Showonepakg);
 
 
 module.exports = router;

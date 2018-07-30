@@ -284,7 +284,7 @@ exports.Deleteemp = function (req, res) {
             date_added: req.body.date
         });
 
-        purchase.save(()=>{
+        purchase.save((err)=>{
             if (err)
                 return res.json(err);
             else
