@@ -183,7 +183,78 @@ this.setState({
 
 
     //DELETE CLICK FUNCTION
-    
+    deleteClick=()=>{
+        console.log('Add Click')
+        var details = {
+          'token':this.state.t,
+          'price':this.state.expenses,
+          'desc':this.state.description,
+          'name':this.state.name,
+          'date':new Date()
+      };
+      
+      
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      
+      
+      fetch('/head/addPurchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      })
+      .then(res=>res.json())
+      .then(res=>{
+        if(res){
+          console.log(res);
+      
+          var details = {
+            'token':this.state.t,
+        };  
+      
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      
+      fetch('/head/showPurchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      })
+      .then(res=>res.json())
+      .then(res=>{
+      
+        if(res){
+         this.setState({
+           data:res
+         })
+        };
+      }
+      );   
+          console.log("After function");
+        };
+      }
+      ); 
+      this.setState({
+        expenses:'',
+        date:'',
+        description:'',
+        name:''
+      });     
+    }
 
   render() {
     const { classes } = this.props;

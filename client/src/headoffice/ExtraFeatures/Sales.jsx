@@ -82,22 +82,31 @@ class CustomizedTable extends React.Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
+      <Typography variant="display2"> All Sales</Typography>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Phone</CustomTableCell>
+              <CustomTableCell>Products</CustomTableCell>
+              <CustomTableCell>Total</CustomTableCell>
+              <CustomTableCell >Shop</CustomTableCell>
+              <CustomTableCell >Date</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/*data replaced with json pacakage from api*/}
             {
                Object.values(this.state.data).map((type,index) => {
                  return (
                   <TableRow className={classes.row} key={index}>
-                    <CustomTableCell>{type.customerName}</CustomTableCell>
-                    <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
+                    <CustomTableCell>
+                        {
+                          type.products.map((item)=>{
+                            return(item.item_name)+"," 
+                          })
+                          }
+                      </CustomTableCell> 
+                    <CustomTableCell>{type.total}</CustomTableCell>
+                    <CustomTableCell numeric> {type.shop} </CustomTableCell>
+                    <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
                   </TableRow>
                 );
               })
