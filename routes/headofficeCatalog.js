@@ -15,4 +15,8 @@ router.post('/viewsales', headController.sales1);
 router.post('/sales', headController.createNewSale1);
 router.post('/addcustomerdetails', headController.cusDetails);
 router.post('/fetchcustdetails',headController.fetchCusDetails);
+router.post('/showPurchase',Controller.viewPurchase);
+router.post('/addPurchase',Controller.addPurchase);
+router.post('/deletePurchase',Controller.deletePurchase);
+
 module.exports = router;
