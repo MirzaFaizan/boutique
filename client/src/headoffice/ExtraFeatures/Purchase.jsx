@@ -83,6 +83,7 @@ class CustomizedTable extends React.Component {
       expenses:'',
       description:'',
       date:'',
+      name: '',
     }
 }
 
@@ -91,6 +92,11 @@ changeExpenses = e => {
     expenses: e.target.value
   });
 };
+changeName = e => {
+    this.setState({
+      name: e.target.value
+    });
+  };
 changeDescription = e => {
   this.setState({
     description: e.target.value
@@ -122,7 +128,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/emp/add-dexpense', {
+fetch('/head/addPurchase', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -170,11 +176,14 @@ fetch('/head/showPurchase', {
 this.setState({
   expenses:'',
   date:'',
-  description:''
-})
-
+  description:'',
+  name:''
+});
 }
 
+
+    //DELETE CLICK FUNCTION
+    
 
   render() {
     const { classes } = this.props;
@@ -182,11 +191,22 @@ this.setState({
       <div>
             <form className={classes.container} noValidate autoComplete="off"> 
     <CardContent>
+        <TextField
+        id="name"
+        label="Name"
+        value={this.state.name}
+        placeholder="Enter Name"
+        className={classes.textField}
+        onChange={e => this.changeName(e)}
+        margin="normal"
+        />
+    </CardContent>
+    <CardContent>
     <TextField
     id="expenses"
-    label="Expenses"
+    label="Purchase Price"
     value={this.state.expenses}
-    placeholder="Enter Expenses"
+    placeholder="Enter Price"
     className={classes.textField}
     onChange={e => this.changeExpenses(e)}
     margin="normal"
@@ -204,31 +224,19 @@ this.setState({
   />
 </CardContent>
 <CardContent>
-  <TextField
-    id="Date"
-    label="Date"
-    value={this.state.date}
-    placeholder="Enter Date"
-    onChange={e => this.changeDate(e)}
-    className={classes.textField}
-    margin="normal"
-  />
-</CardContent>
-
-<CardContent>
   <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} >
     Add
   </Button>
   </CardContent>
 </form>
-      <Typography variant="display2"> All Expenses</Typography>
+      <Typography variant="display2"> All Purchases</Typography>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Purchases</CustomTableCell>
               <CustomTableCell numeric>Name</CustomTableCell>
               <CustomTableCell numeric>Description</CustomTableCell>
+              <CustomTableCell numeric>Price</CustomTableCell>
               <CustomTableCell numeric>Date</CustomTableCell>
               <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
@@ -242,7 +250,7 @@ this.setState({
                     <CustomTableCell>{type.item_name}</CustomTableCell>
                     <CustomTableCell>{type.item_desc}</CustomTableCell>
                     <CustomTableCell numeric>{type.price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.date_added.slice("T",1)}</CustomTableCell>
+                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
                     <CustomTableCell numeric>
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />
