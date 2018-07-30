@@ -307,3 +307,23 @@ exports.Deleteemp = function (req, res) {
             message: err.message || "Some errors occurred while retrieving customer details."
         });
     }
+
+    exports.deletePurchase = function(req,res){
+        purchase_instance.findOneAndRemove(
+             req.body.id
+        )
+        .then(pur => {
+            if (!pur) {
+                return res.status(404).send({
+                    message: "purchase not found with cnic " + req.body.cnic
+                });
+            }
+            res.send({
+                message: "purchase deleted successfully!"
+            });
+        }).catch(err => {
+            return res.status(500).send({
+                message: "Could not delete pur with id"
+            });
+        });
+    }
