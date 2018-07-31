@@ -1,19 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import { Button } from 'material-ui';
-
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: '#3F51B5',
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
 
 const styles = theme => ({
   root: {
