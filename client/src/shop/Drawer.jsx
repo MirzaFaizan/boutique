@@ -18,6 +18,7 @@ import StockTable from './StockTable';
 import RecieveBox from './RecieveBox';
 import ViewEmployees from './ViewEmployessTable';
 import createBrowserHistory from 'history/createBrowserHistory';
+import StockByType from './ExtraFeatures/StockbyCategory';
 import Welcome from './welcome';
 import Dialog, {
   DialogActions,
@@ -159,7 +160,7 @@ class ResponsiveDrawer extends React.Component {
   StockbyCategoryHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<StockByType token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
@@ -256,7 +257,6 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button onClick={this.EmployeeHandleClick.bind(this)}>Employee</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.ExpensesHandleClick.bind(this)}>Expenses</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.InvoiceDetailsHandleClick.bind(this)}>Invoice Details</Button></ListItem>
             <Divider/>
