@@ -9,6 +9,6 @@ router.post('/recievepkg',Controller.RecievePakg);
 router.post('/Sale',Controller.makesale);
 router.post('/shopinventory',Controller.shopinventoryshow);
 router.post('/customerdetails',Controller.cusDetails);
-router.post('fetchcustdetails',Controller.fetchCusDetails);
+router.post('/fetchcustdetails',Controller.fetchCusDetails);
 router.post('/findbytype',Controller.Articletype);
 module.exports = router;

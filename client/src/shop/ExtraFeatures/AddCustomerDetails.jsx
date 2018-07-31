@@ -87,7 +87,8 @@ changeName = e => {
     const { classes } = this.props;
     return (
          <div>
-               <TextField
+           <h3 className='text-center'> Add new customer </h3>
+        <TextField
           id="name"
           label="Name"
           value={this.state.name}
