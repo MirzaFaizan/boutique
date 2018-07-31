@@ -17,6 +17,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddOrSearchCus from './ExtraFeatures/AddOrSearchCustomers';
 
 const styles = theme => ({
   root: {
@@ -520,10 +521,13 @@ class TextFields extends React.Component {
           
         </TableBody>
       </Table>
-    
     </Paper>
         </Grid>
       </Grid>
+
+        <Paper>
+          <AddOrSearchCus token = {this.state.token}/>
+        </Paper>
       
       </div>
     );
