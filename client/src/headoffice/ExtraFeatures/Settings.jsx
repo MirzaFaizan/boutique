@@ -32,20 +32,6 @@ const styles = theme => ({
   },
 });
 
-const dropdowntypes = [
-  {
-    value: 'admin',
-    label: 'Admin',
-  },
-  {
-    value: 'head',
-    label: 'Head',
-  },
-  {
-    value: 'shop',
-    label: 'Shop',
-  },
-];
 
 
 class TextFields extends React.Component {
