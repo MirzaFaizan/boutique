@@ -200,6 +200,23 @@ exports.fetchCusDetails = function(req , res){
     });
 }
 
+//function to fetch customer details
+exports.fetchSpecCusDetails = function(req , res){
+    cusDetails_instance.find({
+        customerPhone:req.body.phone
+    })
+    .then(cus =>{
+    if(cus.length == 0){
+        res.json({
+            msg: "No data available to show"
+        })
+    } else
+    res.json(cus);
+    }).catch(err => {
+        message: err.message || "Some errors occurred while retrieving customer details."
+    });
+}
+
 //function to find article by type
 exports.Articletype= function(req,res){
     article_instance.find(  
