@@ -19,6 +19,7 @@ var sales_instance= require('../models/sales');
 var article_instance=require('../models/article');  
 var cusDetails_instance=require('../models/customerDetails');
 var article_instance = require('../models/article');
+var shop_employee_instance = require('../models/shopEmployee');
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -172,19 +173,19 @@ req.body.products= req.body.products.split(',').map(function(i){
 
 exports.shopinventoryshow= function(req,res){
     shop_inventory.find(
-        // query
-        {shop_id:req.body.shopID},
-        // callback function
-        (err, shop) => {
-            if (err) return res.json(err)
-            if(shop==null)
-            return res.json(message='No Article at this Shop')
-            else
-            {
-                return res.json(shop);
-                res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
-               }
-            });
+    // query
+    {shop_id:req.body.shopID},
+    // callback function
+    (err, shop) => {
+        if (err) return res.json(err)
+        if(shop==null)
+        return res.json(message='No Article at this Shop')
+        else
+        {
+            return res.json(shop);
+            res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
+            }
+        });
 }
 
 //function to enter customer details
@@ -254,3 +255,91 @@ exports.Articletype= function(req,res){
         }
     );
 };
+
+
+//SHOP emp curd Operations
+
+//Function to Create new Employee
+exports.CreatenewEmp = function (req, res) {
+    var Emp = new shop_employee_instance({
+        emp_name: req.body.name,
+        emp_cnic: req.body.cnic,
+        emp_type: req.body.type,
+        shop_id: req.body.shopID,
+        emp_phone: req.body.phone,
+    });
+    Emp.save(function (err) {
+        if (err)
+            return res.json(err);
+
+        else
+            res.send({
+                msg: "Data Entered Successfully"
+            });
+        console.log("Data entered");
+        // saved!
+    });
+    //});
+}
+
+
+
+//Function to Fetch all Employyess
+exports.fetchallemps = function (req, res) {
+    shop_employee_instance.find()
+        .then(Emp => {
+            if (Emp == null) {
+                res.json({
+                    message: 'No Employee Found'
+                })
+            } else
+                return res.json(Emp);
+        }).catch(err => {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving all Employeess."
+            });
+        });
+};
+//Function To Fetch an Employee
+exports.fetchoneemp = function (req, res) {
+    shop_employee_instance.findOne(
+        // query
+        {
+            emp_cnic: req.body.cnic
+        },
+
+        // callback function
+        (err, Emp) => {
+            if (err) return res.status(200).send(err)
+            if (Emp == null)
+                return res.status(200).json(message = 'No Employee With this Cnic')
+            else
+                return res.status(200).json(Emp)
+        }
+    );
+};
+//Function to Delete an Employee
+exports.Deleteemp = function (req, res) {
+    shop_employee_instance.findOneAndRemove({
+            emp_cnic: req.body.cnic
+        })
+        .then(Emp => {
+            if (!Emp) {
+                return res.status(404).send({
+                    message: "Employee not found with cnic " + req.body.cnic
+                });
+            }
+            res.send({
+                message: "Employee deleted successfully!"
+            });
+        }).catch(err => {
+            if (err.kind === 'Emp_cnic' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    message: "Employee not found with cnic " + req.body.cnic
+                });
+            }
+            return res.status(500).send({
+                message: "Could not delete Employee with cnic " + req.params.cnic
+            });
+        });
+}
