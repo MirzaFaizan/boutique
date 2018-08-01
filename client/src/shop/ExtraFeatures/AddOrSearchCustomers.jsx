@@ -52,7 +52,8 @@ class CustomizedTable extends React.Component {
        console.log(res);
        this.setState({
          data:res
-       })
+       });
+       localStorage.setItem('customerExists','1');
       };
     }
     );
@@ -62,7 +63,7 @@ class CustomizedTable extends React.Component {
   checkClick = () =>{
     var details = {
       'token':this.state.t,
-      'cP':this.state.phone,
+      'customerPhone':this.state.phone,
   };
     var formBody = [];
     for (var property in details) {
@@ -72,7 +73,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/shop/fetchspeccustdetails', {
+    fetch('/shop/searchcustomers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -82,14 +83,17 @@ class CustomizedTable extends React.Component {
     .then(res=>res.json())
     .then(res=>{
       console.log(this.state.t);
-      if(res){
-       console.log(res);
-       this.setState({
-         data:res
-        });
-        console.log(this.state.t);
-      };
-    }
+      if(res==='No customer with this phone number'){
+        console.log('not verified');
+        localStorage.setItem('customerExists','0');
+        this.setState({
+          guest:false
+        });  
+      }else{
+          localStorage.setItem('customerExists','1');
+        }
+      
+      }
     );
   }
 

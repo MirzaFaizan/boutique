@@ -418,6 +418,7 @@ class TextFields extends React.Component {
           }
         }
         );
+        localStorage.setItem('customerExists','0');
       } else {
         console.log('customer not exists');
       }
@@ -518,7 +519,7 @@ class TextFields extends React.Component {
       </Grid>
 
         <Paper>
-          <AddOrSearchCus token = {this.state.token}/>
+          <AddOrSearchCus token = {this.state.t}/>
         </Paper>
       
       </div>
