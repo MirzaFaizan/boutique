@@ -13,4 +13,8 @@ router.post('/fetchcustdetails',Controller.fetchCusDetails);
 router.post('/fetchspeccustdetails',Controller.fetchSpecCusDetails);
 router.post('/findbytype',Controller.Articletype);
 router.post('/searchcustomers',Controller.searchCustomers);
+router.post('/addemp',Controller.CreatenewEmp);
+router.post('/fetchemps',Controller.fetchallemps);
+router.post('/fetchoneemp',Controller.fetchoneemp);
+router.post('/deleteemp',Controller.Deleteemp);
 module.exports = router;

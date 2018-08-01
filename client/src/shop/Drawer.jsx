@@ -31,7 +31,7 @@ import {
     Router
     }   from 'react-router-dom';
 import CustomerDetails from './ExtraFeatures/CustomerDetails';
-
+import EmployeeDetails from './ExtraFeatures/Employee';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -133,14 +133,6 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("ADd item on click")
   }
-  ViewEmployessHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t}/>,
-        title:"Employees"
-    })
-    console.log("ADd item on click")
-  }
 
   SalesHandleClick = () => {
 
@@ -163,13 +155,6 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("View All item Click")
   }
-  ReturnHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
   InvoiceDetailsHandleClick = () => {
 
     this.setState({
@@ -186,7 +171,7 @@ class ResponsiveDrawer extends React.Component {
   }
   EmployeeHandleClick = () => {
     this.setState({
-      OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+      OnDisplay:<EmployeeDetails token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
   })
   console.log("View All item Click")
   }
