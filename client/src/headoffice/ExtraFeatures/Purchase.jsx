@@ -115,6 +115,7 @@ handleClick = () => {
     'price':this.state.expenses,
     'desc':this.state.description,
     'name':this.state.name,
+    'level':'headoffice',
     'date':new Date()
 };
 
@@ -190,6 +191,7 @@ this.setState({
           'price':this.state.expenses,
           'desc':this.state.description,
           'name':this.state.name,
+          'level':'headoffice',
           'date':new Date()
       };
       

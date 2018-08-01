@@ -282,7 +282,8 @@ exports.Deleteemp = function (req, res) {
             item_name: req.body.name,
             item_desc: req.body.desc,
             price: req.body.price,
-            date_added: req.body.date
+            date_added: req.body.date,
+            level:req.body.level,
         });
 
         purchase.save((err)=>{
