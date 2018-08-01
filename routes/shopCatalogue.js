@@ -12,4 +12,5 @@ router.post('/customerdetails',Controller.cusDetails);
 router.post('/fetchcustdetails',Controller.fetchCusDetails);
 router.post('/fetchspeccustdetails',Controller.fetchSpecCusDetails);
 router.post('/findbytype',Controller.Articletype);
+router.post('/searchcustomers',Controller.searchCustomers);
 module.exports = router;

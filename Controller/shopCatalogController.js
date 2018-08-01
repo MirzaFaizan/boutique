@@ -111,6 +111,26 @@ exports.RecievePakg= function(req,res){
         });
 }
 
+//function to find customers by phone number
+exports.searchCustomers= function(req,res){
+    cusDetails_instance.findOne(  
+        
+        // query
+        {customerPhone:req.body.customerPhone},
+    
+        
+    
+        // callback function
+        (err, customerDetails) => {
+            if (err) return res.status(200).send(err)
+            if(customerDetails==null)
+            return res.status(200).json(message='No customer with this phone number')
+            else
+            return res.status(200).json(customerDetails)
+        }
+    );
+};
+
 
 //Function to make new Sale
 exports.makesale= function(req,res){
