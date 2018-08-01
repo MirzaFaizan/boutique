@@ -63,7 +63,39 @@ class CustomizedTable extends React.Component {
   };
 
   checkClick = () =>{
-
+    var details = {
+      'token':this.state.t,
+      'cP':this.state.phone,
+  };
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    
+    fetch('/shop/fetchspeccustdetails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+      },
+      body: formBody
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      console.log("we are in this function");
+      console.log(this.state.t);
+      if(res){
+       console.log(res);
+       this.setState({
+         data:res
+       })
+        console.log("After function");
+        console.log(this.state.t);
+      };
+    }
+    );
   }
 
   constructor(props){

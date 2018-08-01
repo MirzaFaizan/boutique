@@ -10,5 +10,6 @@ router.post('/Sale',Controller.makesale);
 router.post('/shopinventory',Controller.shopinventoryshow);
 router.post('/customerdetails',Controller.cusDetails);
 router.post('/fetchcustdetails',Controller.fetchCusDetails);
+router.post('/fetchspeccustdetails',Controller.fetchSpecCusDetails);
 router.post('/findbytype',Controller.Articletype);
 module.exports = router;

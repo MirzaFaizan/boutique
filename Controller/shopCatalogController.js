@@ -203,7 +203,7 @@ exports.fetchCusDetails = function(req , res){
 //function to fetch customer details
 exports.fetchSpecCusDetails = function(req , res){
     cusDetails_instance.find({
-        customerPhone:req.body.phone
+        customerPhone:req.body.cP
     })
     .then(cus =>{
     if(cus.length == 0){
