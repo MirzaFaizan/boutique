@@ -23,7 +23,6 @@ const styles = theme => ({
 
 
 class CustomizedTable extends React.Component {
-
   handleClick = () =>{
     var details = {
       'token':this.state.t,
@@ -54,8 +53,6 @@ class CustomizedTable extends React.Component {
        this.setState({
          data:res
        })
-        console.log("After function");
-        console.log(this.state.t);
       };
     }
     );
@@ -84,14 +81,12 @@ class CustomizedTable extends React.Component {
     })
     .then(res=>res.json())
     .then(res=>{
-      console.log("we are in this function");
       console.log(this.state.t);
       if(res){
        console.log(res);
        this.setState({
          data:res
-       })
-        console.log("After function");
+        });
         console.log(this.state.t);
       };
     }

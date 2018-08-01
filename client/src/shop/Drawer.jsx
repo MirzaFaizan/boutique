@@ -270,8 +270,6 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.props.logoutScreen}>Log Out </Button></ListItem>
             <Divider/>
-            
-            {/*<ListItem>Queue Details</ListItem>*/}
             </MuiThemeProvider>
             </Typography>
         </List>

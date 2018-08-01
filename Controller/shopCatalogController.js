@@ -222,9 +222,7 @@ exports.Articletype= function(req,res){
     article_instance.find(  
         
         // query
-        {item_type:req.body.type},
-    
-        
+        {item_type:req.body.type},            
     
         // callback function
         (err, article) => {

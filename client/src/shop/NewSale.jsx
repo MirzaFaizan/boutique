@@ -381,58 +381,50 @@ class TextFields extends React.Component {
 
   };
 
-  handleSale = () =>
-  {
-    console.log("function is calling ");
-      var detailsItem = {
-        'token':this.state.t,
-        'products':products,
-        'shopID':this.state.shop,
-        'sale':this.state.date,
-      }
-  
-    console.log(detailsItem);
-    
-      var formBody = [];
-      for (var property in detailsItem) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(detailsItem[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-      }
-      formBody = formBody.join("&");
+    handleSale = () => {
+      if(localStorage.getItem('customerExists')==='1'){
+        var detailsItem = {
+          'token':this.state.t,
+          'products':products,
+          'shopID':this.state.shop,
+          'sale':this.state.date,
+        }
       
-      fetch('/shop/Sale', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-        },
-        body: formBody
-      })
-      .then(res=>res.json())
-      .then(res=>{
-        if(res){
-          console.log("Response : ");
-          console.log(res);
-          this.setState({total:0})
-          var siz = products.length;
-          console.log("Before Splicing products ");
-          console.log(products);
-          products.splice(0,siz);
-          console.log("After Splicing products ");
-          console.log(products);
-          console.log("Before Splicing Rows ");
-          console.log(row);
-          row.splice(0,siz);
-          console.log("After Splicing Rows ");
-          console.log(row);
-          this.setState({data:{}})
-          
-
-        };
+        var formBody = [];
+        for (var property in detailsItem) {
+          var encodedKey = encodeURIComponent(property);
+          var encodedValue = encodeURIComponent(detailsItem[property]);
+          formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+        
+        fetch('/shop/Sale', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+          },
+          body: formBody
+        })
+        .then(res=>res.json())
+        .then(res=>{
+          if(res){
+            console.log("Response : From sale");
+            console.log(res);
+            this.setState({total:0})
+            var siz = products.length;
+            products.splice(0,siz);
+            row.splice(0,siz);
+            this.setState({data:{}})
+          }
+        }
+        );
+      } else {
+        console.log('customer not exists');
       }
-      );
     
     };
+
+
     removeProduct = (item,price) =>
     {
       const tot = this.state.total;
