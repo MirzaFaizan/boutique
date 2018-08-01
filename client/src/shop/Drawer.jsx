@@ -247,26 +247,26 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.StockHandleClick.bind(this)} >Stock</Button></ListItem>
             <Divider />
-            <ListItem><Button onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.ReturnHandleClick.bind(this)}>Return</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.ReturnHandleClick.bind(this)}>Return</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.EmployeeHandleClick.bind(this)}>Employee</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.EmployeeHandleClick.bind(this)}>Employee</Button></ListItem>
             <Divider/>
             <Divider/>
-            <ListItem><Button onClick={this.InvoiceDetailsHandleClick.bind(this)}>Invoice Details</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.InvoiceDetailsHandleClick.bind(this)}>Invoice Details</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.SummarySalesReportHandleClick.bind(this)}>Summary Sales Report</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.SummarySalesReportHandleClick.bind(this)}>Summary Sales Report</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.AddCustomerDetailsHandleClick.bind(this)}>Add Customer Details</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.AddCustomerDetailsHandleClick.bind(this)}>Add Customer Details</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.props.logoutScreen}>Log Out </Button></ListItem>
             <Divider/>
