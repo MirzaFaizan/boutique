@@ -7,6 +7,8 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -189,6 +191,78 @@ this.setState({
 });
 }
 
+
+  //DElETE Emp
+
+  deleteClick = (index) => {
+    console.log({index})
+    console.log(this.state.data[index])
+    var details = {
+      'token':this.state.t,
+      'cnic':this.state.data[index].emp_cnic,
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/shop/deleteemp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+        //console.log("we are in this function");
+        if(res){
+          console.log(res);
+          var details = {
+            'token':this.state.t
+        };  
+    
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      
+      
+      fetch('/head/ShowEmps', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      })
+      .then(res=>res.json())
+      .then(res=>{
+    
+        if(res){
+        this.setState({
+          data:res
+        })
+        };
+      }
+      );   
+          console.log("After function");
+        };
+      }
+  ); 
+
+  }
+
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -268,6 +342,11 @@ this.setState({
                     <CustomTableCell numeric>{type.emp_type}</CustomTableCell>
                     <CustomTableCell numeric>{type.emp_phone}</CustomTableCell>
                     <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                    <CustomTableCell>
+                      <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                        <DeleteIcon />
+                      </Button>
+                    </CustomTableCell>
                   </TableRow>
                 );
               })
