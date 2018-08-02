@@ -29,7 +29,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import StockByCategory from './ExtraFeatures/StockbyCategory';
-
+import Purchase from './ExtraFeatures/Purchase';
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -156,7 +156,7 @@ class ResponsiveDrawer extends React.Component {
   PurchaseHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Purchase token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
