@@ -81,39 +81,41 @@ class CustomizedTable extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-      <Typography variant="display2"> All Sales</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Products</CustomTableCell>
-              <CustomTableCell>Total</CustomTableCell>
-              <CustomTableCell >Shop</CustomTableCell>
-              <CustomTableCell >Date</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-               Object.values(this.state.data).map((type,index) => {
-                 return (
-                  <TableRow className={classes.row} key={index}>
-                    <CustomTableCell>
-                        {
-                          type.products.map((item)=>{
-                            return(item.item_name)+"," 
-                          })
-                          }
-                      </CustomTableCell> 
-                    <CustomTableCell>{type.total}</CustomTableCell>
-                    <CustomTableCell numeric> {type.shop} </CustomTableCell>
-                    <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-          </TableBody>
-        </Table>
-      </Paper>
+      <div>
+        <Typography variant="display2"> All Sales</Typography>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <CustomTableCell>Products</CustomTableCell>
+                <CustomTableCell>Total</CustomTableCell>
+                <CustomTableCell >Shop</CustomTableCell>
+                <CustomTableCell >Date</CustomTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                Object.values(this.state.data).map((type,index) => {
+                  return (
+                    <TableRow className={classes.row} key={index}>
+                      <CustomTableCell>
+                          {
+                            type.products.map((item)=>{
+                              return(item.item_name)+"," 
+                            })
+                            }
+                        </CustomTableCell> 
+                      <CustomTableCell>{type.total}</CustomTableCell>
+                      <CustomTableCell numeric> {type.shop} </CustomTableCell>
+                      <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
+                    </TableRow>
+                  );
+                })
+              }
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
     );
   }
 }

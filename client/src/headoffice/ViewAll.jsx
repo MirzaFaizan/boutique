@@ -81,51 +81,42 @@ class CustomizedTable extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>CNIC</CustomTableCell>
-              <CustomTableCell numeric>Password</CustomTableCell>
-              <CustomTableCell numeric>Shop ID</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/*data replaced with json pacakage from api*/}
-            {
-               Object.values(this.state.data).map((type) => {
-                 console.log(type.Emp_cnic);
-                 console.log(type.Emp_password);
-                 console.log(type.Emp_name);
-                 console.log(type.Emp_type);
-                 return (
-                  <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.Emp_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
-                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
-          </TableBody>
-        </Table>
-      </Paper>
+      <div>
+        <Typography variant="display2"> All Employees</Typography>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <CustomTableCell>Name</CustomTableCell>
+                <CustomTableCell numeric>Type</CustomTableCell>
+                <CustomTableCell numeric>CNIC</CustomTableCell>
+                <CustomTableCell numeric>Password</CustomTableCell>
+                <CustomTableCell numeric>Shop ID</CustomTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {/*data replaced with json pacakage from api*/}
+              {
+                Object.values(this.state.data).map((type) => {
+                  console.log(type.Emp_cnic);
+                  console.log(type.Emp_password);
+                  console.log(type.Emp_name);
+                  console.log(type.Emp_type);
+                  return (
+                    <TableRow className={classes.row} key={type.Emp_cnic}>
+                      <CustomTableCell>{type.Emp_name}</CustomTableCell>
+                      <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
+                      <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
+                      <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                      <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                    </TableRow>
+                  );
+                })
+              }
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
     );
   }
 }

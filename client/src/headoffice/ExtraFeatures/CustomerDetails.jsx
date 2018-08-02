@@ -81,41 +81,32 @@ class CustomizedTable extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Phone</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/*data replaced with json pacakage from api*/}
-            {
-               Object.values(this.state.data).map((type,index) => {
-                 return (
-                  <TableRow className={classes.row} key={index}>
-                    <CustomTableCell>{type.customerName}</CustomTableCell>
-                    <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
-          </TableBody>
-        </Table>
-      </Paper>
+      <div>
+        <Typography variant="display2"> All Customers</Typography>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <CustomTableCell>Name</CustomTableCell>
+                <CustomTableCell numeric>Phone</CustomTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {/*data replaced with json pacakage from api*/}
+              {
+                Object.values(this.state.data).map((type,index) => {
+                  return (
+                    <TableRow className={classes.row} key={index}>
+                      <CustomTableCell>{type.customerName}</CustomTableCell>
+                      <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
+                    </TableRow>
+                  );
+                })
+              }
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
     );
   }
 }

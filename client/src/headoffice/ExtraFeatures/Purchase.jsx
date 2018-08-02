@@ -263,7 +263,6 @@ this.setState({
     return (
       <div>
             <form className={classes.container} noValidate autoComplete="off"> 
-    <CardContent>
         <TextField
         id="name"
         label="Name"
@@ -273,8 +272,6 @@ this.setState({
         onChange={e => this.changeName(e)}
         margin="normal"
         />
-    </CardContent>
-    <CardContent>
     <TextField
     id="expenses"
     label="Purchase Price"
@@ -284,8 +281,6 @@ this.setState({
     onChange={e => this.changeExpenses(e)}
     margin="normal"
   />
-    </CardContent>
-    <CardContent>
   <TextField
     id="Description"
     label="Description"
@@ -295,7 +290,6 @@ this.setState({
     className={classes.textField}
     margin="normal"
   />
-</CardContent>
 <CardContent>
   <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} >
     Add

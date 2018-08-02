@@ -193,7 +193,7 @@ t:this.props.token,
 
     return (
       <div>
-        <Typography variant="display2">You Settings</Typography>
+        <Typography variant="display2">Settings</Typography>
         <Card className={classes.card}>
       <form className={classes.container} noValidate autoComplete="off"> 
       <CardContent>
