@@ -232,32 +232,10 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
-            <TextField
-          id="pckgnumberr"
-          label="Package Number"
-          value={this.state.package_number}
-          placeholder="Enter Package Number"
-          onChange={e => this.changePackagenumber(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-
-         {/*
-         <TextField
-          id="id"
-          label="ID"
-          value={this.state.id}
-          placeholder="Enter ID of Batch"
-          onChange={e => this.changeID(e)}
-          className={classes.textField}
-          margin="normal"/>
-        */} 
-        
           
     <div className={classes.root}>
         <List>
-          {/*0,1,2,3 to be replaced with json pacakage
-          key = value, value can be replaced with id of items*/}
+          
           {Object.values(this.state.data).map(type => (
             <ListItem
               key={type.item_id}
