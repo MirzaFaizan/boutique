@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import { types } from 'util';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -89,7 +90,9 @@ class CustomizedTable extends React.Component {
           <TableRow>
             {/*<CustomTableCell>Items</CustomTableCell>*/}
             <CustomTableCell numeric>Package Number</CustomTableCell>
-            <CustomTableCell numeric>ID</CustomTableCell>
+            <CustomTableCell numeric>Shop ID</CustomTableCell>
+            <CustomTableCell numeric>Status</CustomTableCell>
+            <CustomTableCell numeric>Date Sent</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -100,7 +103,9 @@ class CustomizedTable extends React.Component {
                   <TableRow className={classes.row} key={type._id}>
                     {/*<CustomTableCell>{type.items}</CustomTableCell>*/}
                     <CustomTableCell numeric>{type.package_number}</CustomTableCell>
-                    <CustomTableCell numeric>{type._id}</CustomTableCell>
+                    <CustomTableCell numeric>{types.shop_id}</CustomTableCell>
+                    <CustomTableCell numeric>{types.status}</CustomTableCell>
+                    <CustomTableCell numeric>{types.date_sent}</CustomTableCell>
                   </TableRow>
             );
           })}
