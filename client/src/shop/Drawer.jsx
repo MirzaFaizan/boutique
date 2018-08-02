@@ -32,7 +32,8 @@ import {
     }   from 'react-router-dom';
 import CustomerDetails from './ExtraFeatures/CustomerDetails';
 import EmployeeDetails from './ExtraFeatures/Employee';
-
+import Expenses from './ExtraFeatures/Expenses';
+import Sales from './ExtraFeatures/Sales';
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -137,14 +138,14 @@ class ResponsiveDrawer extends React.Component {
   SalesHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Sales token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
   PurchaseHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Expenses token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
