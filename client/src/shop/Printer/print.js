@@ -1,7 +1,7 @@
 var printer = require("node-thermal-printer");
     printer.init({
         type: 'epson',                                     // Printer type: 'star' or 'epson'
-        interface: '/dev/usb/lp0',                        // Printer interface
+        interface: '/dev/usb/lp1',                        // Printer interface
         characterSet: 'SLOVENIA',                         // Printer character set
         removeSpecialCharacters: false,                   // Removes special characters - default: false
         replaceSpecialCharacters: true,                   // Replaces special characters listed in config files - default: true
@@ -9,8 +9,7 @@ var printer = require("node-thermal-printer");
     });
 exports.printData = function(data){
     
-    
-      printer.isPrinterConnected( function(isConnected){ console.log(isConnected)} )     // Check if printer is connected, callback passes bool of status
+       // Check if printer is connected, callback passes bool of status
     
         printer.alignCenter();
         printer.invert(true);                               // Background/text color inversion
@@ -27,7 +26,7 @@ exports.printData = function(data){
         printer.newLine();
         printer.newLine();
         printer.drawLine();                                 // Draws a line                            // Underline text (1 dot thickness)
-        printer.leftRight("Item", "Price");                 // Prints text left and right
+        printer.leftRight(data, "Price");                 // Prints text left and right
         printer.drawLine();                                 // Draws a line                            // Underline text (1 dot thickness)
         printer.leftRight("Item", "Price");                 // Prints text left and right
         printer.drawLine();                                 // Draws a line                            // Underline text (1 dot thickness)
