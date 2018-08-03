@@ -311,7 +311,6 @@ this.setState({
               <CustomTableCell numeric>Description</CustomTableCell>
               <CustomTableCell numeric>Expense</CustomTableCell>
               <CustomTableCell numeric>Date</CustomTableCell>
-              <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -324,11 +323,6 @@ this.setState({
                         <CustomTableCell>{type.item_desc}</CustomTableCell>
                         <CustomTableCell numeric>{type.price}</CustomTableCell>
                         <CustomTableCell numeric>{type.date_added}</CustomTableCell>
-                        <CustomTableCell numeric>
-                        <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
-                        <DeleteIcon />
-                        </Button>
-                        </CustomTableCell>
                         </TableRow>
                     );
                         

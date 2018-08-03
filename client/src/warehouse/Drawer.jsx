@@ -30,6 +30,8 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import StockByCategory from './ExtraFeatures/StockbyCategory';
 import Purchase from './ExtraFeatures/Purchase';
+import EmployeesWarehouse from './ExtraFeatures/warehouseEmployees';
+
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -161,6 +163,16 @@ class ResponsiveDrawer extends React.Component {
     console.log("View All item Click")
   }
   
+
+  warehouseEmpHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<EmployeesWarehouse token={this.state.t}/>
+    })
+    console.log("View All item Click")
+  }
+
+
   handleClickDialogOpen = () => {
     this.setState({ open: true });
   };
@@ -196,6 +208,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
             <Divider />
             <ListItem><Button onClick={this.batchitemsshowHandleClick.bind(this)} >Batch Items Show</Button></ListItem>
+            <Divider />
+            <ListItem><Button onClick={this.warehouseEmpHandleClick.bind(this)} >Warehouse Employees</Button></ListItem>
             <Divider />
             <ListItem><Button onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
             <Divider/>

@@ -4,10 +4,11 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -50,7 +51,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/head/showPurchase', {
+    fetch('/shop/fetchemps', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -80,43 +81,50 @@ class CustomizedTable extends React.Component {
     this.state={
       data:{},
       t:this.props.token,
-      expenses:'',
-      description:'',
-      date:'',
-      name: '',
+      name:'',
+      cnic:'',
+      type:'',
+      shopid: '',
+      phone:'',
     }
 }
 
-changeExpenses = e => {
-  this.setState({
-    expenses: e.target.value
-  });
-};
 changeName = e => {
     this.setState({
       name: e.target.value
     });
+};
+
+changeCnic = e => {
+  this.setState({
+    cnic: e.target.value
+  });
+};
+changeType = e => {
+  this.setState({
+    type: e.target.value
+  });
+};
+changeShopID = e => {
+  this.setState({
+    shopid: e.target.value
+  });
+};
+changePhoneNo = e => {
+    this.setState({
+      phone: e.target.value
+    });
   };
-changeDescription = e => {
-  this.setState({
-    description: e.target.value
-  });
-};
-changeDate = e => {
-  this.setState({
-    date: e.target.value
-  });
-};
 
 handleClick = () => {
   console.log('Add Click')
   var details = {
     'token':this.state.t,
-    'price':this.state.expenses,
-    'desc':this.state.description,
     'name':this.state.name,
-    'level':'headoffice',
-    'date':new Date()
+    'cnic':this.state.cnic,
+    'type':this.state.type,
+    'shopID':'warehouse',
+    'phone':this.state.phone
 };
 
 
@@ -129,7 +137,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/head/addPurchase', {
+fetch('/shop/addemp', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -153,7 +161,7 @@ for (var property in details) {
 }
 formBody = formBody.join("&");
 
-fetch('/head/showPurchase', {
+fetch('/shop/fetchemps', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -175,52 +183,51 @@ fetch('/head/showPurchase', {
 }
 ); 
 this.setState({
-  expenses:'',
-  date:'',
-  description:'',
-  name:''
+    name:'',
+    cnic:'',
+    type:'',
+    shopid: '',
+    phone:'',
 });
 }
 
 
-    //DELETE CLICK FUNCTION
-    deleteClick=()=>{
-        console.log('Add Click')
-        var details = {
-          'token':this.state.t,
-          'price':this.state.expenses,
-          'desc':this.state.description,
-          'name':this.state.name,
-          'level':'headoffice',
-          'date':new Date()
-      };
-      
-      
-      var formBody = [];
-      for (var property in details) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(details[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-      }
-      formBody = formBody.join("&");
-      
-      
-      fetch('/head/addPurchase', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-        },
-        body: formBody
-      })
-      .then(res=>res.json())
-      .then(res=>{
+  //DElETE Emp
+
+  deleteClick = (index) => {
+    console.log({index})
+    console.log(this.state.data[index])
+    var details = {
+      'token':this.state.t,
+      'cnic':this.state.data[index].emp_cnic,
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/shop/deleteemp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+        //console.log("we are in this function");
         if(res){
           console.log(res);
-      
           var details = {
-            'token':this.state.t,
+            'token':this.state.t
         };  
-      
+    
       var formBody = [];
       for (var property in details) {
         var encodedKey = encodeURIComponent(property);
@@ -229,7 +236,8 @@ this.setState({
       }
       formBody = formBody.join("&");
       
-      fetch('/head/showPurchase', {
+      
+      fetch('/head/ShowEmps', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -238,31 +246,28 @@ this.setState({
       })
       .then(res=>res.json())
       .then(res=>{
-      
+    
         if(res){
-         this.setState({
-           data:res
-         })
+        this.setState({
+          data:res
+        })
         };
       }
       );   
           console.log("After function");
         };
       }
-      ); 
-      this.setState({
-        expenses:'',
-        date:'',
-        description:'',
-        name:''
-      });     
-    }
+  ); 
+
+  }
+
+
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-            <form className={classes.container} noValidate autoComplete="off"> 
+    <form className={classes.container} noValidate autoComplete="off"> 
         <TextField
         id="name"
         label="Name"
@@ -273,20 +278,29 @@ this.setState({
         margin="normal"
         />
     <TextField
-    id="expenses"
-    label="Purchase Price"
-    value={this.state.expenses}
-    placeholder="Enter Price"
+    id="cnic"
+    label="cnic"
+    value={this.state.cnic}
+    placeholder="Enter cnic"
     className={classes.textField}
-    onChange={e => this.changeExpenses(e)}
+    onChange={e => this.changeCnic(e)}
     margin="normal"
   />
   <TextField
-    id="Description"
-    label="Description"
-    value={this.state.description}
-    placeholder="Enter Description"
-    onChange={e => this.changeDescription(e)}
+    id="Type"
+    label="Type"
+    value={this.state.type}
+    placeholder="Enter Type"
+    onChange={e => this.changeType(e)}
+    className={classes.textField}
+    margin="normal"
+  />
+    <TextField
+    id="phone"
+    label="Phone No"
+    value={this.state.phone}
+    placeholder="Enter Phone no"
+    onChange={e => this.changePhoneNo(e)}
     className={classes.textField}
     margin="normal"
   />
@@ -296,31 +310,39 @@ this.setState({
   </Button>
   </CardContent>
 </form>
-      <Typography variant="display2"> All Purchases</Typography>
+      <Typography variant="display2"> All Employees</Typography>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <CustomTableCell numeric>Name</CustomTableCell>
-              <CustomTableCell numeric>Description</CustomTableCell>
-              <CustomTableCell numeric>Price</CustomTableCell>
-              <CustomTableCell numeric>Date</CustomTableCell>
+              <CustomTableCell numeric>CNIC</CustomTableCell>
+              <CustomTableCell numeric>Type</CustomTableCell>
+              <CustomTableCell numeric>Shop ID</CustomTableCell>
+              <CustomTableCell numeric>Phone No</CustomTableCell>
+              <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
                Object.values(this.state.data).map((type,index) => {
-                
+                if(type.shop_id==='warehouse'){
                  return (
                   <TableRow className={classes.row} key={type._id}>
-                    <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell>{type.item_desc}</CustomTableCell>
-                    <CustomTableCell numeric>{type.price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.date_added}</CustomTableCell>
-                    
+                    <CustomTableCell>{type.emp_name}</CustomTableCell>
+                    <CustomTableCell>{type.emp_cnic}</CustomTableCell>
+                    <CustomTableCell numeric>{type.emp_type}</CustomTableCell>
+                    <CustomTableCell numeric>{type.emp_phone}</CustomTableCell>
+                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                    <CustomTableCell>
+                      <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                        <DeleteIcon />
+                      </Button>
+                    </CustomTableCell>
                   </TableRow>
                 );
-              })
+              }})
+            
             }
           </TableBody>
         </Table>

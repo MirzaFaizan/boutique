@@ -329,6 +329,7 @@ this.setState({
               <CustomTableCell numeric>Type</CustomTableCell>
               <CustomTableCell numeric>Shop ID</CustomTableCell>
               <CustomTableCell numeric>Phone No</CustomTableCell>
+              <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

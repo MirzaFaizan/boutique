@@ -312,7 +312,7 @@ exports.Deleteemp = function (req, res) {
 
     exports.deletePurchase = function(req,res){
         purchase_instance.findOneAndRemove(
-             req.body.id
+             {_id : req.body.id}
         )
         .then(pur => {
             if (!pur) {
