@@ -139,7 +139,8 @@ class TextFields extends React.Component {
     isDisabled:true,
     isDisabledsize:true,
     size:'large',
-    resid:null
+    resid:null,
+    factoryprice:''
   };
 
   handleSubmit = (evt) => {
@@ -223,7 +224,11 @@ class TextFields extends React.Component {
       price: e.target.value
     });
   }
-
+  changeFactoryPrice = e => {
+    this.setState({
+      factoryprice: e.target.value
+    });
+  }
   changesize = e => {
     this.setState({
       size:e.target.value
@@ -234,11 +239,6 @@ class TextFields extends React.Component {
   qrimg = null
   handleClick = () => {
  
-    console.log(this.qrimg);
-    console.log(this.state);
-    console.log(this.props.token);
-    //api call to store data in database here
-      console.log(this.state)
       var details = {
        'name': this.state.name,
        'price': this.state.price,
@@ -246,7 +246,8 @@ class TextFields extends React.Component {
         'newid':this.state.newid,
         'date':this.state.date,
         'token':this.state.t,
-        'size':this.state.size
+        'size':this.state.size,
+        'factoryPrice':this.state.factoryprice
    };
    
    var formBody = [];
@@ -364,6 +365,16 @@ class TextFields extends React.Component {
          margin="normal"
        />
 
+       <TextField
+         id="factoryprice"
+         label="Factory Price"
+         value={this.state.factoryprice}
+         placeholder="Enter Factory Price of Product"
+         onChange={e => this.changeFactoryPrice(e)}
+         className={classes.textField}
+         margin="normal"
+       />
+
           <TextField
           id="size"
           select
@@ -385,17 +396,6 @@ class TextFields extends React.Component {
           ))}
           </TextField>
 
-         
-        {/*
-        <TextField
-         id="id"
-         label="ID"
-         value={this.state.id}
-         placeholder="Enter ID of Product"
-         onChange={e => this.changeID(e)}
-         className={classes.textField}
-         margin="normal"/>
-        */} 
 
        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
        <AddIcon/>
