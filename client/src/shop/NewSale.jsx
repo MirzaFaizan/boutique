@@ -18,7 +18,7 @@ import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddOrSearchCus from './ExtraFeatures/AddOrSearchCustomers';
-import Printer from './Printer/print.js';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -415,7 +415,6 @@ class TextFields extends React.Component {
             products.splice(0,siz);
             row.splice(0,siz);
             this.setState({data:{}})
-            Printer.printData(siz);
           }
         }
         );
