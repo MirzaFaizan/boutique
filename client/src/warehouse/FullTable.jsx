@@ -102,8 +102,6 @@ class CustomizedTable extends React.Component {
   })
   .then(res=>res.json())
   .then(res=>{
- 
-    //console.log("we are in this function");
     if(res){
       console.log(res);
       var details = {
@@ -250,7 +248,6 @@ class CustomizedTable extends React.Component {
         <TableBody>
           {/*data to be replaced with json pacakage from api*/}
           {Object.values(this.state.data).map((type,index) => {
-                 console.log(type);
                  return (
                   <TableRow className={classes.row} key={type._id} selectable={true}>
                     <CustomTableCell>{index+1}</CustomTableCell>

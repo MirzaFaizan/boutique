@@ -232,7 +232,7 @@ class TextFields extends React.Component {
   changesize = e => {
     this.setState({
       size:e.target.value
-    })
+    });
   }
 
   list = {}
