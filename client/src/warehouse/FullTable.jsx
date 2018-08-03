@@ -134,7 +134,6 @@ class CustomizedTable extends React.Component {
     };
   }
   );   
-      console.log("After function");
     };
   }
   ); 
