@@ -19,4 +19,5 @@ router.post('/showPurchase',headController.viewPurchase);
 router.post('/addPurchase',headController.addPurchase);
 router.post('/deletePurchase',headController.deletePurchase);
 router.post('/findbytype',headController.Articletype);
+router.post('/stats',headController.displaySales);
 module.exports = router;
