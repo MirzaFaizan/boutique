@@ -160,6 +160,8 @@ exports.CreatePakage= function(req, res)
         if (err)
          return res.json(err);
         else
+        article_instance.updateMany({item_id: {$in:req.body.items}},{$set: { batch : true } },function(err){
+        if(err)return res.json(err);})
          return  res.json({message:'pakage Added Succesfully'});
           console.log("Data entered");
         // saved!
