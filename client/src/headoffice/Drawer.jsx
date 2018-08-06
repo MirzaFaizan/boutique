@@ -30,6 +30,8 @@ import Dialog, {
 import Settings from './ExtraFeatures/Settings';
 import CustomerDetails from './ExtraFeatures/CustomerDetails';
 import ViewSales from './ExtraFeatures/Sales';
+import ProfitLoss from './ExtraFeatures/ProfitandLoss';
+
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -143,7 +145,7 @@ class ResponsiveDrawer extends React.Component {
   ProfitandLossHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<ProfitLoss token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
