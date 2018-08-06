@@ -18,6 +18,8 @@ import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddOrSearchCus from './ExtraFeatures/AddOrSearchCustomers';
+import Printer from "./ExtraFeatures/Printer";
+
 
 const styles = theme => ({
   root: {
@@ -418,6 +420,9 @@ class TextFields extends React.Component {
           }
         }
         );
+
+        console.log("products",products,this.state.total)
+
         localStorage.setItem('customerExists','0');
       } else {
         console.log('customer not exists');
