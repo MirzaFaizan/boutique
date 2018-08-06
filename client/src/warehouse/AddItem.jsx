@@ -139,7 +139,8 @@ class TextFields extends React.Component {
     isDisabled:true,
     isDisabledsize:true,
     size:'large',
-    resid:null
+    resid:null,
+    factoryprice:''
   };
 
   handleSubmit = (evt) => {
@@ -223,22 +224,21 @@ class TextFields extends React.Component {
       price: e.target.value
     });
   }
-
+  changeFactoryPrice = e => {
+    this.setState({
+      factoryprice: e.target.value
+    });
+  }
   changesize = e => {
     this.setState({
       size:e.target.value
-    })
+    });
   }
 
   list = {}
   qrimg = null
   handleClick = () => {
  
-    console.log(this.qrimg);
-    console.log(this.state);
-    console.log(this.props.token);
-    //api call to store data in database here
-      console.log(this.state)
       var details = {
        'name': this.state.name,
        'price': this.state.price,
@@ -246,7 +246,8 @@ class TextFields extends React.Component {
         'newid':this.state.newid,
         'date':this.state.date,
         'token':this.state.t,
-        'size':this.state.size
+        'size':this.state.size,
+        'factoryPrice':this.state.factoryprice
    };
    
    var formBody = [];
@@ -287,11 +288,10 @@ class TextFields extends React.Component {
        "<div class='col-xs-12' style='border: 4px solid;'>"+
          "<div class='row'><div class='col-xs-6'>"+
                "<ul style='list-style-type: square; font-size:40px; font-weight:900; padding-top:20px'>"+
-                 "<strong><h1  style='font-weight:bold; font-size:50px'>Poshwear studio</h1></strong>"+
-                 "<li><h2><strong>"+this.state.name+"</strong></h2></li>"+
-                 "<li><h2><strong> Size : "+this.state.size+"</strong></h2></li>"+
-                 "<li><h1><strong>Rs "+this.state.price+"/-</strong></h1></li>"+
-                 "<li><h2><strong>"+res.id+"</strong></h2></li>"+
+                 "<li><h1 style='font-size:150%'><strong>Rs "+this.state.price+"/-</strong></h1></li>"+
+                 "<li><h3><strong>"+this.state.name+"</strong></h2></li>"+
+                 "<li><h3><strong> Size : "+this.state.size+"</strong></h2></li>"+
+                 "<li><h3><strong>"+res.id+"</strong></h2></li>"+
                "</ul></div>"+
            "<div class='col-xs-6'><img style='min-height:400px;' src='"+this.qrimg.b64encoded+"' alt='img here'></div>"+
            "</div></div></div></body></html>"
@@ -364,6 +364,16 @@ class TextFields extends React.Component {
          margin="normal"
        />
 
+       <TextField
+         id="factoryprice"
+         label="Factory Price"
+         value={this.state.factoryprice}
+         placeholder="Enter Factory Price of Product"
+         onChange={e => this.changeFactoryPrice(e)}
+         className={classes.textField}
+         margin="normal"
+       />
+
           <TextField
           id="size"
           select
@@ -385,17 +395,6 @@ class TextFields extends React.Component {
           ))}
           </TextField>
 
-         
-        {/*
-        <TextField
-         id="id"
-         label="ID"
-         value={this.state.id}
-         placeholder="Enter ID of Product"
-         onChange={e => this.changeID(e)}
-         className={classes.textField}
-         margin="normal"/>
-        */} 
 
        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} disabled={isDisabled}>
        <AddIcon/>

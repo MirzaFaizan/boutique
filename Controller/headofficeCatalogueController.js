@@ -282,7 +282,8 @@ exports.Deleteemp = function (req, res) {
             item_name: req.body.name,
             item_desc: req.body.desc,
             price: req.body.price,
-            date_added: req.body.date
+            date_added: req.body.date,
+            level:req.body.level,
         });
 
         purchase.save((err)=>{
@@ -311,7 +312,7 @@ exports.Deleteemp = function (req, res) {
 
     exports.deletePurchase = function(req,res){
         purchase_instance.findOneAndRemove(
-             req.body.id
+             {_id : req.body.id}
         )
         .then(pur => {
             if (!pur) {
@@ -346,4 +347,42 @@ exports.Deleteemp = function (req, res) {
                 return res.status(200).json(article)
             }
         );
+    };
+
+
+
+    // FETCH sales between two dates
+
+
+    exports.displaySales = function(req,res){
+        fromdate = new Date(req.body.fromdate);
+        todate = new Date(req.body.todate);
+        sales_instance.find()
+            .then(sal=>{
+                if (sal.length == 0) {
+                    res.json({msg: "No data available to show"});
+                }
+                else{
+                    profit = 0;
+                    totalsale = 0;
+                    for(var i = 0; i < sal.length; i++){
+                        let count=0;
+                        for(var j = 0; j < sal[i].products.length; j++){
+                            date = new Date(sal[i].date_sale);
+                            if((date.getTime() <= todate.getTime() && date.getTime() >= fromdate.getTime())){     
+                                profit+= (sal[i].products[j].price - sal[i].products[j].factory_price);
+                                if(count===0){
+                                totalsale+= (sal[i].total);
+                                count++;
+                            }
+                            }
+                        }
+                    }
+                     res.json({profit:profit,totalsale:totalsale});
+                }
+            }).catch(err =>{
+                return res.status(500).send({
+                            message: err.message || "Some error occurred while retrieving all Sales."
+            });
+        });
     };

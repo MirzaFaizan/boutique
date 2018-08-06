@@ -8,7 +8,8 @@ var SaleSchema = new Schema(
       {
         item_id: {type: Number, max: 100},
         item_name: {type: String, required: true, max: 100},
-        price: {type: Number,}
+        price: {type: Number,},
+        factory_price: {type:Number}
       }
     ],
     customer:{type:String},

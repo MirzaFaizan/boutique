@@ -23,7 +23,6 @@ const styles = theme => ({
 
 
 class CustomizedTable extends React.Component {
-
   handleClick = () =>{
     var details = {
       'token':this.state.t,
@@ -53,9 +52,8 @@ class CustomizedTable extends React.Component {
        console.log(res);
        this.setState({
          data:res
-       })
-        console.log("After function");
-        console.log(this.state.t);
+       });
+       localStorage.setItem('customerExists','1');
       };
     }
     );
@@ -63,7 +61,40 @@ class CustomizedTable extends React.Component {
   };
 
   checkClick = () =>{
-
+    var details = {
+      'token':this.state.t,
+      'customerPhone':this.state.phone,
+  };
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    
+    fetch('/shop/searchcustomers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+      },
+      body: formBody
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      console.log(this.state.t);
+      if(res==='No customer with this phone number'){
+        console.log('not verified');
+        localStorage.setItem('customerExists','0');
+        this.setState({
+          guest:false
+        });  
+      }else{
+          localStorage.setItem('customerExists','1');
+        }
+      
+      }
+    );
   }
 
   constructor(props){

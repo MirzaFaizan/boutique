@@ -93,6 +93,7 @@ class TextFields extends React.Component {
     package_number:'',
     date: new Date(),
   };
+
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -221,8 +222,8 @@ class TextFields extends React.Component {
           onChange={e => this.changeName(e)}
           margin="normal"
           refs='name'
-          
         />
+
         <TextField
           id="shop"
           label="Shop"
@@ -232,56 +233,34 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
-            <TextField
-          id="pckgnumberr"
-          label="Package Number"
-          value={this.state.package_number}
-          placeholder="Enter Package Number"
-          onChange={e => this.changePackagenumber(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-
-         {/*
-         <TextField
-          id="id"
-          label="ID"
-          value={this.state.id}
-          placeholder="Enter ID of Batch"
-          onChange={e => this.changeID(e)}
-          className={classes.textField}
-          margin="normal"/>
-        */} 
-        
           
-    <div className={classes.root}>
-        <List>
-          {/*0,1,2,3 to be replaced with json pacakage
-          key = value, value can be replaced with id of items*/}
-          {Object.values(this.state.data).map(type => (
-            <ListItem
-              key={type.item_id}
-              role={undefined}
-              dense
-              button
-              onClick={this.handleToggle(type.item_id)}
-              className={classes.listItem}
-            >
-              <Checkbox
-                checked={this.state.checked.indexOf(type.item_id) !== -1}
-                tabIndex={-1}
-                disableRipple
-                color="primary"
-              />
-              <ListItemText primary={type.item_name} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </div>
+        <div className={classes.root}>
+          <List>
+            
+            {Object.values(this.state.data).map(type => (
+              <ListItem
+                key={type.item_id}
+                role={undefined}
+                dense
+                button
+                onClick={this.handleToggle(type.item_id)}
+                className={classes.listItem}
+                >
+                  <Checkbox
+                    checked={this.state.checked.indexOf(type.item_id) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    color="primary"
+                  />
+                  <ListItemText primary={type.item_name} />
+                  <ListItemSecondaryAction>
+                    <IconButton aria-label="Comments">
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
         <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick} >
         <AddIcon/>
         </Button>

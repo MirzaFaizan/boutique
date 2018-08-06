@@ -12,6 +12,7 @@ router.post('/DeleteArticle',Controller.DeleteArticle);
 router.post('/showArticles',Controller.FetchAllArticle);
 router.post('/show1Article',Controller.fetchoneArticle);
 router.post('/Createnewpakg',Controller.CreatePakage);
+router.post('/showPackages',Controller.ShowPakages);
 router.post('/findbytype',Controller.Articletype);
 
 

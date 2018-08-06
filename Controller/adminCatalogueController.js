@@ -60,10 +60,13 @@ else
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
-     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,
+    var articlemodel = new article_instance({
+        item_name:req.body.name, item_type:req.body.type,
         price:parseInt(req.body.price), 
         size:req.body.size,
-        date_added: req.body.date});
+        date_added: req.body.date,
+        factory_price:req.body.factoryPrice
+    });
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
         if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1;
@@ -144,7 +147,7 @@ exports.CreatePakage= function(req, res)
  {
      console.log(req.body.items);
      // Validate request
-    if(!req.body.items | !req.body.number) {
+    if(!req.body.items) {
         console.log('not validated');
         return res.send({   
             message: "Pakage content can not be empty"});

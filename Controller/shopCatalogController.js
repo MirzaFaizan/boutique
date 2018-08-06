@@ -19,6 +19,7 @@ var sales_instance= require('../models/sales');
 var article_instance=require('../models/article');  
 var cusDetails_instance=require('../models/customerDetails');
 var article_instance = require('../models/article');
+var shop_employee_instance = require('../models/shopEmployee');
 //Function To Login
 
 exports.loginandGetToken = function(req, res)
@@ -94,12 +95,12 @@ exports.RecievePakg= function(req,res){
                        
                        article_instance.findOne(
                            {item_id:package.items[i]},
-                           {item_id:true,item_name:true,price:true,id2:true},
+                           {item_id:true,item_name:true,price:true,id2:true,factory_price:true},
                         // callback function
                         (err, art) => {
                             if (err) return res.json(err)
                        shopInventory= new shop_inventory({item_id:art.item_id,item_name:art.item_name,
-                       price:art.price,id2:art.id2,shop_id:req.body.shop_id}); 
+                       price:art.price,id2:art.id2,shop_id:req.body.shop_id,factory_price:art.factory_price}); 
                        shopInventory.save(function (err) {
                         if (err)
                          return res.json(err);});
@@ -110,6 +111,26 @@ exports.RecievePakg= function(req,res){
         }
         });
 }
+
+//function to find customers by phone number
+exports.searchCustomers= function(req,res){
+    cusDetails_instance.findOne(  
+        
+        // query
+        {customerPhone:req.body.customerPhone},
+    
+        
+    
+        // callback function
+        (err, customerDetails) => {
+            if (err) return res.status(200).send(err)
+            if(customerDetails==null)
+            return res.status(200).json(message='No customer with this phone number')
+            else
+            return res.status(200).json(customerDetails)
+        }
+    );
+};
 
 
 //Function to make new Sale
@@ -123,7 +144,7 @@ req.body.products= req.body.products.split(',').map(function(i){
        article_instance.findOne(     
         // query
         {item_id:req.body.products[i]},
-        {item_id:true,item_name: true,price: true},function(err,article){
+        {item_id:true,item_name: true,price: true,factory_price:true},function(err,article){
             if (err) return res.json(err);
             else{
              salesmodel.products.push(article);
@@ -152,19 +173,19 @@ req.body.products= req.body.products.split(',').map(function(i){
 
 exports.shopinventoryshow= function(req,res){
     shop_inventory.find(
-        // query
-        {shop_id:req.body.shopID},
-        // callback function
-        (err, shop) => {
-            if (err) return res.json(err)
-            if(shop==null)
-            return res.json(message='No Article at this Shop')
-            else
-            {
-                return res.json(shop);
-                res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
-               }
-            });
+    // query
+    {shop_id:req.body.shopID},
+    // callback function
+    (err, shop) => {
+        if (err) return res.json(err)
+        if(shop==null)
+        return res.json(message='No Article at this Shop')
+        else
+        {
+            return res.json(shop);
+            res.json({message:'Displaying All Inventory of Shop: ' +(req.body.shopID)});
+            }
+        });
 }
 
 //function to enter customer details
@@ -203,7 +224,7 @@ exports.fetchCusDetails = function(req , res){
 //function to fetch customer details
 exports.fetchSpecCusDetails = function(req , res){
     cusDetails_instance.find({
-        customerPhone:req.body.phone
+        customerPhone:req.body.cP
     })
     .then(cus =>{
     if(cus.length == 0){
@@ -222,9 +243,7 @@ exports.Articletype= function(req,res){
     article_instance.find(  
         
         // query
-        {item_type:req.body.type},
-    
-        
+        {item_type:req.body.type},            
     
         // callback function
         (err, article) => {
@@ -236,3 +255,93 @@ exports.Articletype= function(req,res){
         }
     );
 };
+
+
+//SHOP emp curd Operations
+
+//Function to Create new Employee
+exports.CreatenewEmp = function (req, res) {
+    var Emp = new shop_employee_instance({
+        emp_name: req.body.name,
+        emp_cnic: req.body.cnic,
+        emp_type: req.body.type,
+        shop_id: req.body.shopID,
+        emp_phone: req.body.phone,
+    });
+    Emp.save(function (err) {
+        if (err)
+            return res.json(err);
+
+        else
+            res.send({
+                msg: "Data Entered Successfully"
+            });
+        console.log("Data entered");
+        // saved!
+    });
+    //});
+}
+
+
+
+//Function to Fetch all Employyess
+exports.fetchallemps = function (req, res) {
+    shop_employee_instance.find()
+        .then(Emp => {
+            if (Emp == null) {
+                res.json({
+                    message: 'No Employee Found'
+                })
+            } else
+                return res.json(Emp);
+        }).catch(err => {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving all Employeess."
+            });
+        });
+};
+//Function To Fetch an Employee
+exports.fetchoneemp = function (req, res) {
+    shop_employee_instance.findOne(
+        // query
+        {
+            emp_cnic: req.body.cnic
+        },
+
+        // callback function
+        (err, Emp) => {
+            if (err) return res.status(200).send(err)
+            if (Emp == null)
+                return res.status(200).json(message = 'No Employee With this Cnic')
+            else
+                return res.status(200).json(Emp)
+        }
+    );
+};
+//Function to Delete an Employee
+exports.Deleteemp = function (req, res) {
+    shop_employee_instance.findOneAndRemove({
+            emp_cnic: req.body.cnic
+        })
+        .then(Emp => {
+            if (!Emp) {
+                return res.status(404).send({
+                    message: "Employee not found with cnic " + req.body.cnic
+                });
+            }
+            res.send({
+                message: "Employee deleted successfully!"
+            });
+        }).catch(err => {
+            if (err.kind === 'Emp_cnic' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    message: "Employee not found with cnic " + req.body.cnic
+                });
+            }
+            return res.status(500).send({
+                message: "Could not delete Employee with cnic " + req.params.cnic
+            });
+        });
+}
+
+

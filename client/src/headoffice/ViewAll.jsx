@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -70,6 +72,79 @@ class CustomizedTable extends React.Component {
 
   };
 
+
+  //DELETE click
+
+  deleteClick = (index) => {
+    console.log({index})
+    console.log(this.state.data[index])
+    var details = {
+      'token':this.state.t,
+      'cnic':this.state.data[index].Emp_cnic,
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/head/Deleteemp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    //console.log("we are in this function");
+    if(res){
+      console.log(res);
+      var details = {
+        'token':this.state.t
+    };  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/head/ShowEmps', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    if(res){
+     this.setState({
+       data:res
+     })
+    };
+  }
+  );   
+      console.log("After function");
+    };
+  }
+  ); 
+
+  }
+
+
+
   constructor(props){
     super(props)
     this.state={
@@ -81,51 +156,44 @@ class CustomizedTable extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>CNIC</CustomTableCell>
-              <CustomTableCell numeric>Password</CustomTableCell>
-              <CustomTableCell numeric>Shop ID</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/*data replaced with json pacakage from api*/}
-            {
-               Object.values(this.state.data).map((type) => {
-                 console.log(type.Emp_cnic);
-                 console.log(type.Emp_password);
-                 console.log(type.Emp_name);
-                 console.log(type.Emp_type);
-                 return (
-                  <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.Emp_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
-                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
-          </TableBody>
-        </Table>
-      </Paper>
+      <div>
+        <Typography variant="display2"> All Employees</Typography>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <CustomTableCell>Name</CustomTableCell>
+                <CustomTableCell numeric>Type</CustomTableCell>
+                <CustomTableCell numeric>CNIC</CustomTableCell>
+                <CustomTableCell numeric>Password</CustomTableCell>
+                <CustomTableCell numeric>Shop ID</CustomTableCell>
+                <CustomTableCell numeric>Delete</CustomTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                Object.values(this.state.data).map((type,index) => {
+                  
+                  return (
+                    <TableRow className={classes.row} key={type.Emp_cnic}>
+                      <CustomTableCell>{type.Emp_name}</CustomTableCell>
+                      <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
+                      <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
+                      <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                      <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                      <CustomTableCell>
+                      <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                        <DeleteIcon />
+                      </Button>
+                      </CustomTableCell>
+                    </TableRow>
+                  );
+                })
+              }
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
     );
   }
 }

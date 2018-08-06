@@ -29,6 +29,8 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import StockByCategory from './ExtraFeatures/StockbyCategory';
+import Purchase from './ExtraFeatures/Purchase';
+import EmployeesWarehouse from './ExtraFeatures/warehouseEmployees';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -146,17 +148,10 @@ class ResponsiveDrawer extends React.Component {
     console.log("ADd item on click")
   }
 
-  SalesHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
   PurchaseHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Purchase token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
@@ -167,21 +162,17 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("View All item Click")
   }
-  OutletHistoryHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
-  SettingsHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
   
+
+  warehouseEmpHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<EmployeesWarehouse token={this.state.t}/>
+    })
+    console.log("View All item Click")
+  }
+
+
   handleClickDialogOpen = () => {
     this.setState({ open: true });
   };
@@ -218,19 +209,14 @@ class ResponsiveDrawer extends React.Component {
             <Divider />
             <ListItem><Button onClick={this.batchitemsshowHandleClick.bind(this)} >Batch Items Show</Button></ListItem>
             <Divider />
-            <ListItem><Button onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
-            <Divider/>
+            <ListItem><Button onClick={this.warehouseEmpHandleClick.bind(this)} >Warehouse Employees</Button></ListItem>
+            <Divider />
             <ListItem><Button onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.OutletHistoryHandleClick.bind(this)}>Outlet History</Button></ListItem>
-            <Divider/>
-            <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
-            <Divider/>
             <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
             <Divider />
-           {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
             </MuiThemeProvider>
             </Typography>
         </List>

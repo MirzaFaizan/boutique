@@ -31,9 +31,9 @@ import {
     Router
     }   from 'react-router-dom';
 import CustomerDetails from './ExtraFeatures/CustomerDetails';
-import AddCustomerDetails from './ExtraFeatures/AddCustomerDetails';
-
-
+import EmployeeDetails from './ExtraFeatures/Employee';
+import Expenses from './ExtraFeatures/Expenses';
+import Sales from './ExtraFeatures/Sales';
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -134,26 +134,18 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("ADd item on click")
   }
-  ViewEmployessHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t}/>,
-        title:"Employees"
-    })
-    console.log("ADd item on click")
-  }
 
   SalesHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Sales token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
   PurchaseHandleClick = () => {
 
     this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Expenses token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
@@ -161,13 +153,6 @@ class ResponsiveDrawer extends React.Component {
 
     this.setState({
         OnDisplay:<StockByType token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
-  ReturnHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }
@@ -185,30 +170,9 @@ class ResponsiveDrawer extends React.Component {
     })
     console.log("View All item Click")
   }
-  AddCustomerDetailsHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<AddCustomerDetails token={this.state.t} />
-    })
-    console.log("View All item Click")
-  }
-  SummarySalesReportHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
-  SettingsHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("View All item Click")
-  }
   EmployeeHandleClick = () => {
     this.setState({
-      OnDisplay:<ViewEmployees token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+      OnDisplay:<EmployeeDetails token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
   })
   console.log("View All item Click")
   }
@@ -247,31 +211,18 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.StockHandleClick.bind(this)} >Stock</Button></ListItem>
             <Divider />
-            <ListItem><Button onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.ReturnHandleClick.bind(this)}>Return</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.EmployeeHandleClick.bind(this)}>Employee</Button></ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.EmployeeHandleClick.bind(this)}>Employee</Button></ListItem>
-            <Divider/>
-            <Divider/>
-            <ListItem><Button onClick={this.InvoiceDetailsHandleClick.bind(this)}>Invoice Details</Button></ListItem>
-            <Divider/>
-            <ListItem><Button onClick={this.SummarySalesReportHandleClick.bind(this)}>Summary Sales Report</Button></ListItem>
-            <Divider/>
-            <ListItem><Button onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
-            <Divider/>
-            <ListItem><Button onClick={this.AddCustomerDetailsHandleClick.bind(this)}>Add Customer Details</Button></ListItem>
-            <Divider/>
-            <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
+            <ListItem><Button variant="raised" color="primary" onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
             <Divider/>
             <ListItem><Button variant="raised" color="primary" onClick={this.props.logoutScreen}>Log Out </Button></ListItem>
             <Divider/>
-            
-            {/*<ListItem>Queue Details</ListItem>*/}
             </MuiThemeProvider>
             </Typography>
         </List>
