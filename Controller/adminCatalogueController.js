@@ -147,7 +147,7 @@ exports.CreatePakage= function(req, res)
  {
      console.log(req.body.items);
      // Validate request
-    if(!req.body.items | !req.body.number) {
+    if(!req.body.items) {
         console.log('not validated');
         return res.send({   
             message: "Pakage content can not be empty"});
