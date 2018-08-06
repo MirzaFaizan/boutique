@@ -107,17 +107,19 @@ class CustomizedTable extends React.Component {
       data:{},
       t:this.props.token,
     }
-};
+  };
 
 changeType = e => {
   this.setState({
     type: e.target.value
   });
 
+  console.log(e.target.value);
   var details = {
     'token':this.state.t,
-    'type':this.state.type,
-};
+    'type':e.target.value,
+  };
+
   var formBody = [];
   for (var property in details) {
     var encodedKey = encodeURIComponent(property);
@@ -135,15 +137,13 @@ changeType = e => {
   })
   .then(res=>res.json())
   .then(res=>{
-    console.log("we are in this function");
     console.log(this.state.t);
     if(res){
      console.log(res);
      this.setState({
        data:res
      })
-      console.log("After function");
-      console.log(this.state.t);
+      console.log("Function ended Here");
     };
   }
   );
