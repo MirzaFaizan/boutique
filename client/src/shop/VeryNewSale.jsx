@@ -160,6 +160,7 @@ class Sale extends React.Component {
       bill:billTemp,
       originalBill:billTemp,
     });
+
   }
 
 
@@ -168,9 +169,43 @@ class Sale extends React.Component {
       bill:0,
       cartItems:[],
       originalBill:0,
-      cartItems:[],
       itemName:''
     });
+
+
+
+    var details = {
+      'token':this.state.t,
+      'shopID':this.state.shop
+  };
+  
+  
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/shop/shopinventory', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    if(res){
+     this.setState({
+       data:res
+     })
+    };
+  }
+  );
   }
 
 
