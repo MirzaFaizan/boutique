@@ -91,8 +91,12 @@ class Sale extends React.Component {
   deleteClick = (index) => {
           var temp = this.state.cartItems;
           temp.push(this.state.data[index]);
+          var tempData = this.state.data;
+          tempData.pop(this.state.data[index]);
+          
           this.setState({
-            cartItems : temp
+            cartItems : temp,
+            data:tempData
           });
           this.reCalculateBill();
   }
