@@ -222,13 +222,22 @@ class Sale extends React.Component {
       discount:e.target.value,
     })
   }
+  changeCash = e => {
+    
+    var tempReturnCash = e.target.value-this.state.bill;
+    
+    this.setState({
+      cash:e.target.value,
+      return: tempReturnCash
+    });
+
+  }
   setDiscount = () => {
     let temp = parseInt(this.state.discount,10);
     temp=((temp/100)*this.state.bill)
     this.setState({
-      bill:this.state.bill-temp,
-      discount:0
-    })
+      bill:this.state.bill-temp
+    });
   }
   changeItemName = e => {
     this.setState({
@@ -294,7 +303,9 @@ class Sale extends React.Component {
       bill:0,
       originalBill:0,
       discount:0,
-      itemName:''
+      itemName:'',
+      cash:0,
+      return:0
     }
 
    this.deleteClick =  this.deleteClick.bind(this);
@@ -384,7 +395,6 @@ class Sale extends React.Component {
                       value={this.state.discount}
                       placeholder="Enter Discount Percentage"
                       onChange={e => this.changeDiscount(e)}
-                      className={classes.textField}
                       margin="normal"
                     />
                   <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
@@ -392,7 +402,15 @@ class Sale extends React.Component {
                 
                   </Grid>
                   <Grid item xs={6}>
-                
+                  <TextField
+                      id="Cash"
+                      label="Cash"
+                      value={this.state.cash}
+                      placeholder="Enter Cash"
+                      onChange={e => this.changeCash(e)}
+                      margin="normal"
+                    />
+                    <h3> Return : {this.state.return}</h3> 
                   </Grid>
                 </Grid>
               </Grid>
