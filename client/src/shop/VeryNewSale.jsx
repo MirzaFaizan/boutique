@@ -7,6 +7,8 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Cart from '@material-ui/icons/AddShoppingCart';
 import TextField from 'material-ui/TextField';
+import CustomerCheck from './ExtraFeatures/AddOrSearchCustomers'
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#3F51B5',
@@ -297,6 +299,9 @@ class Sale extends React.Component {
 
    this.deleteClick =  this.deleteClick.bind(this);
   }
+
+
+
   render() {
     const { classes } = this.props;
         return (
@@ -365,33 +370,53 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" onClick={()=>{this.ResetBill()}} >
-                   Reset Bill
-                </Button>
+                
               </Grid>
             </Grid>
-            <h2 className="text-center"> Original Bill = {this.state.originalBill}</h2>
-            <h2 className="text-center"> Discounted Bill = {this.state.bill}</h2>
+           
             <Grid container spacing={12}>
-              <Grid item xs={12}>
-            <TextField
-             id="discount"
-              label="discount"
-              value={this.state.discount}
-              placeholder="Enter Discount Percentage"
-               onChange={e => this.changeDiscount(e)}
-               className={classes.textField}
-               margin="normal"
-              />
-               <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
+              <Grid item xs={6}>
+                <Grid container spacing={12}>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="discount"
+                      label="discount"
+                      value={this.state.discount}
+                      placeholder="Enter Discount Percentage"
+                      onChange={e => this.changeDiscount(e)}
+                      className={classes.textField}
+                      margin="normal"
+                    />
+                  <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
+                  <CustomerCheck/>
+                
+                  </Grid>
+                  <Grid item xs={6}>
+                
+                  </Grid>
+                </Grid>
               </Grid>
              
-              <Grid item xs={12}>
-              <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
-                   CheckOut
+              <Grid item xs={6}>
+                <Grid container spacing={12}>
+                  <Grid item xs={9}>
+                    <h1 className="text-left">Original Bill = <strong> {this.state.originalBill}</strong></h1>
+                    <h1 className="text-left"> Discounted Bill = <strong>{this.state.bill}</strong></h1>
+                  </Grid>
+                  <Grid item xs={3}>
+                  <Button   variant="raised" aria-label="Add" onClick={()=>{this.ResetBill()}} >
+                      Reset Bill
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+            </Grid>
+            <div className="text-center">
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
+                    CheckOut
                 </Button>
-                </Grid>
-                </Grid>
+              </div>
           </div>
         );
       }
