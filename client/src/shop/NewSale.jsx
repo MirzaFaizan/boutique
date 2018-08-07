@@ -18,7 +18,6 @@ import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddOrSearchCus from './ExtraFeatures/AddOrSearchCustomers';
-import Printer from "./ExtraFeatures/Printer";
 
 
 const styles = theme => ({
