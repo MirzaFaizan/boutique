@@ -108,20 +108,10 @@ class ResponsiveDrawer extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
- NewSaleHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<NewSale token={this.state.t} shop={this.props.shop}/>,
-        title:"New Sale "
-    }
-  )
-    console.log("ADd item on click")
-  }
 
   NewSaleHandleClick2 = () => {
-
     this.setState({
-        OnDisplay:<NewSale2 token={this.state.t} shop={this.props.shop}/>,
+        OnDisplay:<NewSale2 token={this.state.t} shop={this.props.shop} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
         title:"New Sale "
     }
   )
@@ -216,8 +206,6 @@ class ResponsiveDrawer extends React.Component {
         <List>
         <Typography variant="title" color="inherit" noWrap>
         <MuiThemeProvider theme={theme2}>
-           <ListItem><Button variant="raised" color="primary" onClick={this.NewSaleHandleClick.bind(this)} >New Sale </Button></ListItem>
-           <Divider />
            <ListItem><Button variant="raised" color="primary" onClick={this.NewSaleHandleClick2.bind(this)} >New Sale </Button></ListItem>
            <Divider />
             <ListItem><Button variant="raised" color="primary" onClick={this.RecieveItemsHandleClick.bind(this)}>Recieve</Button></ListItem>

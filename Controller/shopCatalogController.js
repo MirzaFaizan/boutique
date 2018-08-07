@@ -114,6 +114,7 @@ exports.RecievePakg= function(req,res){
 
 //function to find customers by phone number
 exports.searchCustomers= function(req,res){
+    console.log("in search cus");
     cusDetails_instance.findOne(  
         
         // query

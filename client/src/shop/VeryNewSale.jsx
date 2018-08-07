@@ -108,6 +108,9 @@ class Sale extends React.Component {
 
 //CheckOut and call API
   checkOut= () =>{
+
+    if(localStorage.getItem('customerExists')==='1'){
+      
     var itemIdArray=[];
     this.state.cartItems.map((item)=>{
       itemIdArray.push(item.item_id);
@@ -118,7 +121,8 @@ class Sale extends React.Component {
       'token':this.state.t,
       'sale':new Date(),
       'products':itemIdArray,
-      'cnic':this.props.cnic
+      'shopID':this.props.shop,
+      'total':this.state.bill
     };
   
  
@@ -147,7 +151,13 @@ class Sale extends React.Component {
           discount:0,
           originalBill:0
         });
-      }); 
+      });
+      localStorage.setItem('customerExists','0');
+      
+    } else {
+        console.log("Submit a valid Customer");
+    }
+
 
   }
   
@@ -398,7 +408,7 @@ class Sale extends React.Component {
                       margin="normal"
                     />
                   <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
-                  <CustomerCheck/>
+                  <CustomerCheck token = {this.state.t}/>
                 
                   </Grid>
                   <Grid item xs={6}>

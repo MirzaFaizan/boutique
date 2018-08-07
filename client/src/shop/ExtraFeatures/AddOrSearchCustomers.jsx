@@ -71,6 +71,7 @@ class CustomizedTable extends React.Component {
       var encodedValue = encodeURIComponent(details[property]);
       formBody.push(encodedKey + "=" + encodedValue);
     }
+
     formBody = formBody.join("&");
     
     fetch('/shop/searchcustomers', {
