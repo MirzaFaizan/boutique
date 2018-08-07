@@ -12,13 +12,9 @@ var ArticleSchema = new Schema(
     item_id: {type: Number, default: 1},
     id2:{type:String,required: true,max:100},
     sold: {type : Boolean, default:false},
-<<<<<<< HEAD
     batch: {type : Boolean, default:false},
-   }
-=======
     factory_price:{type: Number}
   }
->>>>>>> a990f68d176456a07226167565cecddb9128bd07
 );
 
 //Export model
