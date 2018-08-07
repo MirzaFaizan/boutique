@@ -137,7 +137,7 @@ exports.searchCustomers= function(req,res){
 exports.makesale= function(req,res){
 req.body.products= req.body.products.split(',').map(function(i){
     return parseInt(i);})
-    var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,shop:req.body.shopID});  
+    var salesmodel= new sales_instance({total:req.body.total,date_sale:req.body.sale,shop:req.body.shopID});  
     //fetch details of all products from articles collection
     for(var i=0; i<req.body.products.length; i++)
     {
@@ -148,7 +148,6 @@ req.body.products= req.body.products.split(',').map(function(i){
             if (err) return res.json(err);
             else{
              salesmodel.products.push(article);
-             salesmodel.total=salesmodel.total+article.price;
             }
             if(salesmodel.products.length === req.body.products.length)
             {

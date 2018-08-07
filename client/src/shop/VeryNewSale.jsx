@@ -92,8 +92,10 @@ class Sale extends React.Component {
           var temp = this.state.cartItems;
           temp.push(this.state.data[index]);
           var tempData = this.state.data;
-          tempData.pop(this.state.data[index]);
           
+          if (index > -1) {
+            tempData.splice(index, 1);
+          }
           this.setState({
             cartItems : temp,
             data:tempData
@@ -127,7 +129,7 @@ class Sale extends React.Component {
   formBody = formBody.join("&");
   
   
-      fetch('/emp/Makesale', {
+      fetch('/shop/Sale', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -287,8 +289,6 @@ class Sale extends React.Component {
                       <TableRow>
                         <CustomTableCell>Name</CustomTableCell>
                         <CustomTableCell numeric >Price</CustomTableCell>
-                        
-                        <CustomTableCell numeric>Description</CustomTableCell> 
                         <CustomTableCell numeric>Sale</CustomTableCell> 
                       </TableRow>
                     </TableHead>
@@ -297,9 +297,7 @@ class Sale extends React.Component {
                             return (
                               <TableRow className={classes.row} key={type._id} selectable={true}>
                                 <CustomTableCell >{type.item_name}</CustomTableCell>
-                                <CustomTableCell numeric >{type.retail_price}</CustomTableCell>
-                                
-                                <CustomTableCell numeric >{type.description}</CustomTableCell>
+                                <CustomTableCell numeric >{type.price}</CustomTableCell>
                                 <CustomTableCell >
                                 <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
                                 <Cart/>
@@ -324,7 +322,7 @@ class Sale extends React.Component {
                               return (
                                 <TableRow className={classes.row} key={type._id} selectable={true}>
                                   <CustomTableCell>{type.item_name}</CustomTableCell>
-                                  <CustomTableCell >{type.retail_price}</CustomTableCell>
+                                  <CustomTableCell >{type.price}</CustomTableCell>
                                 </TableRow>
                           );
                         })
