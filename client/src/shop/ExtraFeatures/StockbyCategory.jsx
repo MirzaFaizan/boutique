@@ -114,7 +114,6 @@ changeType = e => {
     type: e.target.value
   });
 
-  console.log(e.target.value);
   var details = {
     'token':this.state.t,
     'type':e.target.value,

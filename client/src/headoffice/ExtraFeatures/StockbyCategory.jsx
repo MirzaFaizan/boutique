@@ -116,7 +116,7 @@ changeType = e => {
 
   var details = {
     'token':this.state.t,
-    'type':this.state.type,
+    'type':e.target.value,
 };
   var formBody = [];
   for (var property in details) {
