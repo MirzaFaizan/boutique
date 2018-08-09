@@ -184,6 +184,8 @@ changeType = e => {
               <CustomTableCell>Price</CustomTableCell>
               <CustomTableCell >Date Added </CustomTableCell>
               <CustomTableCell >Size</CustomTableCell>
+              <CustomTableCell >Sold</CustomTableCell>
+              <CustomTableCell >Batched</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -195,6 +197,8 @@ changeType = e => {
                     <CustomTableCell numeric> {type.price} </CustomTableCell>
                     <CustomTableCell numeric> {type.date_added} </CustomTableCell>
                     <CustomTableCell numeric> {type.size} </CustomTableCell>
+                    <CustomTableCell numeric> {type.sold?'Sold':'Not Sold'} </CustomTableCell>
+                    <CustomTableCell numeric> {type.batch?'Batched':'Not Batched'} </CustomTableCell>
                   </TableRow>
                 );
               })

@@ -14,6 +14,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
 import NewSale from './NewSale';
+import NewSale2 from './VeryNewSale';
 import StockTable from './StockTable';
 import RecieveBox from './RecieveBox';
 import ViewEmployees from './ViewEmployessTable';
@@ -110,9 +111,14 @@ class ResponsiveDrawer extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
+<<<<<<< HEAD
  NewSaleHandleClick = () => {
+=======
+
+  NewSaleHandleClick2 = () => {
+>>>>>>> 77133ac1702199e52d2b6e839340f66a7c95d94b
     this.setState({
-        OnDisplay:<NewSale token={this.state.t} shop={this.props.shop}/>,
+        OnDisplay:<NewSale2 token={this.state.t} shop={this.props.shop} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
         title:"New Sale "
     }
   )
@@ -207,7 +213,7 @@ class ResponsiveDrawer extends React.Component {
         <List>
         <Typography variant="title" color="inherit" noWrap>
         <MuiThemeProvider theme={theme2}>
-           <ListItem><Button variant="raised" color="primary" onClick={this.NewSaleHandleClick.bind(this)} >New Sale </Button></ListItem>
+           <ListItem><Button variant="raised" color="primary" onClick={this.NewSaleHandleClick2.bind(this)} >New Sale </Button></ListItem>
            <Divider />
             <ListItem><Button variant="raised" color="primary" onClick={this.RecieveItemsHandleClick.bind(this)}>Recieve</Button></ListItem>
             <Divider/>

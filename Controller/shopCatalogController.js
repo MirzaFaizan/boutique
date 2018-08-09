@@ -95,12 +95,12 @@ exports.RecievePakg= function(req,res){
                        
                        article_instance.findOne(
                            {item_id:package.items[i]},
-                           {item_id:true,item_name:true,price:true,id2:true},
+                           {item_id:true,item_name:true,price:true,id2:true,factory_price:true},
                         // callback function
                         (err, art) => {
                             if (err) return res.json(err)
                        shopInventory= new shop_inventory({item_id:art.item_id,item_name:art.item_name,
-                       price:art.price,id2:art.id2,shop_id:req.body.shop_id}); 
+                       price:art.price,id2:art.id2,shop_id:req.body.shop_id,factory_price:art.factory_price}); 
                        shopInventory.save(function (err) {
                         if (err)
                          return res.json(err);});
@@ -114,6 +114,7 @@ exports.RecievePakg= function(req,res){
 
 //function to find customers by phone number
 exports.searchCustomers= function(req,res){
+    console.log("in search cus");
     cusDetails_instance.findOne(  
         
         // query
@@ -137,18 +138,17 @@ exports.searchCustomers= function(req,res){
 exports.makesale= function(req,res){
 req.body.products= req.body.products.split(',').map(function(i){
     return parseInt(i);})
-    var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,shop:req.body.shopID});  
+    var salesmodel= new sales_instance({total:req.body.total,date_sale:req.body.sale,shop:req.body.shopID});  
     //fetch details of all products from articles collection
     for(var i=0; i<req.body.products.length; i++)
     {
        article_instance.findOne(     
         // query
         {item_id:req.body.products[i]},
-        {item_id:true,item_name: true,price: true},function(err,article){
+        {item_id:true,item_name: true,price: true,factory_price:true},function(err,article){
             if (err) return res.json(err);
             else{
              salesmodel.products.push(article);
-             salesmodel.total=salesmodel.total+article.price;
             }
             if(salesmodel.products.length === req.body.products.length)
             {

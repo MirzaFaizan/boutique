@@ -353,22 +353,14 @@ exports.Deleteemp = function (req, res) {
 
     // FETCH sales between two dates
 
+
     exports.displaySales = function(req,res){
-        fromdate = new Date(req.body.date1);
-        todate = new Date(req.body.date2);
-        fromyear = parseInt(fromdate.getUTCFullYear());
-        frommonth = parseInt(fromdate.getUTCMonth() + 1);
-        fromday = parseInt(fromdate.getUTCDate());
-        toyear = parseInt(todate.getUTCFullYear());
-        tomonth = parseInt(todate.getUTCMonth() + 1);
-        today = parseInt(todate.getUTCDate());
-        //year-month-day
+        fromdate = new Date(req.body.fromdate);
+        todate = new Date(req.body.todate);
         sales_instance.find()
             .then(sal=>{
                 if (sal.length == 0) {
-                    res.json({
-                        msg: "No data available to show"
-                });
+                    res.json({msg: "No data available to show"});
                 }
                 else{
                     profit = 0;
@@ -377,19 +369,12 @@ exports.Deleteemp = function (req, res) {
                         let count=0;
                         for(var j = 0; j < sal[i].products.length; j++){
                             date = new Date(sal[i].date_sale);
-                            year = parseInt(date.getUTCFullYear());
-                            month = parseInt(date.getUTCMonth() + 1);
-                            day = parseInt(date.getUTCDate());
-                            if(fromyear <= year && toyear >= year){
-                                if(frommonth <= month && tomonth >=month){
-                                    if(fromday <=day && today >=day){
-                                        profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
-                                        if(count===0){
-                                        totalsale+= (sal[i].total);
-                                        count++;
-                                    }
-                                    }
-                                }
+                            if((date.getTime() <= todate.getTime() && date.getTime() >= fromdate.getTime())){     
+                                profit+= (sal[i].products[j].price - sal[i].products[j].factory_price);
+                                if(count===0){
+                                totalsale+= (sal[i].total);
+                                count++;
+                            }
                             }
                         }
                     }
