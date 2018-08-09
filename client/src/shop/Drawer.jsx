@@ -35,6 +35,9 @@ import CustomerDetails from './ExtraFeatures/CustomerDetails';
 import EmployeeDetails from './ExtraFeatures/Employee';
 import Expenses from './ExtraFeatures/Expenses';
 import Sales from './ExtraFeatures/Sales';
+import Printer from './ExtraFeatures/Printer';
+
+
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -108,8 +111,12 @@ class ResponsiveDrawer extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
+<<<<<<< HEAD
+ NewSaleHandleClick = () => {
+=======
 
   NewSaleHandleClick2 = () => {
+>>>>>>> 77133ac1702199e52d2b6e839340f66a7c95d94b
     this.setState({
         OnDisplay:<NewSale2 token={this.state.t} shop={this.props.shop} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>,
         title:"New Sale "

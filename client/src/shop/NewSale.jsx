@@ -173,6 +173,10 @@ var row = [].map(row => ({
 var products = [].map(sale => ({
 
 }));
+
+var items = [].map(sale => ({
+
+}));
 class Option extends React.Component {
   handleClick = event => {
     this.props.onSelect(this.props.option, event);
@@ -337,11 +341,11 @@ class TextFields extends React.Component {
       }
     }
     console.log("Selected item details");
-    console.log(suggestions[x]);
+    console.log("item details",suggestions[x]);
     
       row.push({nam:suggestions[x].value,pric:suggestions[x].price,id:suggestions[x].id})
       products.push(suggestions[x].id);
-
+      items.push(suggestions[x]);
       this.setState({
         total:suggestions[x].price + this.state.total
       })
@@ -383,6 +387,7 @@ class TextFields extends React.Component {
   };
 
     handleSale = () => {
+      Printer.printData([{item_name:'hello',retail_price:900}],1000);
       if(localStorage.getItem('customerExists')==='1'){
         var detailsItem = {
           'token':this.state.t,
@@ -392,6 +397,7 @@ class TextFields extends React.Component {
         }
       
         var formBody = [];
+       
         for (var property in detailsItem) {
           var encodedKey = encodeURIComponent(property);
           var encodedValue = encodeURIComponent(detailsItem[property]);
@@ -410,6 +416,7 @@ class TextFields extends React.Component {
         .then(res=>{
           if(res){
             console.log("Response : From sale");
+            console.log("itms...",items);
             console.log(res);
             this.setState({total:0})
             var siz = products.length;
