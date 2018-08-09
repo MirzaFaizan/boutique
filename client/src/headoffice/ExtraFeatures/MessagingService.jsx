@@ -7,6 +7,10 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Cart from '@material-ui/icons/AddShoppingCart';
 import TextField from 'material-ui/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import IconButton from 'material-ui/IconButton';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -109,60 +113,10 @@ class Sale extends React.Component {
 //CheckOut and call API
   checkOut= () =>{
 
-      
-    var itemIdArray=[];
-    this.state.cartItems.map((item)=>{
-      itemIdArray.push(item.item_id);
-    });
-    var date = new Date();
-    date.setHours(date.getHours()+5);
-    var details = {
-      'token':this.state.t,
-      'sale':new Date(),
-      'products':itemIdArray,
-      'shopID':this.props.shop,
-      'total':this.state.bill
-    };
+  console.log(this.state.checked);    
   
- 
-  var formBody = [];
-  for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  formBody = formBody.join("&");
-  
-  
-      fetch('/shop/Sale', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-        },
-        body: formBody
-      })
-      .then(res=>res.json())
-      .then(()=>{
-      //  Printer.printData(this.state.cartItems,this.state.bill,this.state.discount,this.state.return);
-      })
-      .then(res=>{
-        // reseting Bill portion
-        this.setState({
-         message:''
-        });
-      });
   }
   
-  
-
-
-
-  deleteClickHandler = () => {
-    this.setState({
-      isDisabled:false,
-      buttonisDisabled:false,
-    });
-  }
   changeItemName = e => {
     this.setState({
       itemName:e.target.value,
@@ -227,12 +181,30 @@ class Sale extends React.Component {
       shop:this.props.shop,
       t:this.props.token,
       data:{},
-      message:''
+      message:'',
+      checked:[]
     }
 
    this.deleteClick =  this.deleteClick.bind(this);
   }
 
+
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];//[...checked]<--this means keeping all previous states as well
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+      list:this.state.checked
+    });
+  };
 
 
   render() {
@@ -257,31 +229,36 @@ class Sale extends React.Component {
                 />
                 <Button  color="primary" onClick={this.findItem}  className={classes.button}>Find</Button>
                 <Button  color="primary" onClick={this.cancelSearch}  className={classes.button}>All Items</Button>
-                  <Table className={classes.table}>
-                    <TableHead className={classes.tablehead}>
-                      <TableRow>
-                        <CustomTableCell>Name</CustomTableCell>
-                        <CustomTableCell numeric >Phone</CustomTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {Object.values(this.state.data).map((type,index) => {
-                            return (
-                              <TableRow className={classes.row} key={type._id} selectable={true}>
-                                <CustomTableCell >{type.customerName}</CustomTableCell>
-                                <CustomTableCell numeric >{type.customerPhone}</CustomTableCell>
-                                <CustomTableCell >
-                                <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
-                                <Cart/>
-                                </Button>
-                                </CustomTableCell>
-                              </TableRow>
-                        );
-                      })
-                      }
-                    </TableBody>
-                  </Table>
-                  </Paper>
+                <List>
+            
+            {Object.values(this.state.data).map(type => {
+              
+            
+                return (<ListItem
+                  key={type.customerPhone}
+                  role={undefined}
+                  dense
+                  button
+                  onClick={this.handleToggle(type.customerPhone)}
+                  className={classes.listItem}
+                  >
+                    <Checkbox
+                      checked={this.state.checked.indexOf(type.customerPhone) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      color="primary"
+                    />
+                    <ListItemText primary={type.customerName} />
+                    <ListItemSecondaryAction>
+                      <IconButton aria-label="Comments">
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>)
+              }
+              )
+            }
+            </List>
+                              </Paper>
               </Grid>
               <Grid item xs={6}>
                     <h1 className="text-center">
