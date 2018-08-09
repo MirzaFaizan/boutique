@@ -84,6 +84,7 @@ class Sale extends React.Component {
  .then(res=>{
 
    if(res){
+     console.log(res);
     this.setState({
       data:res
     })
@@ -263,7 +264,7 @@ class Sale extends React.Component {
   findItem = () => {
     let temp = []
     Object.values(this.state.data).map((type,index)=>{
-      if (type.item_name.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
+      if (type.id2.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
        temp.push(type);
       }
     })
