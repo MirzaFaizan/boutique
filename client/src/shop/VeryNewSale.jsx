@@ -7,7 +7,9 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Cart from '@material-ui/icons/AddShoppingCart';
 import TextField from 'material-ui/TextField';
-import CustomerCheck from './ExtraFeatures/AddOrSearchCustomers'
+import CustomerCheck from './ExtraFeatures/AddOrSearchCustomers';
+import Printer from './ExtraFeatures/Printer';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -143,6 +145,9 @@ class Sale extends React.Component {
         body: formBody
       })
       .then(res=>res.json())
+      .then(()=>{
+      //  Printer.printData(this.state.cartItems,this.state.bill,this.state.discount,this.state.return);
+      })
       .then(res=>{    
         // reseting Bill portion
         this.setState({
