@@ -1,7 +1,7 @@
 var qz = require("qz-tray");
 var config = qz.configs.create("zebra");
 
-exports.printData = function(items,sale){
+exports.printData = function(items,bill,discount,retrn){
     
     
     var date = new Date();
@@ -35,14 +35,28 @@ exports.printData = function(items,sale){
         '61010',
         '\x0A' + '\x0A',
         '\x1B' + '\x61' + '\x30', // left align
+        '\x0A',
+        '\x1B' + '\x61' + '\x30', // left align
+        'Name'+'                          '+'price',
+        '\x0A',
         '------------------------------------------' + '\x0A',
         items.map((item)=>{
             return (
                 item.item_name
-                +'     '
-                +item.retail_price+'\x0A'
-                +'------------------------------------------\x0A' )}) + '\x0A',
-        'Total:    '+sale,
+                +'                          '
+                +item.price+'\x0A'
+                 )}) + '\x0A',
+        '------------------------------------------' + '\x0A',
+        '\x0A','\x0A',
+        '   Total'+'                          '+bill,
+        '\x0A',
+        'Discount'+'                          '+discount,
+        '\x0A',
+        '\x1B' + '\x45' + '\x0D', // bold on
+        'New Bill'+'                          '+retrn,
+        '\x1B' + '\x45' + '\x0A', // bold off
+        
+        '\x0A',
         '\x0A',
         '\x0A',
 
@@ -87,7 +101,9 @@ exports.printData = function(items,sale){
         '\x1B' + '\x61' + '\x31', // left align
         '\x1B' + '\x4D' + '\x31', // small text
         '\x0A',
-        'POWERED BY NERDWARE TECH PVT LTD',
+        'POWERED BY NERDWARE TECH Pvt. Ltd',
+        '\x0A',
+        'Contact #03038126439  03327074327',
         '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A',
         '\x1B' + '\x69',          // cut paper
      ];
