@@ -210,9 +210,17 @@ class Sale extends React.Component {
         });
         this.setState({
             checked:temp
-        },()=>{        console.log(this.state.checked);});
-
+        });
     }
+
+    unSelectAll = () =>{
+        
+        this.setState({
+            checked:[]
+        });
+    }
+
+
   render() {
     const { classes } = this.props;
         return (
@@ -292,6 +300,9 @@ class Sale extends React.Component {
                 </Button>
                 <Button  variant="raised" aria-label="Add" onClick={()=>{this.selectAll()}} >
                     Select all
+                </Button>
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.unSelectAll()}} >
+                    UnSelect all
                 </Button>
               </div>
           </div>
