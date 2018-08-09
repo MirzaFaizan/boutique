@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';

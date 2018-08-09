@@ -31,7 +31,7 @@ import Settings from './ExtraFeatures/Settings';
 import CustomerDetails from './ExtraFeatures/CustomerDetails';
 import ViewSales from './ExtraFeatures/Sales';
 import ProfitLoss from './ExtraFeatures/ProfitandLoss';
-
+import SMS from './ExtraFeatures/MessagingService';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -173,6 +173,15 @@ class ResponsiveDrawer extends React.Component {
     console.log("View All item Click")
   }
 
+
+  SMSHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<SMS token={this.state.t} />
+    });
+    console.log("SMS")
+  }
+
   handleClickDialogOpen = () => {
     this.setState({ open: true });
   };
@@ -214,6 +223,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button onClick={this.StockbyCategoryHandleClick.bind(this)}>Stock by Category</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.SettingsHandleClick.bind(this)}>Setting</Button></ListItem>
+            <Divider/>
+            <ListItem><Button onClick={this.SMSHandleClick.bind(this)}>SMS</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.CustomerDetailsHandleClick.bind(this)}>Customer Details</Button></ListItem>
             <Divider/>

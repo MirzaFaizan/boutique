@@ -7,8 +7,6 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Cart from '@material-ui/icons/AddShoppingCart';
 import TextField from 'material-ui/TextField';
-import CustomerCheck from './ExtraFeatures/AddOrSearchCustomers';
-import Printer from './ExtraFeatures/Printer';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -59,8 +57,7 @@ const styles = theme => ({
 class Sale extends React.Component {
   componentDidMount(){
     var details = {
-     'token':this.state.t,
-     'shopID':this.state.shop
+     'token':this.state.t
  };
  
  
@@ -73,7 +70,7 @@ class Sale extends React.Component {
  formBody = formBody.join("&");
  
  
- fetch('/shop/shopinventory', {
+ fetch('/head/fetchcustdetails', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -86,8 +83,9 @@ class Sale extends React.Component {
    if(res){
     this.setState({
       data:res
-    })
+    });
    };
+   console.log(res);
  }
  );   
 }
@@ -156,63 +154,7 @@ class Sale extends React.Component {
   }
   
   
-  //recalculation of Bill
-  reCalculateBill = () =>{
-    var billTemp = 0;
-    this.state.cartItems.map((item)=>{
-      billTemp += parseInt(item.price)
-    });
-    this.setState({
-      bill:billTemp,
-      originalBill:billTemp,
-    });
 
-  }
-
-
-  ResetBill=()=>{
-    this.setState({
-      bill:0,
-      cartItems:[],
-      originalBill:0,
-      itemName:''
-    });
-
-
-
-    var details = {
-      'token':this.state.t,
-      'shopID':this.state.shop
-  };
-  
-  
-  var formBody = [];
-  for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  formBody = formBody.join("&");
-  
-  
-  fetch('/shop/shopinventory', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-    },
-    body: formBody
-  })
-  .then(res=>res.json())
-  .then(res=>{
- 
-    if(res){
-     this.setState({
-       data:res
-     })
-    };
-  }
-  );
-  }
 
 
   deleteClickHandler = () => {
@@ -236,7 +178,7 @@ class Sale extends React.Component {
   findItem = () => {
     let temp = []
     Object.values(this.state.data).map((type,index)=>{
-      if (type.item_name.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
+      if (type.customerName.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
        temp.push(type);
       }
     })
@@ -259,7 +201,7 @@ class Sale extends React.Component {
   formBody = formBody.join("&");
   
   
-  fetch('/shop/shopinventory', {
+  fetch('/head/fetchcustdetails', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -319,16 +261,15 @@ class Sale extends React.Component {
                     <TableHead className={classes.tablehead}>
                       <TableRow>
                         <CustomTableCell>Name</CustomTableCell>
-                        <CustomTableCell numeric >Price</CustomTableCell>
-                        <CustomTableCell numeric>Sale</CustomTableCell> 
+                        <CustomTableCell numeric >Phone</CustomTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {Object.values(this.state.data).map((type,index) => {
                             return (
                               <TableRow className={classes.row} key={type._id} selectable={true}>
-                                <CustomTableCell >{type.item_name}</CustomTableCell>
-                                <CustomTableCell numeric >{type.price}</CustomTableCell>
+                                <CustomTableCell >{type.customerName}</CustomTableCell>
+                                <CustomTableCell numeric >{type.customerPhone}</CustomTableCell>
                                 <CustomTableCell >
                                 <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
                                 <Cart/>
@@ -346,24 +287,25 @@ class Sale extends React.Component {
                     <h1 className="text-center">
                       Message
                     </h1>
-                <Paper className={classes.paper || classes.paperHeight}>
                     <TextField
                         id="message"
+                        fullWidth={true}
+                        rows={18}
+                        multiline
                         label="Enter Message"
                         value={this.state.message}
-                        placeholder="Find Item"
+                        placeholder="Type the message you want to send"
                         onChange={e => this.changeMessage(e)}
                         className={classes.textField}
                         margin="normal"
                     />
-                </Paper>
                 
               </Grid>
             </Grid>
            
-            <div className="text-center">
+            <div className="text-center pt-5">
                 <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
-                    CheckOut
+                    SEND
                 </Button>
               </div>
           </div>
