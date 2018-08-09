@@ -111,7 +111,6 @@ class Sale extends React.Component {
 //CheckOut and call API
   checkOut= () =>{
 
-    if(localStorage.getItem('customerExists')==='1'){
       
     var itemIdArray=[];
     this.state.cartItems.map((item)=>{
@@ -151,19 +150,9 @@ class Sale extends React.Component {
       .then(res=>{
         // reseting Bill portion
         this.setState({
-          cartItems:[],
-          bill:0,
-          discount:0,
-          originalBill:0
+         message:''
         });
       });
-      localStorage.setItem('customerExists','0');
-      
-    } else {
-        console.log("Submit a valid Customer");
-    }
-
-
   }
   
   
@@ -232,31 +221,15 @@ class Sale extends React.Component {
       buttonisDisabled:false,
     });
   }
-  changeDiscount = e => {
-    this.setState({
-      discount:e.target.value,
-    })
-  }
-  changeCash = e => {
-    
-    var tempReturnCash = e.target.value-this.state.bill;
-    
-    this.setState({
-      cash:e.target.value,
-      return: tempReturnCash
-    });
-
-  }
-  setDiscount = () => {
-    let temp = parseInt(this.state.discount,10);
-    temp=((temp/100)*this.state.bill)
-    this.setState({
-      bill:this.state.bill-temp
-    });
-  }
   changeItemName = e => {
     this.setState({
       itemName:e.target.value,
+    })
+  }
+
+  changeMessage = e => {
+    this.setState({
+      message:e.target.value,
     })
   }
 
@@ -311,16 +284,8 @@ class Sale extends React.Component {
     this.state = {
       shop:this.props.shop,
       t:this.props.token,
-      date:'2018-09-04 00:00:00.000',
       data:{},
-      id:'',
-      cartItems:[],
-      bill:0,
-      originalBill:0,
-      discount:0,
-      itemName:'',
-      cash:0,
-      return:0
+      message:''
     }
 
    this.deleteClick =  this.deleteClick.bind(this);
@@ -336,12 +301,12 @@ class Sale extends React.Component {
             <Grid container className={classes.root} spacing={12}>  
               <Grid item xs={6}>
               <h1 className="text-center">
-                  Available Items
+                  SMS service
               </h1>
               <Paper className={classes.paper || classes.paperHeight} >
               <TextField
                     id="itemname"
-                    label="Find Item"
+                    label="Find Customer"
                     value={this.state.itemName}
                     placeholder="Find Item"
                     onChange={e => this.changeItemName(e)}
@@ -379,72 +344,23 @@ class Sale extends React.Component {
               </Grid>
               <Grid item xs={6}>
                     <h1 className="text-center">
-                      Bill
+                      Message
                     </h1>
                 <Paper className={classes.paper || classes.paperHeight}>
-                  <Table className={classes.table}>
-                    <TableBody>
-                        {Object.values(this.state.cartItems).map((type,index) => {
-                              return (
-                                <TableRow className={classes.row} key={type._id} selectable={true}>
-                                  <CustomTableCell>{type.item_name}</CustomTableCell>
-                                  <CustomTableCell >{type.price}</CustomTableCell>
-                                </TableRow>
-                          );
-                        })
-                        }
-                      </TableBody>
-                    </Table>
+                    <TextField
+                        id="message"
+                        label="Enter Message"
+                        value={this.state.message}
+                        placeholder="Find Item"
+                        onChange={e => this.changeMessage(e)}
+                        className={classes.textField}
+                        margin="normal"
+                    />
                 </Paper>
                 
               </Grid>
             </Grid>
            
-            <Grid container spacing={12}>
-              <Grid item xs={6}>
-                <Grid container spacing={12}>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="discount"
-                      label="discount"
-                      value={this.state.discount}
-                      placeholder="Enter Discount Percentage"
-                      onChange={e => this.changeDiscount(e)}
-                      margin="normal"
-                    />
-                  <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
-                  <CustomerCheck token = {this.state.t}/>
-                
-                  </Grid>
-                  <Grid item xs={6}>
-                  <TextField
-                      id="Cash"
-                      label="Cash"
-                      value={this.state.cash}
-                      placeholder="Enter Cash"
-                      onChange={e => this.changeCash(e)}
-                      margin="normal"
-                    />
-                    <h3> Return : {this.state.return}</h3> 
-                  </Grid>
-                </Grid>
-              </Grid>
-             
-              <Grid item xs={6}>
-                <Grid container spacing={12}>
-                  <Grid item xs={9}>
-                    <h1 className="text-left">Original Bill = <strong> {this.state.originalBill}</strong></h1>
-                    <h1 className="text-left"> Discounted Bill = <strong>{this.state.bill}</strong></h1>
-                  </Grid>
-                  <Grid item xs={3}>
-                  <Button   variant="raised" aria-label="Add" onClick={()=>{this.ResetBill()}} >
-                      Reset Bill
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-
-            </Grid>
             <div className="text-center">
                 <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
                     CheckOut
