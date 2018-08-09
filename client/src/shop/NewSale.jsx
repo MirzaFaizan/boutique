@@ -387,7 +387,6 @@ class TextFields extends React.Component {
   };
 
     handleSale = () => {
-      Printer.printData([{item_name:'hello',retail_price:900}],1000);
       if(localStorage.getItem('customerExists')==='1'){
         var detailsItem = {
           'token':this.state.t,
