@@ -112,9 +112,7 @@ class Sale extends React.Component {
 
 //CheckOut and call API
   checkOut= () =>{
-
-  console.log(this.state.checked);    
-  
+    console.log(this.state.checked);
   }
   
   changeItemName = e => {
@@ -206,7 +204,15 @@ class Sale extends React.Component {
     });
   };
 
+    selectAll = () =>{
+        var temp = this.state.data.map((item)=>{
+            return item.customerPhone;
+        });
+        this.setState({
+            checked:temp
+        },()=>{        console.log(this.state.checked);});
 
+    }
   render() {
     const { classes } = this.props;
         return (
@@ -283,6 +289,9 @@ class Sale extends React.Component {
             <div className="text-center pt-5">
                 <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
                     SEND
+                </Button>
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.selectAll()}} >
+                    Select all
                 </Button>
               </div>
           </div>
