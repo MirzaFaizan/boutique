@@ -112,12 +112,12 @@ class CustomizedTable extends React.Component {
 changeType = e => {
   this.setState({
     type: e.target.value
-  });
+  },()=>{console.log('state set',this.state)});
 
   var details = {
     'token':this.state.t,
-    'type':this.state.type,
-};
+    'type':e.target.value,
+  };
   var formBody = [];
   for (var property in details) {
     var encodedKey = encodeURIComponent(property);
