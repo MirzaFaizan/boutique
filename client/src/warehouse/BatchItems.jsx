@@ -111,6 +111,23 @@ class TextFields extends React.Component {
     });
   };
 
+
+  selectAll = () =>{
+    var temp = this.state.data.map((item)=>{
+        return item.item_id;
+    });
+    this.setState({
+        checked:temp
+    });
+}
+
+unSelectAll = () =>{
+    
+    this.setState({
+        checked:[]
+    });
+}
+
   handleChange = name => event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -212,7 +229,8 @@ class TextFields extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off"> 
+    <div>
+        <form className={classes.container} noValidate autoComplete="off"> 
        <TextField
           id="name"
           label="Name"
@@ -270,6 +288,13 @@ class TextFields extends React.Component {
         <AddIcon/>
         </Button>
       </form>
+      <Button variant="raised" color="primary" className={classes.button} onClick={this.selectAll} >
+            Select All
+        </Button>
+        <Button variant="raised" color="primary" className={classes.button} onClick={this.unSelectAll} >
+            Un-Select All
+        </Button>
+    </div>
     );
   }
 }
