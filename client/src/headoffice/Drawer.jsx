@@ -32,6 +32,8 @@ import CustomerDetails from './ExtraFeatures/CustomerDetails';
 import ViewSales from './ExtraFeatures/Sales';
 import ProfitLoss from './ExtraFeatures/ProfitandLoss';
 import SMS from './ExtraFeatures/MessagingService';
+import SalesBetweenDates from './ExtraFeatures/SalesBetweenDates';
+
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -116,7 +118,15 @@ class ResponsiveDrawer extends React.Component {
         OnDisplay:<AddNewLogin token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("Add item on click");
-  }
+}
+
+SalesBetweenHandleClick = () => {
+
+  this.setState({
+      OnDisplay:<SalesBetweenDates token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+  })
+  console.log("Add item on click");
+}
 
 
   
@@ -215,6 +225,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All Employees</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.SalesHandleClick.bind(this)}>Sales</Button></ListItem>
+            <Divider/>
+            <ListItem><Button onClick={this.SalesBetweenHandleClick.bind(this)}>Print Sales</Button></ListItem>
             <Divider/>
             <ListItem><Button onClick={this.PurchaseHandleClick.bind(this)}>Purchase</Button></ListItem>
             <Divider/>
