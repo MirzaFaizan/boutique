@@ -247,21 +247,24 @@ class CustomizedTable extends React.Component {
         <TableBody>
           {/*data to be replaced with json pacakage from api*/}
           {Object.values(this.state.data).map((type,index) => {
-                 return (
-                  <TableRow className={classes.row} key={type._id} selectable={true}>
-                    <CustomTableCell>{index+1}</CustomTableCell>
-                    <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell >{type.item_type}</CustomTableCell>
-                    <CustomTableCell >{type.price}</CustomTableCell>
-                    <CustomTableCell >{type.date_added}</CustomTableCell>
-                    <CustomTableCell >{type.id2}</CustomTableCell>
-                    <CustomTableCell >
-                    <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
-                    <DeleteIcon />
-                    </Button>
-                    </CustomTableCell>
-                  </TableRow>
-            );
+                 if(!type.batch){
+                  return (
+                    <TableRow className={classes.row} key={type._id} selectable={true}>
+                      <CustomTableCell>{index+1}</CustomTableCell>
+                      <CustomTableCell>{type.item_name}</CustomTableCell>
+                      <CustomTableCell >{type.item_type}</CustomTableCell>
+                      <CustomTableCell >{type.price}</CustomTableCell>
+                      <CustomTableCell >{type.date_added}</CustomTableCell>
+                      <CustomTableCell >{type.id2}</CustomTableCell>
+                      <CustomTableCell >
+                      <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                      <DeleteIcon />
+                      </Button>
+                      </CustomTableCell>
+                    </TableRow>
+              );
+                 }
+                 else <div> No item </div>
           })
           }
         </TableBody>
