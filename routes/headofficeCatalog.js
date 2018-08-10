@@ -20,4 +20,5 @@ router.post('/addPurchase',headController.addPurchase);
 router.post('/deletePurchase',headController.deletePurchase);
 router.post('/findbytype',headController.Articletype);
 router.post('/stats',headController.displaySales);
+router.post('/salesBetweenDates',headController.getBetweenSales);
 module.exports = router;
