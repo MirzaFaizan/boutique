@@ -3,7 +3,22 @@ import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { Button } from 'material-ui';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
+
 import PrintJS from 'print-js';
+
+
+const CustomTableCell = withStyles(theme => ({
+    head: {
+      backgroundColor: '#3F51B5',
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
 const styles = theme => ({
     container: {
       display: 'flex',
@@ -76,11 +91,51 @@ class DatePickers extends React.Component {
           );
     }
 
+
+    printSales=()=>{
+        PrintJS({printable: this.state.data, properties: ['total', 'products', 'shop'], type: 'json'})
+    }
+
     renderData=()=>{
+        const { classes } = this.props;
       if(this.state.data){
         return ( 
           <div>
-
+            <div>
+                <Typography variant="display2"> All Sales</Typography>
+                <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                    <TableRow>
+                        <CustomTableCell>Products</CustomTableCell>
+                        <CustomTableCell>Total</CustomTableCell>
+                        <CustomTableCell >Shop</CustomTableCell>
+                        <CustomTableCell >Date</CustomTableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {
+                        Object.values(this.state.data).map((type,index) => {
+                        return (
+                            <TableRow className={classes.row} key={index}>
+                            <CustomTableCell>
+                                {
+                                    type.products.map((item)=>{
+                                    return(item.item_name)+"," 
+                                    })
+                                    }
+                                </CustomTableCell> 
+                            <CustomTableCell>{type.total}</CustomTableCell>
+                            <CustomTableCell numeric> {type.shop} </CustomTableCell>
+                            <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
+                            </TableRow>
+                        );
+                        })
+                    }
+                    </TableBody>
+                </Table>
+                </Paper>
+            </div>
           </div>
           )
       }
@@ -116,7 +171,10 @@ class DatePickers extends React.Component {
                     }}
                 />
                  <Button variant="raised" color="primary" onClick={this.checkData}>Check</Button>
+
+                 <Button variant="raised" color="primary" onClick={this.printSales}>Print sales</Button>
                 </form>
+                
                     {this.renderData()}
             </div>
         )
