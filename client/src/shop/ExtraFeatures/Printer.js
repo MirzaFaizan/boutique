@@ -1,5 +1,5 @@
 var qz = require("qz-tray");
-var config = qz.configs.create("zebra");
+var config = qz.configs.create("Farhan");
 
 exports.printData = function(items,bill,discount,retrn){
     
