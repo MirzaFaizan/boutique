@@ -93,16 +93,16 @@ class DatePickers extends React.Component {
 
 
     printSales=()=>{
-        PrintJS({printable: this.state.data, properties: ['total', 'products', 'shop'], type: 'json'})
+        PrintJS('table','html')
     }
 
     renderData=()=>{
         const { classes } = this.props;
       if(this.state.data){
         return ( 
-          <div>
+          <div id="table">
             <div>
-                <Typography variant="display2"> All Sales</Typography>
+                <Typography variant="display2" > All Sales</Typography>
                 <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
