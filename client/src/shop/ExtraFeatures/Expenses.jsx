@@ -334,7 +334,7 @@ this.setState({
         </Table>
       </Paper>
   </div>
-  <Button variant='raised' color='primary' onClick={()=>{PrintJS('table','html')}}></Button>
+  <Button variant='raised' color='primary' onClick={()=>{PrintJS('table','html')}}> Print </Button>
       </div>
     );
   }
