@@ -5,6 +5,8 @@ import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Ta
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import { Button } from 'material-ui';
+import printJS from 'print-js';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -176,35 +178,39 @@ changeType = e => {
             </option>
           ))}
           </TextField>
-      <Typography variant="display2"> Items by category</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>Product Name</CustomTableCell>
-              <CustomTableCell>Price</CustomTableCell>
-              <CustomTableCell >Date Added </CustomTableCell>
-              <CustomTableCell >Size</CustomTableCell>
-              <CustomTableCell >Sold</CustomTableCell>
-              <CustomTableCell >Batched</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-               Object.values(this.state.data).map((type,index) => {
-                 return (
-                  <TableRow className={classes.row} key={index}>
-                    <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.price} </CustomTableCell>
-                    <CustomTableCell numeric> {type.date_added} </CustomTableCell>
-                    <CustomTableCell numeric> {type.size} </CustomTableCell>
-                    <CustomTableCell numeric> {type.sold?'Sold':'Not Sold'} </CustomTableCell>
-                    <CustomTableCell numeric> {type.batch?'Batched':'Not Batched'} </CustomTableCell>
-                  </TableRow>
-                );
-              })
-            }
-          </TableBody>
-        </Table>
+          <Button color='secondary' variant='raised' onClick={()=>{printJS('table','html')}}>Print</Button>
+      
+          <div id='table'>
+          <Typography variant="display2"> Items by category</Typography>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <CustomTableCell>Product Name</CustomTableCell>
+                  <CustomTableCell>Price</CustomTableCell>
+                  <CustomTableCell >Date Added </CustomTableCell>
+                  <CustomTableCell >Size</CustomTableCell>
+                  <CustomTableCell >Sold</CustomTableCell>
+                  <CustomTableCell >Batched</CustomTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  Object.values(this.state.data).map((type,index) => {
+                    return (
+                      <TableRow className={classes.row} key={index}>
+                        <CustomTableCell>{type.item_name}</CustomTableCell>
+                        <CustomTableCell numeric> {type.price} </CustomTableCell>
+                        <CustomTableCell numeric> {type.date_added} </CustomTableCell>
+                        <CustomTableCell numeric> {type.size} </CustomTableCell>
+                        <CustomTableCell numeric> {type.sold?'Sold':'Not Sold'} </CustomTableCell>
+                        <CustomTableCell numeric> {type.batch?'Batched':'Not Batched'} </CustomTableCell>
+                      </TableRow>
+                    );
+                  })
+                }
+              </TableBody>
+            </Table>
+          </div>
       </Paper>
     );
   }
