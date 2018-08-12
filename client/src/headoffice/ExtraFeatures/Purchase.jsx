@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';
+import printJS from 'print-js';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -295,7 +296,8 @@ this.setState({
   </Button>
   </CardContent>
 </form>
-      <Typography variant="display2"> All Purchases</Typography>
+      <div id='table'>
+      <Typography variant="display2" > All Purchases</Typography>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
@@ -324,6 +326,8 @@ this.setState({
           </TableBody>
         </Table>
       </Paper>
+      </div>
+      <Button variant="raised" color="primary" onClick={()=>{printJS('table','html')}}> Print</Button>
       </div>
     );
   }
