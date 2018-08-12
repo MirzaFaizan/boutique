@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import { types } from 'util';
-
+import Button from 'material-ui/Button';
+import PrintJS from 'print-js';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -83,35 +83,37 @@ class CustomizedTable extends React.Component {
     const { classes } = this.props;
 
   return (
-    <Paper className={classes.root}>
-    {/*<Search/>*/}
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            {/*<CustomTableCell>Items</CustomTableCell>*/}
-            <CustomTableCell numeric>Package Number</CustomTableCell>
-            <CustomTableCell numeric>Shop ID</CustomTableCell>
-            <CustomTableCell numeric>Status</CustomTableCell>
-            <CustomTableCell numeric>Date Sent</CustomTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {/*data to be replaced with json pacakage from api*/}
-          {Object.values(this.state.data).map((type) => {
-                 console.log(type);
-                 return (
-                  <TableRow className={classes.row} key={type._id}>
-                    {/*<CustomTableCell>{type.items}</CustomTableCell>*/}
-                    <CustomTableCell numeric>{type.package_number}</CustomTableCell>
-                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
-                    <CustomTableCell numeric>{type.status}</CustomTableCell>
-                    <CustomTableCell numeric>{type.date_sent}</CustomTableCell>
-                  </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
+    <div >
+          <Paper id='table' className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {/*<CustomTableCell>Items</CustomTableCell>*/}
+              <CustomTableCell numeric>Package Number</CustomTableCell>
+              <CustomTableCell numeric>Shop ID</CustomTableCell>
+              <CustomTableCell numeric>Status</CustomTableCell>
+              <CustomTableCell numeric>Date Sent</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {/*data to be replaced with json pacakage from api*/}
+            {Object.values(this.state.data).map((type) => {
+                  console.log(type);
+                  return (
+                    <TableRow className={classes.row} key={type._id}>
+                      {/*<CustomTableCell>{type.items}</CustomTableCell>*/}
+                      <CustomTableCell numeric>{type.package_number}</CustomTableCell>
+                      <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                      <CustomTableCell numeric>{type.status}</CustomTableCell>
+                      <CustomTableCell numeric>{type.date_sent}</CustomTableCell>
+                    </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+      <Button color='primary' variant='raised' onClick={()=>{PrintJS('table','html')}}>Print</Button>
+    </div>
   );
 }
   }

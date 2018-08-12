@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';
 import DeleteIcon from '@material-ui/icons/Delete';
+import PrintJS from 'print-js';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -310,43 +311,46 @@ this.setState({
   </Button>
   </CardContent>
 </form>
-      <Typography variant="display2"> All Employees</Typography>
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell numeric>Name</CustomTableCell>
-              <CustomTableCell numeric>CNIC</CustomTableCell>
-              <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>Shop ID</CustomTableCell>
-              <CustomTableCell numeric>Phone No</CustomTableCell>
-              <CustomTableCell numeric>Delete</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-               Object.values(this.state.data).map((type,index) => {
-                if(type.shop_id==='warehouse'){
-                 return (
-                  <TableRow className={classes.row} key={type._id}>
-                    <CustomTableCell>{type.emp_name}</CustomTableCell>
-                    <CustomTableCell>{type.emp_cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.emp_type}</CustomTableCell>
-                    <CustomTableCell numeric>{type.emp_phone}</CustomTableCell>
-                    <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
-                    <CustomTableCell>
-                      <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
-                        <DeleteIcon />
-                      </Button>
-                    </CustomTableCell>
-                  </TableRow>
-                );
-              }})
-            
-            }
-          </TableBody>
-        </Table>
-      </Paper>
+      <div id='table'>
+        <Typography variant="display2"> All Employees</Typography>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <CustomTableCell numeric>Name</CustomTableCell>
+                  <CustomTableCell numeric>CNIC</CustomTableCell>
+                  <CustomTableCell numeric>Type</CustomTableCell>
+                  <CustomTableCell numeric>Shop ID</CustomTableCell>
+                  <CustomTableCell numeric>Phone No</CustomTableCell>
+                  <CustomTableCell numeric>Delete</CustomTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  Object.values(this.state.data).map((type,index) => {
+                    if(type.shop_id==='warehouse'){
+                    return (
+                      <TableRow className={classes.row} key={type._id}>
+                        <CustomTableCell>{type.emp_name}</CustomTableCell>
+                        <CustomTableCell>{type.emp_cnic}</CustomTableCell>
+                        <CustomTableCell numeric>{type.emp_type}</CustomTableCell>
+                        <CustomTableCell numeric>{type.emp_phone}</CustomTableCell>
+                        <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
+                        <CustomTableCell>
+                          <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                            <DeleteIcon />
+                          </Button>
+                        </CustomTableCell>
+                      </TableRow>
+                    );
+                  }})
+                
+                }
+              </TableBody>
+            </Table>
+          </Paper>
+      </div>
+      <Button color='primary' variant='raised' onClick={()=>{PrintJS('table','html')}}>Print</Button>
       </div>
     );
   }
