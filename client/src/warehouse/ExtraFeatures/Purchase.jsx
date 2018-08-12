@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { CardContent } from 'material-ui/Card';
-
+import PrintJS from 'print-js';
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#3F51B5',
@@ -302,36 +302,39 @@ this.setState({
   </Button>
   </CardContent>
 </form>
-      <Typography variant="display2"> All Expense</Typography>
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell numeric>Name</CustomTableCell>
-              <CustomTableCell numeric>Description</CustomTableCell>
-              <CustomTableCell numeric>Expense</CustomTableCell>
-              <CustomTableCell numeric>Date</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-               Object.values(this.state.data).map((type,index) => {
-                if(type.level==='warehouse'){
-                        return (
-                        <TableRow className={classes.row} key={type._id}>
-                        <CustomTableCell>{type.item_name}</CustomTableCell>
-                        <CustomTableCell>{type.item_desc}</CustomTableCell>
-                        <CustomTableCell numeric>{type.price}</CustomTableCell>
-                        <CustomTableCell numeric>{type.date_added}</CustomTableCell>
-                        </TableRow>
-                    );
-                        
-                }
-              })
-            }
-          </TableBody>
-        </Table>
-      </Paper>
+        <div id='table'>
+          <Typography variant="display2"> All Expense</Typography>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <CustomTableCell numeric>Name</CustomTableCell>
+                    <CustomTableCell numeric>Description</CustomTableCell>
+                    <CustomTableCell numeric>Expense</CustomTableCell>
+                    <CustomTableCell numeric>Date</CustomTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    Object.values(this.state.data).map((type,index) => {
+                      if(type.level==='warehouse'){
+                              return (
+                              <TableRow className={classes.row} key={type._id}>
+                              <CustomTableCell>{type.item_name}</CustomTableCell>
+                              <CustomTableCell>{type.item_desc}</CustomTableCell>
+                              <CustomTableCell numeric>{type.price}</CustomTableCell>
+                              <CustomTableCell numeric>{type.date_added}</CustomTableCell>
+                              </TableRow>
+                          );
+                              
+                      }
+                    })
+                  }
+                </TableBody>
+              </Table>
+            </Paper>    
+        </div>
+        <Button variant='raised' color='primary' onClick={()=>{PrintJS('table','html')}}>Print</Button>
       </div>
     );
   }
