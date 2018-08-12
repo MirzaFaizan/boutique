@@ -4,7 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-
+import { Button } from 'material-ui';
+import PrintJS from 'print-js';
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#3F51B5',
@@ -78,34 +79,41 @@ class CustomizedTable extends React.Component {
     }
 };
 
+  Print=()=>{
+    PrintJS('table','html');
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Typography variant="display2"> All Customers</Typography>
-        <Paper className={classes.root}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <CustomTableCell>Name</CustomTableCell>
-                <CustomTableCell numeric>Phone</CustomTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/*data replaced with json pacakage from api*/}
-              {
-                Object.values(this.state.data).map((type,index) => {
-                  return (
-                    <TableRow className={classes.row} key={index}>
-                      <CustomTableCell>{type.customerName}</CustomTableCell>
-                      <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
-                    </TableRow>
-                  );
-                })
-              }
-            </TableBody>
-          </Table>
-        </Paper>
+        <div id='table'>
+          <Typography variant="display2"> All Customers</Typography>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <CustomTableCell>Name</CustomTableCell>
+                  <CustomTableCell numeric>Phone</CustomTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {/*data replaced with json pacakage from api*/}
+                {
+                  Object.values(this.state.data).map((type,index) => {
+                    return (
+                      <TableRow className={classes.row} key={index}>
+                        <CustomTableCell>{type.customerName}</CustomTableCell>
+                        <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
+                      </TableRow>
+                    );
+                  })
+                }
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+        <Button variant="raised" color="primary" onClick={this.Print}>Print</Button>
       </div>
     );
   }
