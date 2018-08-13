@@ -332,7 +332,7 @@ this.setState({
                   }
                 </TableBody>
               </Table>
-            </Paper>    
+            </Paper>
         </div>
         <Button variant='raised' color='primary' onClick={()=>{PrintJS('table','html')}}>Print</Button>
       </div>
