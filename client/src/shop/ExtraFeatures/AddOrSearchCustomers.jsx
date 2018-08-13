@@ -56,7 +56,13 @@ class CustomizedTable extends React.Component {
        localStorage.setItem('customerExists','1');
       };
     }
-    );
+    ).then(()=>{
+      this.setState({
+        phone:'',
+        name:'',
+        guest:true
+      })
+    });
 
   };
 
@@ -95,7 +101,11 @@ class CustomizedTable extends React.Component {
         }
       
       }
-    );
+    ).then(()=>{
+      this.setState({
+        phone:''
+      });
+    });
   }
 
   constructor(props){
