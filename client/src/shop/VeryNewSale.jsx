@@ -186,6 +186,8 @@ class Sale extends React.Component {
   ResetBill=()=>{
     this.setState({
       bill:0,
+      discount:0,
+      return:0,
       cartItems:[],
       originalBill:0,
       itemName:''
