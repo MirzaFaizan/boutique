@@ -155,6 +155,7 @@ class Sale extends React.Component {
         this.setState({
           cartItems:[],
           bill:0,
+          cash:0,
           discount:0,
           originalBill:0
         });
@@ -188,6 +189,7 @@ class Sale extends React.Component {
       bill:0,
       discount:0,
       return:0,
+      cash:0,
       cartItems:[],
       originalBill:0,
       itemName:''
