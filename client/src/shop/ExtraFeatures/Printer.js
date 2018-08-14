@@ -13,7 +13,7 @@ exports.printData = function(items,bill,discount,retrn){
         '\x1B' + '\x4D' + '\x30', // normal text
         '\x1D' + '\x21' + '\x11', // double font size
         '\x1B' + '\x45' + '\x0D', // bold on
-        'PSOHWEAR STUDIO',
+        'POSHWEAR STUDIO',
         '\x0A',
         '\x1B' + '\x45' + '\x0A', // bold off
         '\x0A',
