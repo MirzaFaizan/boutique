@@ -101,11 +101,7 @@ class CustomizedTable extends React.Component {
         }
       
       }
-    ).then(()=>{
-      this.setState({
-        phone:''
-      });
-    });
+    );
   }
 
   constructor(props){
