@@ -89,6 +89,7 @@ class  CustomizedTable extends React.Component {
         <TableRow>
             <CustomTableCell>Item Name</CustomTableCell>
             <CustomTableCell numeric>ID #</CustomTableCell>
+            <CustomTableCell numeric>ITEM ID </CustomTableCell>
             <CustomTableCell numeric>Price (Rs)</CustomTableCell>
             
           </TableRow>
@@ -102,6 +103,7 @@ class  CustomizedTable extends React.Component {
                   <TableRow className={classes.row}  key={i}>
                     <CustomTableCell>{type.item_name}</CustomTableCell>
                     <CustomTableCell numeric>{type.item_id}</CustomTableCell>
+                    <CustomTableCell numeric>{type.id2}</CustomTableCell>
                     <CustomTableCell numeric>{type.price}</CustomTableCell>
                   </TableRow>
                 );
