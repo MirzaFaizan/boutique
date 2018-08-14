@@ -36,7 +36,7 @@ exports.printData = function(items,bill,discount,retrn){
         '\x1B' + '\x61' + '\x30', // left align
         '\x0A',
         '\x1B' + '\x61' + '\x30', // left align
-        'Name'+'                          '+'price',
+        'Description'+'                          '+'price',
         '\x0A',
         '------------------------------------------' + '\x0A',
         items.map((item)=>{
@@ -49,10 +49,10 @@ exports.printData = function(items,bill,discount,retrn){
         '\x0A','\x0A',
         '   Total'+'                          '+bill,
         '\x0A',
-        'Discount'+'                          '+discount,
+        'Discount'+'                          '+discount+'%',
         '\x0A',
         '\x1B' + '\x45' + '\x0D', // bold on
-        'New Bill'+'                          '+retrn,
+        '  Change'+'                          '+retrn,
         '\x1B' + '\x45' + '\x0A', // bold off
         
         '\x0A',
