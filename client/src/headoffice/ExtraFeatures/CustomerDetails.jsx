@@ -6,6 +6,8 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { Button } from 'material-ui';
 import PrintJS from 'print-js';
+import DeleteIcon from '@material-ui/icons/Edit';
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#3F51B5',
@@ -95,16 +97,21 @@ class CustomizedTable extends React.Component {
                 <TableRow>
                   <CustomTableCell>Name</CustomTableCell>
                   <CustomTableCell numeric>Phone</CustomTableCell>
+                  <CustomTableCell numeric>Edit</CustomTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/*data replaced with json pacakage from api*/}
                 {
                   Object.values(this.state.data).map((type,index) => {
                     return (
                       <TableRow className={classes.row} key={index}>
                         <CustomTableCell>{type.customerName}</CustomTableCell>
                         <CustomTableCell numeric> {type.customerPhone} </CustomTableCell>
+                        <CustomTableCell numeric>
+                          <Button>
+                           <DeleteIcon/>
+                          </Button>
+                        </CustomTableCell>
                       </TableRow>
                     );
                   })
