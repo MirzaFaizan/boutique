@@ -252,6 +252,7 @@ class Sale extends React.Component {
       bill:this.state.bill-temp
     });
   }
+  
   changeItemName = e => {
     this.setState({
       itemName:e.target.value,
