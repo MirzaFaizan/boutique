@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditEmployee from './ExtraFeatures/EditEmployee';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -71,6 +72,11 @@ class CustomizedTable extends React.Component {
     );
 
   };
+
+
+    //DELETE click
+
+    editClick = (index) => {}
 
 
   //DELETE click
@@ -167,6 +173,7 @@ class CustomizedTable extends React.Component {
                 <CustomTableCell numeric>CNIC</CustomTableCell>
                 <CustomTableCell numeric>Password</CustomTableCell>
                 <CustomTableCell numeric>Shop ID</CustomTableCell>
+                <CustomTableCell numeric>Edit</CustomTableCell>
                 <CustomTableCell numeric>Delete</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -181,7 +188,10 @@ class CustomizedTable extends React.Component {
                       <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
                       <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
                       <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
-                      <CustomTableCell>
+                      <CustomTableCell numeric>
+                        <EditEmployee/>
+                      </CustomTableCell>
+                      <CustomTableCell numeric>
                       <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                         <DeleteIcon />
                       </Button>

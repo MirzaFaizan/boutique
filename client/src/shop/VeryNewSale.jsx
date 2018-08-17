@@ -111,8 +111,6 @@ class Sale extends React.Component {
 
 //CheckOut and call API
   checkOut= () =>{
-
-    if(localStorage.getItem('customerExists')==='1'){
       
     var itemIdArray=[];
     this.state.cartItems.map((item)=>{
@@ -160,12 +158,6 @@ class Sale extends React.Component {
           originalBill:0
         });
       });
-      localStorage.setItem('customerExists','0');
-      
-    } else {
-        console.log("Submit a valid Customer");
-    }
-
 
   }
   
