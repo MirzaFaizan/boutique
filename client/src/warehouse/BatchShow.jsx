@@ -4,7 +4,9 @@ import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
+import BatchDetails from './ExtraFeatures/ViewBatchDetails';
 import PrintJS from 'print-js';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -93,6 +95,7 @@ class CustomizedTable extends React.Component {
               <CustomTableCell numeric>Shop ID</CustomTableCell>
               <CustomTableCell numeric>Status</CustomTableCell>
               <CustomTableCell numeric>Date Sent</CustomTableCell>
+              <CustomTableCell numeric>Details</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,6 +109,9 @@ class CustomizedTable extends React.Component {
                       <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
                       <CustomTableCell numeric>{type.status}</CustomTableCell>
                       <CustomTableCell numeric>{type.date_sent}</CustomTableCell>
+                      <CustomTableCell numeric>
+                        <BatchDetails token={this.state.t} data={type}/>
+                      </CustomTableCell>
                     </TableRow>
               );
             })}
