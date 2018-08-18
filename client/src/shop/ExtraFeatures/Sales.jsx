@@ -95,7 +95,7 @@ class CustomizedTable extends React.Component {
             {
                Object.values(this.state.data).map((type,index) => {
              
-                if(type.shop==='f10'){
+                if(type.shop===this.props.shop){
                 return (
                   <TableRow className={classes.row} key={index}>
                     <CustomTableCell>

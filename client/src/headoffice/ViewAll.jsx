@@ -189,7 +189,7 @@ class CustomizedTable extends React.Component {
                       <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
                       <CustomTableCell numeric>{type.shop_id}</CustomTableCell>
                       <CustomTableCell numeric>
-                        <EditEmployee/>
+                        <EditEmployee prev={type}/>
                       </CustomTableCell>
                       <CustomTableCell numeric>
                       <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>

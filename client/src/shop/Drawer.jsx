@@ -142,7 +142,7 @@ class ResponsiveDrawer extends React.Component {
   SalesHandleClick = () => {
 
     this.setState({
-        OnDisplay:<Sales token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Sales shop={this.props.shop}  token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("View All item Click")
   }

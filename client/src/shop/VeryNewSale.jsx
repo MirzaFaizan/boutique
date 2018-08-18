@@ -321,7 +321,6 @@ class Sale extends React.Component {
       cash:0,
       return:0
     }
-
    this.deleteClick =  this.deleteClick.bind(this);
   }
 

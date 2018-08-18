@@ -78,7 +78,11 @@ const styles = theme => ({
     t:this.props.token,
     isDisabledshop:true,
   };
-
+  
+  componentDidMount=()=>{
+    console.log(this.props.prev);
+  }
+  
   handleSubmit = (evt) => {
         if (!this.canBeSubmitted()) {
         evt.preventDefault();
@@ -86,7 +90,7 @@ const styles = theme => ({
         }
     }
 
-
+    
     canBeSubmitted() {
         const errors = validate(this.state.username,this.state.password,this.state.cnic);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
