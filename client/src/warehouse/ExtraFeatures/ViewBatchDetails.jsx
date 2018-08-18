@@ -8,11 +8,57 @@ import DialogTitle from 'material-ui/Dialog/DialogTitle';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
 export default class FormDialog extends React.Component {
-    state = {
-      open: false,
-      token: this.props.token,
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            open: false,
+            token: this.props.token,
+          };
+    }
   
+    componentWillMount(){
+        this.props.data.items.map((item)=>{
+            
+            var details = {
+                'token':this.props.token,
+                'id':item
+            };
+            
+           
+            var formBody = [];
+            for (var property in details) {
+              var encodedKey = encodeURIComponent(property);
+              var encodedValue = encodeURIComponent(details[property]);
+              formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+            
+            
+            fetch('/admin/Show1Article', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+              },
+              body: formBody
+            })
+            .then(res=>res.json())
+            .then(res=>{
+           
+              if(res&& res!="No Article With this id"){
+               console.log(res);
+               var temp = this.state.data;
+               if(temp!= undefined)
+                temp.push(res);
+               this.setState({
+                   data:temp
+               })
+              };
+            }
+            );
+
+        });
+    }
+
     handleClickOpen = () => {
       this.setState({ open: true });
     };
@@ -21,10 +67,6 @@ export default class FormDialog extends React.Component {
       this.setState({ open: false });
     };
 
-
-    componentWillMount(){
-        console.log(this.props);
-    }
   
     render() {
       return (
@@ -41,21 +83,24 @@ export default class FormDialog extends React.Component {
                   Following are the details of your package
               </DialogContentText>
                     <Table>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>For Shop :</TableCell>
-                                <TableCell>Date Sent :</TableCell>
-                                <TableCell>Package ID :</TableCell>
-                                <TableCell>Status :</TableCell>
-                            </TableRow>
-                        </TableBody>
                     <TableHead>
                         <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell> ID </TableCell>
+                            <TableCell>For Shop</TableCell>
+                            <TableCell>Date Sent</TableCell>
+                            <TableCell> Package ID </TableCell>
+                            <TableCell> Status </TableCell>
                         </TableRow>
                     </TableHead>
+
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>{this.props.data.shop_id}</TableCell>
+                                <TableCell>{this.props.data.date_sent}</TableCell>
+                                <TableCell>{this.props.data.package_number}</TableCell>
+                                <TableCell>{this.props.data.status}</TableCell>
+                            </TableRow>
+                        </TableBody>
+
                     </Table>
                     {/* 
                     <TableBody>
@@ -83,11 +128,9 @@ export default class FormDialog extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
-                Cancel
+                Okay
               </Button>
-              <Button onClick={this.handleClose} color="primary">
-                Subscribe
-              </Button>
+              
             </DialogActions>
           </Dialog>
         </div>
