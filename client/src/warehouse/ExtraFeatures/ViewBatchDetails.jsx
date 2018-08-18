@@ -13,6 +13,7 @@ export default class FormDialog extends React.Component {
         this.state = {
             open: false,
             token: this.props.token,
+            data:[]
           };
     }
   
@@ -45,7 +46,6 @@ export default class FormDialog extends React.Component {
             .then(res=>{
            
               if(res&& res!="No Article With this id"){
-               console.log(res);
                var temp = this.state.data;
                if(temp!= undefined)
                 temp.push(res);
@@ -61,6 +61,7 @@ export default class FormDialog extends React.Component {
 
     handleClickOpen = () => {
       this.setState({ open: true });
+      console.log("state",this.state.data);
     };
   
     handleClose = () => {
@@ -102,29 +103,32 @@ export default class FormDialog extends React.Component {
                         </TableBody>
 
                     </Table>
-                    {/* 
+
+                   <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell numeric>Price</TableCell>
+                            <TableCell numeric>ID</TableCell>
+                        </TableRow>
+                    </TableHead>
+
                     <TableBody>
                         {
                         Object.values(this.state.data).map((type,index) => {
-                        
-                            if(type.shop===this.props.shop){
                             return (
-                            <TableRow className={classes.row} key={index}>
+                            <TableRow  key={index}>
                                 <TableCell>
-                                    {
-                                    type.products.map((item)=>{
-                                        return(item.item_name)+"," 
-                                    })
-                                    }
+                                    {type.item_name}
                                 </TableCell> 
-                                <TableCell>{type.total}</TableCell>
-                                <TableCell numeric> {type.date_sale} </TableCell>
+                                <TableCell>{type.price}</TableCell>
+                                <TableCell numeric> {type.id2} </TableCell>
                             </TableRow>
                             );
-                        }})
+                        })
                         }
                     </TableBody>
-                    </Table> */}
+                    </Table> 
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
