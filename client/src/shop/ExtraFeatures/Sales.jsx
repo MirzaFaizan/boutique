@@ -94,14 +94,14 @@ class CustomizedTable extends React.Component {
           <TableBody>
             {
                Object.values(this.state.data).map((type,index) => {
-             
+             console.log(this.props.shop);
                 if(type.shop===this.props.shop){
                 return (
                   <TableRow className={classes.row} key={index}>
                     <CustomTableCell>
                         {
                           type.products.map((item)=>{
-                            return(item.item_name)+"," 
+                            return(item.item_name)+"" 
                           })
                           }
                       </CustomTableCell> 
