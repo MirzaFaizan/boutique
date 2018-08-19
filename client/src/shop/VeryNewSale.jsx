@@ -62,7 +62,7 @@ class Sale extends React.Component {
      'token':this.state.t,
      'shopID':this.state.shop
  };
- 
+ console.log("shop state",this.state.shop);
  
  var formBody = [];
  for (var property in details) {
