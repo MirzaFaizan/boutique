@@ -46,35 +46,25 @@ const styles = theme => ({
       label: 'Shop',
     },
   ];
-  
-  function validate(username,password,cnic) {
-    return {
-      userName: username.length === 0,
-      password: password.length === 0,
-      cnic: cnic.length === 0,
-    };
-  }
-
 
  class FormDialog extends React.Component {
   state = {
     open: false,
-    name: '',
-    username: '',
-    password: '',
-    cnic: '',
-    type:'admin',
-    shopID:'default',
-    city:'',
-    zip:'',
-    countryState:'',
-    phone:'',
-    country:'',
-    shopaddress:'default',
-    nationality:'',
-    address:'',
-    mobile:'',
-    email:'',
+    name: this.props.prev.Emp_name,
+    username: this.props.prev.Emp_username,
+    password: this.props.prev.Emp_password,
+    cnic: this.props.prev.Emp_cnic,
+    type:this.props.prev.Emp_type,
+    shopID:this.props.prev.shop_id,
+    city:this.props.prev.Emp_city,
+    zip:this.props.prev.Emp_zip,
+    countryState:this.props.prev.Emp_state,
+    phone:this.props.prev.Emp_phone,
+    country:this.props.prev.Emp_country,
+    shopaddress:this.props.prev.shop_address,
+    nationality:this.props.prev.Emp_nationality,
+    address:this.props.prev.Emp_address,
+    mobile:this.props.prev.Emp_mobile,
     t:this.props.token,
     isDisabledshop:true,
   };
@@ -83,19 +73,8 @@ const styles = theme => ({
     console.log(this.props.prev);
   }
   
-  handleSubmit = (evt) => {
-        if (!this.canBeSubmitted()) {
-        evt.preventDefault();
-        return;
-        }
-    }
 
     
-    canBeSubmitted() {
-        const errors = validate(this.state.username,this.state.password,this.state.cnic);
-        const isDisabled = Object.keys(errors).some(x => errors[x]);
-        return !isDisabled;
-      }
         handleChange = name => event => {
           this.setState({
             name: event.target.value,
@@ -144,11 +123,6 @@ const styles = theme => ({
         changephone = e => {
           this.setState({
             phone: e.target.value
-          });
-        }
-        changeemail = e => {
-          this.setState({
-            email: e.target.value
           });
         }
         changemobile = e => {
@@ -222,8 +196,6 @@ const styles = theme => ({
 
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.username,this.state.password,this.state.cnic);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
     return (
       <div>
         <Button onClick={this.handleClickOpen}><EditIcon/></Button>
@@ -300,21 +272,10 @@ const styles = theme => ({
                         </CardContent>
                         <CardContent>
                         <TextField
-                        id="email"
-                        label="Email"
-                        value={this.state.email}
-                        placeholder="Enter Email"
-                        onChange={e => this.changeemail(e)}
-                        className={classes.textField}
-                        margin="normal"
-                        />
-                        </CardContent>
-                        <CardContent>
-                        <TextField
                         id="nationality"
                         label="Nationality"
                         value={this.state.nationality}
-                        placeholder="Enter Email"
+                        placeholder="Enter nationality"
                         onChange={e => this.changenationality(e)}
                         className={classes.textField}
                         margin="normal"
